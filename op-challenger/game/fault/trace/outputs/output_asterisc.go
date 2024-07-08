@@ -21,7 +21,8 @@ import (
 func NewOutputAsteriscTraceAccessor(
 	logger log.Logger,
 	m metrics.Metricer,
-	vmArgs vm.VmArgs,
+	cfg vm.Config,
+	serverArgs vm.ServerArgs,
 	l2Client utils.L2HeaderSource,
 	prestateProvider types.PrestateProvider,
 	asteriscPrestate string,
@@ -40,8 +41,7 @@ func NewOutputAsteriscTraceAccessor(
 		if err != nil {
 			return nil, fmt.Errorf("failed to fetch asterisc local inputs: %w", err)
 		}
-		vmArgs.SetLocalInputs(localInputs)
-		provider := asterisc.NewTraceProvider(logger, m, prestateProvider, asteriscPrestate, subdir, depth, vmArgs)
+		provider := asterisc.NewTraceProvider(logger, m, cfg, prestateProvider, asteriscPrestate, localInputs, subdir, depth, serverArgs)
 		return provider, nil
 	}
 

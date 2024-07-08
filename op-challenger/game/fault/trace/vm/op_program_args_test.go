@@ -25,13 +25,11 @@ func TestOpProgramFillHostCommand(t *testing.T) {
 		L2Claim:       common.Hash{0x44},
 		L2BlockNumber: big.NewInt(3333),
 	}
-	vmArgs := NewOpProgramVmArgs(cfg, &inputs)
+	vmArgs := NewOpProgramArgs(cfg)
 
-	args := []string{}
-	err := vmArgs.FillHostCommand(&args, dir)
+	args, err := vmArgs.HostCommand(dir, inputs)
 	require.NoError(t, err)
 
-	require.True(t, slices.Contains(args, "--"))
 	require.True(t, slices.Contains(args, "--server"))
 	require.True(t, slices.Contains(args, "--l1"))
 	require.True(t, slices.Contains(args, "--l1.beacon"))

@@ -53,13 +53,17 @@ func TestLogLevel(t *testing.T) {
 }
 
 func TestDefaultCLIOptionsMatchDefaultConfig(t *testing.T) {
+	// We use alphabet because it doesn't have any other required options.
 	cfg := configForArgs(t, addRequiredArgs(types.TraceTypeAlphabet))
-	defaultCfg := config.NewConfig(common.HexToAddress(gameFactoryAddressValue), l1EthRpc, l1Beacon, rollupRpc, l2EthRpc, datadir, []types.ServerType{}, []types.TraceType{types.TraceTypeAlphabet})
+	defaultCfg := config.NewConfig(common.HexToAddress(gameFactoryAddressValue), l1EthRpc, l1Beacon, rollupRpc, l2EthRpc, datadir)
+	defaultCfg.TraceTypes = []types.TraceType{types.TraceTypeAlphabet}
 	require.Equal(t, defaultCfg, cfg)
 }
 
 func TestDefaultConfigIsValid(t *testing.T) {
-	cfg := config.NewConfig(common.HexToAddress(gameFactoryAddressValue), l1EthRpc, l1Beacon, rollupRpc, l2EthRpc, datadir, []types.ServerType{}, []types.TraceType{types.TraceTypeAlphabet})
+	cfg := config.NewConfig(common.HexToAddress(gameFactoryAddressValue), l1EthRpc, l1Beacon, rollupRpc, l2EthRpc, datadir)
+	// Actually only valid if the trace type is alphabet which doesn't have any vm specific required params.
+	cfg.TraceTypes = []types.TraceType{types.TraceTypeAlphabet}
 	require.NoError(t, cfg.Check())
 }
 

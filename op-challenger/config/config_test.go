@@ -53,7 +53,8 @@ func applyValidConfigForAsterisc(cfg *Config) {
 }
 
 func validConfig(traceType types.TraceType) Config {
-	cfg := NewConfig(validGameFactoryAddress, validL1EthRpc, validL1BeaconUrl, validRollupRpc, validL2Rpc, validDatadir, []types.ServerType{types.ServerTypeOpProgram}, []types.TraceType{traceType})
+	cfg := NewConfig(validGameFactoryAddress, validL1EthRpc, validL1BeaconUrl, validRollupRpc, validL2Rpc, validDatadir)
+	cfg.TraceTypes = []types.TraceType{traceType}
 	if traceType == types.TraceTypeCannon || traceType == types.TraceTypePermissioned {
 		applyValidConfigForCannon(&cfg)
 	}

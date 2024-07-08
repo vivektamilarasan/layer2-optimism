@@ -12,7 +12,6 @@ import (
 	"github.com/ethereum-optimism/optimism/op-challenger/config"
 	"github.com/ethereum-optimism/optimism/op-challenger/game/fault/trace/utils"
 	"github.com/ethereum-optimism/optimism/op-challenger/game/fault/trace/vm"
-	"github.com/ethereum-optimism/optimism/op-challenger/game/fault/types"
 	"github.com/ethereum-optimism/optimism/op-challenger/metrics"
 	op_e2e "github.com/ethereum-optimism/optimism/op-e2e"
 	"github.com/ethereum-optimism/optimism/op-e2e/e2eutils/challenger"
@@ -144,12 +143,12 @@ func runCannon(t *testing.T, ctx context.Context, sys *op_e2e.System, inputs uti
 	cannonOpts := challenger.WithCannon(t, sys.RollupCfg(), sys.L2Genesis())
 	dir := t.TempDir()
 	proofsDir := filepath.Join(dir, "cannon-proofs")
-	cfg := config.NewConfig(common.Address{}, l1Endpoint, l1Beacon, rollupEndpoint, l2Endpoint, dir, []types.ServerType{}, []types.TraceType{})
+	cfg := config.NewConfig(common.Address{}, l1Endpoint, l1Beacon, rollupEndpoint, l2Endpoint, dir)
 	cannonOpts(&cfg)
 
 	logger := testlog.Logger(t, log.LevelInfo).New("role", "cannon")
-	vmArgs := vm.NewOpProgramVmArgs(cfg.Cannon, &inputs)
-	executor := vm.NewExecutor(logger, metrics.NoopMetrics, cfg.CannonAbsolutePreState, vmArgs)
+	vmArgs := vm.NewOpProgramArgs(cfg.Cannon)
+	executor := vm.NewExecutor(logger, metrics.NoopMetrics, cfg.Cannon, cfg.CannonAbsolutePreState, inputs, vmArgs)
 
 	t.Log("Running cannon")
 	err := executor.DoGenerateProof(ctx, proofsDir, math.MaxUint, math.MaxUint, extraVmArgs...)

@@ -356,7 +356,7 @@ func CheckAsteriscFlags(ctx *cli.Context, serverTypes []types.ServerType) error 
 		return fmt.Errorf("flag %s is required", AsteriscServerFlag.Name)
 	}
 	if !ctx.IsSet(AsteriscServerKonaFlag.Name) && slices.Contains(serverTypes, types.ServerTypeKona) {
-		return fmt.Errorf("flag %s is not set, and the `kona` server type is enabled.", AsteriscServerKonaFlag.Name)
+		return fmt.Errorf("flag %s is not set, and the `kona` server type is enabled", AsteriscServerKonaFlag.Name)
 	}
 	if !ctx.IsSet(AsteriscPreStateFlag.Name) && !ctx.IsSet(AsteriscPreStatesURLFlag.Name) {
 		return fmt.Errorf("flag %s or %s is required", AsteriscPreStatesURLFlag.Name, AsteriscPreStateFlag.Name)

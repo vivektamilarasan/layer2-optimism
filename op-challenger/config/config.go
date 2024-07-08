@@ -116,8 +116,6 @@ func NewConfig(
 	l2RollupRpc string,
 	l2EthRpc string,
 	datadir string,
-	supportedServerTypes []types.ServerType,
-	supportedTraceTypes []types.TraceType,
 ) Config {
 	return Config{
 		L1EthRpc:           l1EthRpc,
@@ -127,8 +125,6 @@ func NewConfig(
 		GameFactoryAddress: gameFactoryAddress,
 		MaxConcurrency:     uint(runtime.NumCPU()),
 		PollInterval:       DefaultPollInterval,
-
-		TraceTypes: supportedTraceTypes,
 
 		MaxPendingTx: DefaultMaxPendingTx,
 

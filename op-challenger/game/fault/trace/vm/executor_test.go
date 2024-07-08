@@ -42,8 +42,8 @@ func TestGenerateProof(t *testing.T) {
 	}
 	captureExec := func(t *testing.T, cfg Config, proofAt uint64) (string, string, map[string]string) {
 		m := &stubVmMetrics{}
-		vmArgs := NewOpProgramVmArgs(cfg, &inputs)
-		executor := NewExecutor(testlog.Logger(t, log.LevelInfo), m, prestate, vmArgs)
+		serverArgs := NewOpProgramArgs(cfg)
+		executor := NewExecutor(testlog.Logger(t, log.LevelInfo), m, cfg, prestate, inputs, serverArgs)
 		executor.selectSnapshot = func(logger log.Logger, dir string, absolutePreState string, i uint64) (string, error) {
 			return input, nil
 		}

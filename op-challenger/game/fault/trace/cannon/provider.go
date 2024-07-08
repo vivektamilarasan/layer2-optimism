@@ -38,12 +38,12 @@ type CannonTraceProvider struct {
 	lastStep uint64
 }
 
-func NewTraceProvider(logger log.Logger, m vm.Metricer, prestateProvider types.PrestateProvider, prestate string, dir string, gameDepth types.Depth, vmArgs vm.VmArgs) *CannonTraceProvider {
+func NewTraceProvider(logger log.Logger, m vm.Metricer, cfg vm.Config, prestateProvider types.PrestateProvider, prestate string, localInputs utils.LocalGameInputs, dir string, gameDepth types.Depth, serverArgs vm.ServerArgs) *CannonTraceProvider {
 	return &CannonTraceProvider{
 		logger:           logger,
 		dir:              dir,
 		prestate:         prestate,
-		generator:        vm.NewExecutor(logger, m, prestate, vmArgs),
+		generator:        vm.NewExecutor(logger, m, cfg, prestate, localInputs, serverArgs),
 		gameDepth:        gameDepth,
 		preimageLoader:   utils.NewPreimageLoader(kvstore.NewDiskKV(vm.PreimageDir(dir)).Get),
 		PrestateProvider: prestateProvider,
@@ -177,12 +177,12 @@ type CannonTraceProviderForTest struct {
 }
 
 func NewTraceProviderForTest(logger log.Logger, m vm.Metricer, cfg *config.Config, localInputs utils.LocalGameInputs, dir string, gameDepth types.Depth) *CannonTraceProviderForTest {
-	vmArgs := vm.NewOpProgramVmArgs(cfg.Cannon, &localInputs)
+	serverArgs := vm.NewOpProgramArgs(cfg.Cannon)
 	p := &CannonTraceProvider{
 		logger:         logger,
 		dir:            dir,
 		prestate:       cfg.CannonAbsolutePreState,
-		generator:      vm.NewExecutor(logger, m, cfg.CannonAbsolutePreState, vmArgs),
+		generator:      vm.NewExecutor(logger, m, cfg.Cannon, cfg.CannonAbsolutePreState, localInputs, serverArgs),
 		gameDepth:      gameDepth,
 		preimageLoader: utils.NewPreimageLoader(kvstore.NewDiskKV(vm.PreimageDir(dir)).Get),
 	}
