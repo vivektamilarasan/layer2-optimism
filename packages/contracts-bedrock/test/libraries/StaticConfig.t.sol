@@ -22,9 +22,7 @@ contract StaticConfig_Test is Test {
         uint8 _decimals,
         bytes32 _name,
         bytes32 _symbol
-    )
-        external
-    {
+    ) external {
         bytes memory encoding = StaticConfig.encodeSetGasPayingToken(_token, _decimals, _name, _symbol);
 
         bytes memory _encoding = ffi.encodeGasPayingToken(_token, _decimals, _name, _symbol);
@@ -38,9 +36,7 @@ contract StaticConfig_Test is Test {
         uint8 _decimals,
         bytes32 _name,
         bytes32 _symbol
-    )
-        external
-    {
+    ) external {
         bytes memory encoding = ffi.encodeGasPayingToken(_token, _decimals, _name, _symbol);
 
         (address token, uint8 decimals, bytes32 name, bytes32 symbol) = StaticConfig.decodeSetGasPayingToken(encoding);

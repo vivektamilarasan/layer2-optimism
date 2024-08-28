@@ -219,9 +219,7 @@ contract OptimismPortal2_Test is CommonTest {
         uint256 _mint,
         bool _isCreation,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         _gasLimit = uint64(
             bound(
                 _gasLimit,
@@ -263,9 +261,7 @@ contract OptimismPortal2_Test is CommonTest {
         uint256 _mint,
         bool _isCreation,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         _gasLimit = uint64(
             bound(
                 _gasLimit,
@@ -304,9 +300,7 @@ contract OptimismPortal2_Test is CommonTest {
         uint8 _decimals,
         bytes32 _name,
         bytes32 _symbol
-    )
-        external
-    {
+    ) external {
         vm.expectEmit(address(optimismPortal2));
         emit TransactionDeposited(
             0xDeaDDEaDDeAdDeAdDEAdDEaddeAddEAdDEAd0001,
@@ -332,9 +326,7 @@ contract OptimismPortal2_Test is CommonTest {
         address _token,
         string memory _name,
         string memory _symbol
-    )
-        external
-    {
+    ) external {
         vm.assume(bytes(_name).length <= 32);
         vm.assume(bytes(_symbol).length <= 32);
 
@@ -1169,9 +1161,7 @@ contract OptimismPortal2_FinalizeWithdrawal_Test is CommonTest {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         vm.assume(
             _target != address(optimismPortal2) // Cannot call the optimism portal or a contract
                 && _target.code.length == 0 // No accounts with code
@@ -1459,9 +1449,7 @@ contract OptimismPortal2_ResourceFuzz_Test is CommonTest {
         uint64 _prevBoughtGas,
         uint128 _prevBaseFee,
         uint8 _blockDiff
-    )
-        external
-    {
+    ) external {
         // Get the set system gas limit
         uint64 gasLimit = systemConfig.gasLimit();
         // Bound resource config
@@ -1533,9 +1521,7 @@ contract OptimismPortal2WithMockERC20_Test is OptimismPortal2_FinalizeWithdrawal
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        internal
-    {
+    ) internal {
         if (_isCreation) {
             _to = address(0);
         }
@@ -1577,9 +1563,7 @@ contract OptimismPortal2WithMockERC20_Test is OptimismPortal2_FinalizeWithdrawal
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         // Ensure that msg.sender == tx.origin
         vm.startPrank(address(this), address(this));
 
@@ -1602,9 +1586,7 @@ contract OptimismPortal2WithMockERC20_Test is OptimismPortal2_FinalizeWithdrawal
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         // Ensure that msg.sender != tx.origin
         vm.startPrank(address(this), address(1));
 
@@ -1757,9 +1739,7 @@ contract OptimismPortal2WithMockERC20_Test is OptimismPortal2_FinalizeWithdrawal
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        internal
-    {
+    ) internal {
         if (_isCreation) {
             _to = address(0);
         }
@@ -1796,9 +1776,7 @@ contract OptimismPortal2WithMockERC20_Test is OptimismPortal2_FinalizeWithdrawal
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         // Ensure that msg.sender == tx.origin
         vm.startPrank(address(this), address(this));
 
@@ -1819,9 +1797,7 @@ contract OptimismPortal2WithMockERC20_Test is OptimismPortal2_FinalizeWithdrawal
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         // Ensure that msg.sender != tx.origin
         vm.startPrank(address(this), address(1));
 

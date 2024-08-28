@@ -17,11 +17,7 @@ library SafeSigners {
     function signatureSplit(
         bytes memory signatures,
         uint256 pos
-    )
-        internal
-        pure
-        returns (uint8 v, bytes32 r, bytes32 s)
-    {
+    ) internal pure returns (uint8 v, bytes32 r, bytes32 s) {
         assembly {
             let signaturePos := mul(0x41, pos)
             r := mload(add(signatures, add(signaturePos, 0x20)))
@@ -46,11 +42,7 @@ library SafeSigners {
         bytes32 dataHash,
         bytes memory signatures,
         uint256 requiredSignatures
-    )
-        internal
-        pure
-        returns (address[] memory _owners)
-    {
+    ) internal pure returns (address[] memory _owners) {
         _owners = new address[](requiredSignatures);
 
         address currentOwner;

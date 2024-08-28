@@ -60,11 +60,7 @@ contract DisputeGameFactory is OwnableUpgradeable, IDisputeGameFactory, ISemver 
         GameType _gameType,
         Claim _rootClaim,
         bytes calldata _extraData
-    )
-        external
-        view
-        returns (IDisputeGame proxy_, Timestamp timestamp_)
-    {
+    ) external view returns (IDisputeGame proxy_, Timestamp timestamp_) {
         Hash uuid = getGameUUID(_gameType, _rootClaim, _extraData);
         (, Timestamp timestamp, address proxy) = _disputeGames[uuid].unpack();
         (proxy_, timestamp_) = (IDisputeGame(proxy), timestamp);
@@ -85,11 +81,7 @@ contract DisputeGameFactory is OwnableUpgradeable, IDisputeGameFactory, ISemver 
         GameType _gameType,
         Claim _rootClaim,
         bytes calldata _extraData
-    )
-        external
-        payable
-        returns (IDisputeGame proxy_)
-    {
+    ) external payable returns (IDisputeGame proxy_) {
         // Grab the implementation contract for the given `GameType`.
         IDisputeGame impl = gameImpls[_gameType];
 
@@ -136,11 +128,7 @@ contract DisputeGameFactory is OwnableUpgradeable, IDisputeGameFactory, ISemver 
         GameType _gameType,
         Claim _rootClaim,
         bytes calldata _extraData
-    )
-        public
-        pure
-        returns (Hash uuid_)
-    {
+    ) public pure returns (Hash uuid_) {
         uuid_ = Hash.wrap(keccak256(abi.encode(_gameType, _rootClaim, _extraData)));
     }
 
@@ -149,11 +137,7 @@ contract DisputeGameFactory is OwnableUpgradeable, IDisputeGameFactory, ISemver 
         GameType _gameType,
         uint256 _start,
         uint256 _n
-    )
-        external
-        view
-        returns (GameSearchResult[] memory games_)
-    {
+    ) external view returns (GameSearchResult[] memory games_) {
         // If the `_start` index is greater than or equal to the game array length or `_n == 0`, return an empty array.
         if (_start >= _disputeGameList.length || _n == 0) return games_;
 

@@ -17,9 +17,7 @@ contract L2ToL1MessagePasserTest is CommonTest {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         uint256 nonce = l2ToL1MessagePasser.messageNonce();
 
         bytes32 withdrawalHash = Hashing.hashWithdrawal(
@@ -54,9 +52,7 @@ contract L2ToL1MessagePasserTest is CommonTest {
         uint256 _gasLimit,
         uint256 _value,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         bytes32 withdrawalHash = Hashing.hashWithdrawal(
             Types.WithdrawalTransaction({
                 nonce: l2ToL1MessagePasser.messageNonce(),
@@ -84,9 +80,7 @@ contract L2ToL1MessagePasserTest is CommonTest {
         address _target,
         uint256 _value,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         uint256 nonce = l2ToL1MessagePasser.messageNonce();
 
         // EOA emulation

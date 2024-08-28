@@ -42,9 +42,7 @@ interface IPreimageOracle {
         bytes32 _word,
         uint256 _size,
         uint256 _partOffset
-    )
-        external
-        returns (bytes32 key_);
+    ) external returns (bytes32 key_);
 
     /// @notice Prepares a preimage to be read by keccak256 key, starting at the given offset and up to 32 bytes
     ///         (clipped at preimage length, if out of data).
@@ -71,8 +69,7 @@ interface IPreimageOracle {
         bytes calldata _commitment,
         bytes calldata _proof,
         uint256 _partOffset
-    )
-        external;
+    ) external;
 
     /// @notice Prepares a precompile result to be read by a precompile key for the specified offset.
     ///         The precompile result data is a concatenation of the precompile call status byte and its return data.
@@ -86,6 +83,5 @@ interface IPreimageOracle {
         address _precompile,
         uint64 _requiredGas,
         bytes calldata _input
-    )
-        external;
+    ) external;
 }

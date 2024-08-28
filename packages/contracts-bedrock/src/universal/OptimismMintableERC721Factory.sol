@@ -44,10 +44,7 @@ contract OptimismMintableERC721Factory is ISemver {
         address _remoteToken,
         string memory _name,
         string memory _symbol
-    )
-        external
-        returns (address)
-    {
+    ) external returns (address) {
         require(_remoteToken != address(0), "OptimismMintableERC721Factory: L1 token address cannot be address(0)");
 
         bytes32 salt = keccak256(abi.encode(_remoteToken, _name, _symbol));

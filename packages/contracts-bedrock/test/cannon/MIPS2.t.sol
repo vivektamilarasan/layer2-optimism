@@ -866,9 +866,7 @@ contract MIPS2_Test is CommonTest {
         uint32 _futexVal,
         uint32 _futexTimeoutStep,
         bool _threadExited
-    )
-        public
-    {
+    ) public {
         vm.assume(_wakeup != sys.FUTEX_EMPTY_ADDR);
 
         threading.createThread();
@@ -914,9 +912,7 @@ contract MIPS2_Test is CommonTest {
         uint32 _futexVal,
         uint32 _futexTimeoutStep,
         bool _threadExited
-    )
-        public
-    {
+    ) public {
         vm.assume(_wakeup != sys.FUTEX_EMPTY_ADDR);
         vm.assume(_wakeup != _futexAddr);
 
@@ -2065,10 +2061,7 @@ contract MIPS2_Test is CommonTest {
         uint32 insn,
         uint32 addr,
         uint32 val
-    )
-        internal
-        returns (MIPS2.State memory state_, MIPS2.ThreadState memory thread_, bytes memory proof_)
-    {
+    ) internal returns (MIPS2.State memory state_, MIPS2.ThreadState memory thread_, bytes memory proof_) {
         (state_.memRoot, proof_) = ffi.getCannonMemoryProof(pc, insn, addr, val);
         state_.nextThreadID = 1;
         state_.wakeup = sys.FUTEX_EMPTY_ADDR;
@@ -2094,11 +2087,7 @@ contract MIPS2_Test is CommonTest {
         MIPS2.ThreadState memory _thread,
         uint32 reg,
         uint32 regVal
-    )
-        internal
-        pure
-        returns (MIPS2.State memory out_)
-    {
+    ) internal pure returns (MIPS2.State memory out_) {
         MIPS2.ThreadState memory expectThread = copyThread(_thread);
         expectThread.pc = _thread.nextPC;
         expectThread.nextPC = _thread.nextPC + 4;
@@ -2115,11 +2104,7 @@ contract MIPS2_Test is CommonTest {
         MIPS2.State memory _state,
         MIPS2.ThreadState memory _thread,
         uint32 branchTarget
-    )
-        internal
-        pure
-        returns (MIPS2.State memory out_)
-    {
+    ) internal pure returns (MIPS2.State memory out_) {
         MIPS2.ThreadState memory expectThread = copyThread(_thread);
         expectThread.pc = _thread.nextPC;
         expectThread.nextPC = branchTarget;

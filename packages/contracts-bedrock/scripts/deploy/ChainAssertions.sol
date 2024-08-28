@@ -34,10 +34,7 @@ library ChainAssertions {
         DeployConfig _cfg,
         uint256 _l2OutputOracleStartingTimestamp,
         Vm _vm
-    )
-        internal
-        view
-    {
+    ) internal view {
         console.log("Running post-deploy assertions");
         ResourceMetering.ResourceConfig memory rcfg = SystemConfig(_prox.SystemConfig).resourceConfig();
         ResourceMetering.ResourceConfig memory dflt = Constants.DEFAULT_RESOURCE_CONFIG();
@@ -188,10 +185,7 @@ library ChainAssertions {
         DeployConfig _cfg,
         bool _isProxy,
         address _expectedOwner
-    )
-        internal
-        view
-    {
+    ) internal view {
         console.log("Running chain assertions on the DelayedWETH");
         DelayedWETH weth = DelayedWETH(payable(_contracts.DelayedWETH));
 
@@ -214,10 +208,7 @@ library ChainAssertions {
         DeployConfig _cfg,
         bool _isProxy,
         address _expectedOwner
-    )
-        internal
-        view
-    {
+    ) internal view {
         console.log("Running chain assertions on the permissioned DelayedWETH");
         DelayedWETH weth = DelayedWETH(payable(_contracts.PermissionedDelayedWETH));
 
@@ -240,10 +231,7 @@ library ChainAssertions {
         DeployConfig _cfg,
         uint256 _l2OutputOracleStartingTimestamp,
         bool _isProxy
-    )
-        internal
-        view
-    {
+    ) internal view {
         console.log("Running chain assertions on the L2OutputOracle");
         L2OutputOracle oracle = L2OutputOracle(_contracts.L2OutputOracle);
 
@@ -352,10 +340,7 @@ library ChainAssertions {
         Types.ContractSet memory _contracts,
         DeployConfig _cfg,
         bool _isProxy
-    )
-        internal
-        view
-    {
+    ) internal view {
         console.log("Running chain assertions on the OptimismPortal2");
 
         OptimismPortal2 portal = OptimismPortal2(payable(_contracts.OptimismPortal2));
@@ -391,10 +376,7 @@ library ChainAssertions {
         Types.ContractSet memory _contracts,
         DeployConfig _cfg,
         bool _isProxy
-    )
-        internal
-        view
-    {
+    ) internal view {
         console.log("Running chain assertions on the ProtocolVersions");
         ProtocolVersions versions = ProtocolVersions(_contracts.ProtocolVersions);
 
@@ -417,10 +399,7 @@ library ChainAssertions {
         Types.ContractSet memory _contracts,
         DeployConfig _cfg,
         bool _isPaused
-    )
-        internal
-        view
-    {
+    ) internal view {
         console.log("Running chain assertions on the SuperchainConfig");
         SuperchainConfig superchainConfig = SuperchainConfig(_contracts.SuperchainConfig);
 

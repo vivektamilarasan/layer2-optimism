@@ -77,9 +77,7 @@ contract LivenessGuard is ISemver, BaseGuard {
         address payable refundReceiver,
         bytes memory signatures,
         address msgSender
-    )
-        external
-    {
+    ) external {
         msgSender; // silence unused variable warning
         _requireOnlySafe();
 

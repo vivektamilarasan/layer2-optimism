@@ -156,10 +156,7 @@ library ForgeArtifacts {
     function getContractFunctionAbis(
         string memory path,
         string[] memory pathExcludes
-    )
-        internal
-        returns (Abi[] memory abis_)
-    {
+    ) internal returns (Abi[] memory abis_) {
         string memory pathExcludesPat;
         for (uint256 i = 0; i < pathExcludes.length; i++) {
             pathExcludesPat = string.concat(pathExcludesPat, " -path \"", pathExcludes[i], "\"");

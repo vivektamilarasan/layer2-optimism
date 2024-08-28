@@ -36,9 +36,7 @@ interface IBigStepper {
         bytes calldata _stateData,
         bytes calldata _proof,
         bytes32 _localContext
-    )
-        external
-        returns (bytes32 postState_);
+    ) external returns (bytes32 postState_);
 
     /// @notice Returns the preimage oracle used by the state machine.
     function oracle() external view returns (IPreimageOracle oracle_);

@@ -19,12 +19,7 @@ contract Transactor is Owned {
         address _target,
         bytes memory _data,
         uint256 _value
-    )
-        external
-        payable
-        onlyOwner
-        returns (bool success_, bytes memory data_)
-    {
+    ) external payable onlyOwner returns (bool success_, bytes memory data_) {
         (success_, data_) = _target.call{ value: _value }(_data);
     }
 
@@ -36,12 +31,7 @@ contract Transactor is Owned {
     function DELEGATECALL(
         address _target,
         bytes memory _data
-    )
-        external
-        payable
-        onlyOwner
-        returns (bool success_, bytes memory data_)
-    {
+    ) external payable onlyOwner returns (bool success_, bytes memory data_) {
         // slither-disable-next-line controlled-delegatecall
         (success_, data_) = _target.delegatecall(_data);
     }

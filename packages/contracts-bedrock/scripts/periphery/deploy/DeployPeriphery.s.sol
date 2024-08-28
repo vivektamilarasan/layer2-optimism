@@ -257,10 +257,7 @@ contract DeployPeriphery is Script, Artifacts {
         string memory _name,
         bytes memory _creationCode,
         bytes memory _constructorParams
-    )
-        internal
-        returns (address addr_)
-    {
+    ) internal returns (address addr_) {
         bytes32 salt = keccak256(abi.encodePacked(bytes(_name), cfg.create2DeploymentSalt()));
         bytes memory initCode = abi.encodePacked(_creationCode, _constructorParams);
         address preComputedAddress = vm.computeCreate2Address(salt, keccak256(initCode));

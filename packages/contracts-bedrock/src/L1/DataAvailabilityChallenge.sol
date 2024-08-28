@@ -146,10 +146,7 @@ contract DataAvailabilityChallenge is OwnableUpgradeable, ISemver {
         uint256 _resolveWindow,
         uint256 _bondSize,
         uint256 _resolverRefundPercentage
-    )
-        public
-        initializer
-    {
+    ) public initializer {
         __Ownable_init();
         challengeWindow = _challengeWindow;
         resolveWindow = _resolveWindow;
@@ -225,11 +222,7 @@ contract DataAvailabilityChallenge is OwnableUpgradeable, ISemver {
     function getChallenge(
         uint256 challengedBlockNumber,
         bytes calldata challengedCommitment
-    )
-        public
-        view
-        returns (Challenge memory)
-    {
+    ) public view returns (Challenge memory) {
         return challenges[challengedBlockNumber][challengedCommitment];
     }
 
@@ -240,11 +233,7 @@ contract DataAvailabilityChallenge is OwnableUpgradeable, ISemver {
     function getChallengeStatus(
         uint256 challengedBlockNumber,
         bytes calldata challengedCommitment
-    )
-        public
-        view
-        returns (ChallengeStatus)
-    {
+    ) public view returns (ChallengeStatus) {
         Challenge memory _challenge = challenges[challengedBlockNumber][challengedCommitment];
         // if the address is 0, the challenge is uninitialized
         if (_challenge.challenger == address(0)) return ChallengeStatus.Uninitialized;
@@ -336,9 +325,7 @@ contract DataAvailabilityChallenge is OwnableUpgradeable, ISemver {
         uint256 challengedBlockNumber,
         bytes calldata challengedCommitment,
         bytes calldata resolveData
-    )
-        external
-    {
+    ) external {
         // require the commitment type to be known
         validateCommitment(challengedCommitment);
 

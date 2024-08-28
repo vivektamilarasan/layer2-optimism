@@ -18,9 +18,7 @@ contract OptimismPortalInterop is OptimismPortal2 {
     constructor(
         uint256 _proofMaturityDelaySeconds,
         uint256 _disputeGameFinalityDelaySeconds
-    )
-        OptimismPortal2(_proofMaturityDelaySeconds, _disputeGameFinalityDelaySeconds)
-    { }
+    ) OptimismPortal2(_proofMaturityDelaySeconds, _disputeGameFinalityDelaySeconds) { }
 
     /// @custom:semver +interop
     function version() public pure override returns (string memory) {

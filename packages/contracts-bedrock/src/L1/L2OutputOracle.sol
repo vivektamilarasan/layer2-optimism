@@ -90,10 +90,7 @@ contract L2OutputOracle is Initializable, ISemver {
         address _proposer,
         address _challenger,
         uint256 _finalizationPeriodSeconds
-    )
-        public
-        initializer
-    {
+    ) public initializer {
         require(_submissionInterval > 0, "L2OutputOracle: submission interval must be greater than 0");
         require(_l2BlockTime > 0, "L2OutputOracle: L2 block time must be greater than 0");
         require(
@@ -190,10 +187,7 @@ contract L2OutputOracle is Initializable, ISemver {
         uint256 _l2BlockNumber,
         bytes32 _l1BlockHash,
         uint256 _l1BlockNumber
-    )
-        external
-        payable
-    {
+    ) external payable {
         require(msg.sender == proposer, "L2OutputOracle: only the proposer address can propose new outputs");
 
         require(

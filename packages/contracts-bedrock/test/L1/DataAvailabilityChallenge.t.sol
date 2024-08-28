@@ -205,9 +205,7 @@ contract DataAvailabilityChallengeTest is CommonTest {
         uint256 challengedBlockNumber,
         uint256 resolverRefundPercentage,
         uint128 txGasPrice
-    )
-        public
-    {
+    ) public {
         // Assume neither the challenger nor resolver is address(0) and that they're not the same entity
         vm.assume(challenger != address(0));
         vm.assume(resolver != address(0));

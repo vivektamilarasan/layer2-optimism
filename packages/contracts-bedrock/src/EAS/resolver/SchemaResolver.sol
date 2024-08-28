@@ -53,12 +53,7 @@ abstract contract SchemaResolver is ISchemaResolver {
     function multiAttest(
         Attestation[] calldata attestations,
         uint256[] calldata values
-    )
-        external
-        payable
-        onlyEAS
-        returns (bool)
-    {
+    ) external payable onlyEAS returns (bool) {
         uint256 length = attestations.length;
         if (length != values.length) {
             revert InvalidLength();
@@ -100,12 +95,7 @@ abstract contract SchemaResolver is ISchemaResolver {
     function multiRevoke(
         Attestation[] calldata attestations,
         uint256[] calldata values
-    )
-        external
-        payable
-        onlyEAS
-        returns (bool)
-    {
+    ) external payable onlyEAS returns (bool) {
         uint256 length = attestations.length;
         if (length != values.length) {
             revert InvalidLength();

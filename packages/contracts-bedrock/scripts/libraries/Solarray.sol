@@ -45,11 +45,7 @@ library Solarray {
         address c,
         address d,
         address e
-    )
-        internal
-        pure
-        returns (address[] memory)
-    {
+    ) internal pure returns (address[] memory) {
         address[] memory arr = new address[](5);
         arr[0] = a;
         arr[1] = b;
@@ -66,11 +62,7 @@ library Solarray {
         address d,
         address e,
         address f
-    )
-        internal
-        pure
-        returns (address[] memory)
-    {
+    ) internal pure returns (address[] memory) {
         address[] memory arr = new address[](6);
         arr[0] = a;
         arr[1] = b;
@@ -89,11 +81,7 @@ library Solarray {
         address e,
         address f,
         address g
-    )
-        internal
-        pure
-        returns (address[] memory)
-    {
+    ) internal pure returns (address[] memory) {
         address[] memory arr = new address[](7);
         arr[0] = a;
         arr[1] = b;
@@ -114,11 +102,7 @@ library Solarray {
         address f,
         address g,
         address h
-    )
-        internal
-        pure
-        returns (address[] memory)
-    {
+    ) internal pure returns (address[] memory) {
         address[] memory arr = new address[](8);
         arr[0] = a;
         arr[1] = b;
@@ -141,11 +125,7 @@ library Solarray {
         address g,
         address h,
         address i
-    )
-        internal
-        pure
-        returns (address[] memory)
-    {
+    ) internal pure returns (address[] memory) {
         address[] memory arr = new address[](9);
         arr[0] = a;
         arr[1] = b;
@@ -170,11 +150,7 @@ library Solarray {
         address h,
         address i,
         address j
-    )
-        internal
-        pure
-        returns (address[] memory)
-    {
+    ) internal pure returns (address[] memory) {
         address[] memory arr = new address[](10);
         arr[0] = a;
         arr[1] = b;

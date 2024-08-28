@@ -139,11 +139,7 @@ contract CrossL2Inbox is ICrossL2Inbox, ISemver, TransientReentrancyAware {
         Identifier calldata _id,
         address _target,
         bytes memory _message
-    )
-        external
-        payable
-        reentrantAware
-    {
+    ) external payable reentrantAware {
         // Check the Identifier.
         _checkIdentifier(_id);
 

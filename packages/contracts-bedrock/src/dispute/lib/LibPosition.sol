@@ -156,11 +156,7 @@ library LibPosition {
     function traceAncestorBounded(
         Position _position,
         uint256 _upperBoundExclusive
-    )
-        internal
-        pure
-        returns (Position ancestor_)
-    {
+    ) internal pure returns (Position ancestor_) {
         // This function only works for positions that are below the upper bound.
         if (_position.depth() <= _upperBoundExclusive) {
             assembly {

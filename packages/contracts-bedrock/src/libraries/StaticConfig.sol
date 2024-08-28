@@ -15,11 +15,7 @@ library StaticConfig {
         uint8 _decimals,
         bytes32 _name,
         bytes32 _symbol
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
+    ) internal pure returns (bytes memory) {
         return abi.encode(_token, _decimals, _name, _symbol);
     }
 

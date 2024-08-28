@@ -12,10 +12,7 @@ contract LibGameId_Test is Test {
         GameType _gameType,
         Timestamp _timestamp,
         address _gameProxy
-    )
-        public
-        pure
-    {
+    ) public pure {
         GameId gameId = LibGameId.pack(_gameType, _timestamp, _gameProxy);
         (GameType gameType_, Timestamp timestamp_, address gameProxy_) = LibGameId.unpack(gameId);
 

@@ -17,12 +17,7 @@ contract DefaultCallbackHandler is ERC1155TokenReceiver, ERC777TokensRecipient, 
         uint256,
         uint256,
         bytes calldata
-    )
-        external
-        pure
-        override
-        returns (bytes4)
-    {
+    ) external pure override returns (bytes4) {
         return 0xf23a6e61;
     }
 
@@ -32,12 +27,7 @@ contract DefaultCallbackHandler is ERC1155TokenReceiver, ERC777TokensRecipient, 
         uint256[] calldata,
         uint256[] calldata,
         bytes calldata
-    )
-        external
-        pure
-        override
-        returns (bytes4)
-    {
+    ) external pure override returns (bytes4) {
         return 0xbc197c81;
     }
 
@@ -52,11 +42,7 @@ contract DefaultCallbackHandler is ERC1155TokenReceiver, ERC777TokensRecipient, 
         uint256,
         bytes calldata,
         bytes calldata
-    )
-        external
-        pure
-        override
-    {
+    ) external pure override {
         // We implement this for completeness, doesn't really have any value
     }
 
@@ -152,10 +138,7 @@ contract CompatibilityFallbackHandler is DefaultCallbackHandler, ISignatureValid
     function simulate(
         address targetContract,
         bytes calldata calldataPayload
-    )
-        external
-        returns (bytes memory response)
-    {
+    ) external returns (bytes memory response) {
         // Suppress compiler warnings about not using parameters, while allowing
         // parameters to keep names for documentation purposes. This does not
         // generate code.

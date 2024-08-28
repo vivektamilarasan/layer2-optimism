@@ -142,11 +142,7 @@ contract LivenessModule_GetRequiredThreshold_Test is LivenessModule_TestInit {
     function _getLeastIntegerValueAbovePercentage(
         uint256 _total,
         uint256 _percentage
-    )
-        internal
-        pure
-        returns (uint256)
-    {
+    ) internal pure returns (uint256) {
         require(_percentage > 0 && _percentage <= 100);
         uint256 toAdd;
 
@@ -440,10 +436,7 @@ contract LivenessModule_RemoveOwnersFuzz_Test is LivenessModule_TestInit {
         uint256 _minOwners,
         uint256 _numLiveOwners,
         uint256 _thresholdPercentage
-    )
-        internal
-        returns (uint256 numOwners_, uint256 minOwners_, uint256 numLiveOwners_, uint256 thresholdPercentage_)
-    {
+    ) internal returns (uint256 numOwners_, uint256 minOwners_, uint256 numLiveOwners_, uint256 thresholdPercentage_) {
         // First we modify the test parameters to ensure that they describe a plausible starting point.
         //
         // _numOwners must be at least 4, so that _minOwners can be set to at least 3 by the following bound() call.
@@ -496,9 +489,7 @@ contract LivenessModule_RemoveOwnersFuzz_Test is LivenessModule_TestInit {
         uint256 _thresholdPercentage,
         uint256 _shutDownBehavior,
         uint256 _numOwnersToRemoveinShutDown
-    )
-        external
-    {
+    ) external {
         // Prepare the test env and test params
         (uint256 numOwners, uint256 minOwners, uint256 numLiveOwners, uint256 thresholdPercentage) =
             _prepare(_numOwners, _minOwners, _numLiveOwners, _thresholdPercentage);

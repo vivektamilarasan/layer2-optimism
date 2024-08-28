@@ -47,10 +47,7 @@ contract FFIInterface {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        external
-        returns (bytes32)
-    {
+    ) external returns (bytes32) {
         string[] memory cmds = new string[](9);
         cmds[0] = "scripts/go-ffi/go-ffi";
         cmds[1] = "diff";
@@ -73,10 +70,7 @@ contract FFIInterface {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        external
-        returns (bytes32)
-    {
+    ) external returns (bytes32) {
         string[] memory cmds = new string[](9);
         cmds[0] = "scripts/go-ffi/go-ffi";
         cmds[1] = "diff";
@@ -97,10 +91,7 @@ contract FFIInterface {
         bytes32 _stateRoot,
         bytes32 _messagePasserStorageRoot,
         bytes32 _latestBlockhash
-    )
-        external
-        returns (bytes32)
-    {
+    ) external returns (bytes32) {
         string[] memory cmds = new string[](7);
         cmds[0] = "scripts/go-ffi/go-ffi";
         cmds[1] = "diff";
@@ -122,10 +113,7 @@ contract FFIInterface {
         uint64 _gas,
         bytes memory _data,
         uint64 _logIndex
-    )
-        external
-        returns (bytes32)
-    {
+    ) external returns (bytes32) {
         string[] memory cmds = new string[](11);
         cmds[0] = "scripts/go-ffi/go-ffi";
         cmds[1] = "diff";
@@ -169,10 +157,7 @@ contract FFIInterface {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        external
-        returns (bytes memory)
-    {
+    ) external returns (bytes memory) {
         string[] memory cmds = new string[](9);
         cmds[0] = "scripts/go-ffi/go-ffi";
         cmds[1] = "diff";
@@ -228,10 +213,7 @@ contract FFIInterface {
         uint32 insn,
         uint32 memAddr,
         uint32 memVal
-    )
-        external
-        returns (bytes32, bytes memory)
-    {
+    ) external returns (bytes32, bytes memory) {
         string[] memory cmds = new string[](7);
         cmds[0] = "scripts/go-ffi/go-ffi";
         cmds[1] = "diff";
@@ -250,10 +232,7 @@ contract FFIInterface {
         uint32 insn,
         uint32 memAddr,
         uint32 memVal
-    )
-        external
-        returns (bytes32, bytes memory)
-    {
+    ) external returns (bytes32, bytes memory) {
         string[] memory cmds = new string[](7);
         cmds[0] = "scripts/go-ffi/go-ffi";
         cmds[1] = "diff";
@@ -293,10 +272,7 @@ contract FFIInterface {
         uint8 _decimals,
         bytes32 _name,
         bytes32 _symbol
-    )
-        external
-        returns (bytes memory)
-    {
+    ) external returns (bytes memory) {
         string[] memory cmds = new string[](7);
         cmds[0] = "scripts/go-ffi/go-ffi";
         cmds[1] = "diff";

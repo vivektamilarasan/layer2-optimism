@@ -103,10 +103,7 @@ contract L2GenesisTest is Test {
         string memory path,
         bytes32 slot,
         bytes32 value
-    )
-        internal
-        returns (uint256)
-    {
+    ) internal returns (uint256) {
         string[] memory commands = new string[](3);
         commands[0] = "bash";
         commands[1] = "-c";

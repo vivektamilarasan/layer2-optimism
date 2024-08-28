@@ -21,11 +21,7 @@ library SecureMerkleTrie {
         bytes memory _value,
         bytes[] memory _proof,
         bytes32 _root
-    )
-        internal
-        pure
-        returns (bool valid_)
-    {
+    ) internal pure returns (bool valid_) {
         bytes memory key = _getSecureKey(_key);
         valid_ = MerkleTrie.verifyInclusionProof(key, _value, _proof, _root);
     }

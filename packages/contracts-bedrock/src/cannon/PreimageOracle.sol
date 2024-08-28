@@ -130,10 +130,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         bytes32 _word,
         uint256 _size,
         uint256 _partOffset
-    )
-        external
-        returns (bytes32 key_)
-    {
+    ) external returns (bytes32 key_) {
         // Compute the localized key from the given local identifier.
         key_ = PreimageKeyLib.localizeIdent(_ident, _localContext);
 
@@ -254,9 +251,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         bytes calldata _commitment,
         bytes calldata _proof,
         uint256 _partOffset
-    )
-        external
-    {
+    ) external {
         bytes32 key;
         bytes32 part;
         assembly {
@@ -344,9 +339,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         address _precompile,
         uint64 _requiredGas,
         bytes calldata _input
-    )
-        external
-    {
+    ) external {
         bytes32 res;
         bytes32 key;
         bytes32 part;
@@ -472,9 +465,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         bytes calldata _input,
         bytes32[] calldata _stateCommitments,
         bool _finalize
-    )
-        external
-    {
+    ) external {
         // If we're finalizing, pad the input for the submitter. If not, copy the input into memory verbatim.
         bytes memory input;
         if (_finalize) {
@@ -602,9 +593,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         bytes32[] calldata _preStateProof,
         Leaf calldata _postState,
         bytes32[] calldata _postStateProof
-    )
-        external
-    {
+    ) external {
         // Verify that both leaves are present in the merkle tree.
         bytes32 root = getTreeRootLPP(_claimant, _uuid);
         if (
@@ -640,9 +629,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         uint256 _uuid,
         Leaf calldata _postState,
         bytes32[] calldata _postStateProof
-    )
-        external
-    {
+    ) external {
         // Verify that the leaf is present in the merkle tree.
         bytes32 root = getTreeRootLPP(_claimant, _uuid);
         if (!_verify(_postStateProof, root, _postState.index, _hashLeaf(_postState))) revert InvalidProof();
@@ -674,9 +661,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         bytes32[] calldata _preStateProof,
         Leaf calldata _postState,
         bytes32[] calldata _postStateProof
-    )
-        external
-    {
+    ) external {
         LPPMetaData metaData = proposalMetadata[_claimant][_uuid];
 
         // Check if the proposal was countered.
@@ -748,9 +733,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         uint256 _uuid,
         bool _finalize,
         LPPMetaData _metaData
-    )
-        internal
-    {
+    ) internal {
         uint256 offset = _metaData.partOffset();
         uint256 claimedSize = _metaData.claimedSize();
         uint256 currentSize = _metaData.bytesProcessed();
@@ -790,11 +773,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         bytes32 _root,
         uint256 _index,
         bytes32 _leaf
-    )
-        internal
-        pure
-        returns (bool isValid_)
-    {
+    ) internal pure returns (bool isValid_) {
         /// @solidity memory-safe-assembly
         assembly {
             function hashTwo(a, b) -> hash {

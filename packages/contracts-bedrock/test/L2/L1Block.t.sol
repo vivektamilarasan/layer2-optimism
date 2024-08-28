@@ -35,9 +35,7 @@ contract L1BlockBedrock_Test is L1BlockTest {
         bytes32 bt,
         uint256 fo,
         uint256 fs
-    )
-        external
-    {
+    ) external {
         vm.prank(depositor);
         l1Block.setL1BlockValues(n, t, b, h, s, bt, fo, fs);
         assertEq(l1Block.number(), n);
@@ -93,9 +91,7 @@ contract L1BlockEcotone_Test is L1BlockTest {
         uint256 blobBaseFee,
         bytes32 hash,
         bytes32 batcherHash
-    )
-        external
-    {
+    ) external {
         bytes memory functionCallDataPacked = Encoding.encodeSetL1BlockValuesEcotone(
             baseFeeScalar, blobBaseFeeScalar, sequenceNumber, timestamp, number, baseFee, blobBaseFee, hash, batcherHash
         );
@@ -174,9 +170,7 @@ contract L1BlockCustomGasToken_Test is L1BlockTest {
         uint8 _decimals,
         string memory _name,
         string memory _symbol
-    )
-        external
-    {
+    ) external {
         vm.assume(_token != address(0));
         vm.assume(_token != Constants.ETHER);
         vm.assume(bytes(_name).length <= 32);

@@ -75,10 +75,7 @@ library SafeTestLib {
     function makeAddrsAndKeys(
         string memory prefix,
         uint256 num
-    )
-        internal
-        returns (address[] memory addrs, uint256[] memory keys)
-    {
+    ) internal returns (address[] memory addrs, uint256[] memory keys) {
         keys = new uint256[](num);
         addrs = new address[](num);
         for (uint256 i; i < num; i++) {
@@ -171,11 +168,7 @@ library SafeTestLib {
         uint256 gasPrice,
         address gasToken,
         address refundReceiver
-    )
-        internal
-        view
-        returns (uint8 v, bytes32 r, bytes32 s)
-    {
+    ) internal view returns (uint8 v, bytes32 r, bytes32 s) {
         bytes32 txDataHash;
         {
             uint256 _nonce = instance.safe.nonce();
@@ -213,11 +206,7 @@ library SafeTestLib {
     function getPrevOwnerFromList(
         address _owner,
         address[] memory _ownersList
-    )
-        internal
-        pure
-        returns (address prevOwner_)
-    {
+    ) internal pure returns (address prevOwner_) {
         for (uint256 i; i < _ownersList.length; i++) {
             if (_ownersList[i] != _owner) continue;
             if (i == 0) {
@@ -237,10 +226,7 @@ library SafeTestLib {
     function getPrevOwners(
         SafeInstance memory instance,
         address[] memory _ownersToRemove
-    )
-        internal
-        returns (address[] memory prevOwners_)
-    {
+    ) internal returns (address[] memory prevOwners_) {
         OwnerSimulator ownerSimulator = new OwnerSimulator(instance.owners, 1);
         prevOwners_ = new address[](_ownersToRemove.length);
         address[] memory currentOwners;
@@ -406,10 +392,7 @@ library SafeTestLib {
         address gasToken,
         address refundReceiver,
         bytes memory signatures
-    )
-        internal
-        returns (bool)
-    {
+    ) internal returns (bool) {
         if (instance.owners.length == 0) {
             revert("SAFETEST: Instance not initialized. Call _setupSafe() to initialize a test safe");
         }
@@ -468,10 +451,7 @@ library SafeTestLib {
         uint256 value,
         bytes memory data,
         Enum.Operation operation
-    )
-        internal
-        returns (bool)
-    {
+    ) internal returns (bool) {
         return execTransaction(instance, to, value, data, operation, 0, 0, 0, address(0), address(0), "");
     }
 
@@ -481,10 +461,7 @@ library SafeTestLib {
         address to,
         uint256 value,
         bytes memory data
-    )
-        internal
-        returns (bool)
-    {
+    ) internal returns (bool) {
         return execTransaction(instance, to, value, data, Enum.Operation.Call, 0, 0, 0, address(0), address(0), "");
     }
 }
@@ -519,10 +496,7 @@ contract SafeTestTools {
         uint256 threshold,
         uint256 initialBalance,
         AdvancedSafeInitParams memory advancedParams
-    )
-        public
-        returns (SafeInstance memory)
-    {
+    ) public returns (SafeInstance memory) {
         uint256[] memory sortedPKs = SafeTestLib.sortPKsByComputedAddress(ownerPKs);
         address[] memory owners = new address[](sortedPKs.length);
 
@@ -577,10 +551,7 @@ contract SafeTestTools {
         uint256[] memory ownerPKs,
         uint256 threshold,
         uint256 initialBalance
-    )
-        public
-        returns (SafeInstance memory)
-    {
+    ) public returns (SafeInstance memory) {
         return _setupSafe(
             ownerPKs,
             threshold,

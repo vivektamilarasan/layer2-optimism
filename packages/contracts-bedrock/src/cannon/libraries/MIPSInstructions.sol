@@ -15,11 +15,7 @@ library MIPSInstructions {
         uint32 _pc,
         bytes32 _memRoot,
         uint256 _insnProofOffset
-    )
-        internal
-        pure
-        returns (uint32 insn_, uint32 opcode_, uint32 fun_)
-    {
+    ) internal pure returns (uint32 insn_, uint32 opcode_, uint32 fun_) {
         unchecked {
             insn_ = MIPSMemory.readMem(_memRoot, _pc, _insnProofOffset);
             opcode_ = insn_ >> 26; // First 6-bits
@@ -46,11 +42,7 @@ library MIPSInstructions {
         uint32 _insn,
         uint32 _opcode,
         uint32 _fun
-    )
-        internal
-        pure
-        returns (bytes32 newMemRoot_)
-    {
+    ) internal pure returns (bytes32 newMemRoot_) {
         unchecked {
             newMemRoot_ = _memRoot;
 
@@ -178,11 +170,7 @@ library MIPSInstructions {
         uint32 _rs,
         uint32 _rt,
         uint32 _mem
-    )
-        internal
-        pure
-        returns (uint32 out_)
-    {
+    ) internal pure returns (uint32 out_) {
         unchecked {
             if (_opcode == 0 || (_opcode >= 8 && _opcode < 0xF)) {
                 assembly {
@@ -457,10 +445,7 @@ library MIPSInstructions {
         uint32 _insn,
         uint32 _rtReg,
         uint32 _rs
-    )
-        internal
-        pure
-    {
+    ) internal pure {
         unchecked {
             bool shouldBranch = false;
 
@@ -523,10 +508,7 @@ library MIPSInstructions {
         uint32 _rs,
         uint32 _rt,
         uint32 _storeReg
-    )
-        internal
-        pure
-    {
+    ) internal pure {
         unchecked {
             uint32 val = 0;
 
@@ -600,10 +582,7 @@ library MIPSInstructions {
         uint32[32] memory _registers,
         uint32 _linkReg,
         uint32 _dest
-    )
-        internal
-        pure
-    {
+    ) internal pure {
         unchecked {
             if (_cpu.nextPC != _cpu.pc + 4) {
                 revert("jump in delay slot");
@@ -633,10 +612,7 @@ library MIPSInstructions {
         uint32 _storeReg,
         uint32 _val,
         bool _conditional
-    )
-        internal
-        pure
-    {
+    ) internal pure {
         unchecked {
             // The destination register must be valid.
             require(_storeReg < 32, "valid register");

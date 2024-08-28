@@ -26,9 +26,7 @@ contract L1StandardBridgeKontrol is DeploymentSummary, KontrolUtils {
         address _to,
         uint256 _amount,
         bytes calldata _extraData
-    )
-        public
-    {
+    ) public {
         setUpInlined();
 
         // Pause Standard Bridge
@@ -51,9 +49,7 @@ contract L1StandardBridgeKontrol is DeploymentSummary, KontrolUtils {
         address _to,
         uint256 _amount,
         bytes calldata _extraData
-    )
-        public
-    {
+    ) public {
         setUpInlined();
 
         // Pause Standard Bridge

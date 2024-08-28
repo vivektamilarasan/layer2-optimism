@@ -38,11 +38,7 @@ contract AdminFaucetAuthModule is IFaucetAuthModule, EIP712 {
         Faucet.DripParameters memory _params,
         bytes32 _id,
         bytes memory _proof
-    )
-        external
-        view
-        returns (bool valid_)
-    {
+    ) external view returns (bool valid_) {
         // Generate a EIP712 typed data hash to compare against the proof.
         valid_ = SignatureChecker.isValidSignatureNow(
             ADMIN,

@@ -261,10 +261,7 @@ contract FaultDisputeGame is IFaultDisputeGame, Clone, ISemver {
         bool _isAttack,
         bytes calldata _stateData,
         bytes calldata _proof
-    )
-        public
-        virtual
-    {
+    ) public virtual {
         // INVARIANT: Steps cannot be made unless the game is currently in progress.
         if (status != GameStatus.IN_PROGRESS) revert GameNotInProgress();
 
@@ -532,9 +529,7 @@ contract FaultDisputeGame is IFaultDisputeGame, Clone, ISemver {
     function challengeRootL2Block(
         Types.OutputRootProof calldata _outputRootProof,
         bytes calldata _headerRLP
-    )
-        external
-    {
+    ) external {
         // INVARIANT: Moves cannot be made unless the game is currently in progress.
         if (status != GameStatus.IN_PROGRESS) revert GameNotInProgress();
 
@@ -905,10 +900,7 @@ contract FaultDisputeGame is IFaultDisputeGame, Clone, ISemver {
         uint256 _parentIdx,
         Position _parentPos,
         bool _isAttack
-    )
-        internal
-        view
-    {
+    ) internal view {
         // The root claim of an execution trace bisection sub-game must:
         // 1. Signal that the VM panicked or resulted in an invalid transition if the disputed output root
         //    was made by the opposing party.
@@ -945,11 +937,7 @@ contract FaultDisputeGame is IFaultDisputeGame, Clone, ISemver {
         Position _pos,
         uint256 _start,
         bool _global
-    )
-        internal
-        view
-        returns (ClaimData storage ancestor_)
-    {
+    ) internal view returns (ClaimData storage ancestor_) {
         // Grab the trace ancestor's expected position.
         Position traceAncestorPos = _global ? _pos.traceAncestor() : _pos.traceAncestorBounded(SPLIT_DEPTH);
 
@@ -1049,11 +1037,7 @@ contract FaultDisputeGame is IFaultDisputeGame, Clone, ISemver {
         Position _startingPos,
         Claim _disputed,
         Position _disputedPos
-    )
-        internal
-        pure
-        returns (Hash uuid_)
-    {
+    ) internal pure returns (Hash uuid_) {
         // A position of 0 indicates that the starting claim is the absolute prestate. In this special case,
         // we do not include the starting claim within the local context hash.
         uuid_ = _startingPos.raw() == 0

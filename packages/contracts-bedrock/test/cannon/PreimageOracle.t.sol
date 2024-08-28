@@ -95,9 +95,7 @@ contract PreimageOracle_Test is Test {
         bytes32 word,
         uint256 size,
         uint256 partOffset
-    )
-        public
-    {
+    ) public {
         // Bound the size to [0, 32]
         size = bound(size, 0, 32);
         // Bound the part offset to [0, size + 8)
@@ -1371,11 +1369,7 @@ contract PreimageOracle_LargePreimageProposals_Test is Test {
     function _generateLeaves(
         LibKeccak.StateMatrix memory _stateMatrix,
         bytes memory _data
-    )
-        internal
-        pure
-        returns (PreimageOracle.Leaf[] memory leaves_)
-    {
+    ) internal pure returns (PreimageOracle.Leaf[] memory leaves_) {
         bytes memory data = LibKeccak.padMemory(_data);
         uint256 numCommitments = data.length / LibKeccak.BLOCK_SIZE_BYTES;
 
@@ -1397,11 +1391,7 @@ contract PreimageOracle_LargePreimageProposals_Test is Test {
     function _stateMatrixAtBlockIndex(
         bytes memory _data,
         uint256 _blockIndex
-    )
-        internal
-        pure
-        returns (LibKeccak.StateMatrix memory matrix_)
-    {
+    ) internal pure returns (LibKeccak.StateMatrix memory matrix_) {
         bytes memory data = LibKeccak.padMemory(_data);
 
         for (uint256 i = 0; i < _blockIndex; i++) {
@@ -1415,11 +1405,7 @@ contract PreimageOracle_LargePreimageProposals_Test is Test {
     function _generateStateCommitments(
         LibKeccak.StateMatrix memory _stateMatrix,
         bytes memory _data
-    )
-        internal
-        pure
-        returns (bytes32[] memory stateCommitments_)
-    {
+    ) internal pure returns (bytes32[] memory stateCommitments_) {
         bytes memory data = LibKeccak.padMemory(_data);
         uint256 numCommitments = data.length / LibKeccak.BLOCK_SIZE_BYTES;
 
@@ -1438,10 +1424,7 @@ contract PreimageOracle_LargePreimageProposals_Test is Test {
     function _generateProof(
         uint256 _leafIdx,
         PreimageOracle.Leaf[] memory _leaves
-    )
-        internal
-        returns (bytes32 root_, bytes32[] memory proof_)
-    {
+    ) internal returns (bytes32 root_, bytes32[] memory proof_) {
         bytes32[] memory leaves = new bytes32[](_leaves.length);
         for (uint256 i = 0; i < _leaves.length; i++) {
             leaves[i] = _hashLeaf(_leaves[i]);

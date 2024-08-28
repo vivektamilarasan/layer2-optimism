@@ -23,9 +23,7 @@ contract Hash_CrossDomainHasher {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         // generate the versioned nonce
         uint256 encodedNonce = Encoding.encodeVersionedNonce(_nonce, _version);
 
@@ -49,9 +47,7 @@ contract Hash_CrossDomainHasher {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         // generate the versioned nonce with the version set to 0
         uint256 encodedNonce = Encoding.encodeVersionedNonce(_nonce, 0);
 
@@ -76,9 +72,7 @@ contract Hash_CrossDomainHasher {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         // generate the versioned nonce with the version set to 1
         uint256 encodedNonce = Encoding.encodeVersionedNonce(_nonce, 1);
 

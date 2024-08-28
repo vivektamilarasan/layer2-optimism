@@ -258,9 +258,7 @@ contract DeployImplementations is Script {
     function deployOptimismMintableERC20FactoryImpl(
         DeployImplementationsInput,
         DeployImplementationsOutput _dso
-    )
-        public
-    {
+    ) public {
         vm.broadcast(msg.sender);
         OptimismMintableERC20Factory optimismMintableERC20FactoryImpl = new OptimismMintableERC20Factory();
 

@@ -33,9 +33,7 @@ contract FPACOPS2 is Deploy, StdAssertions {
         address _superchainConfigProxy,
         address _disputeGameFactoryProxy,
         address _anchorStateRegistryProxy
-    )
-        public
-    {
+    ) public {
         console.log("Deploying updated FP contracts.");
 
         // Prank required deployments.

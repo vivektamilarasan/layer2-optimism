@@ -276,9 +276,7 @@ contract SystemConfig_Init_ResourceConfig is SystemConfig_Init {
     function _initializeWithResourceConfig(
         ResourceMetering.ResourceConfig memory config,
         string memory revertMessage
-    )
-        internal
-    {
+    ) internal {
         // Wipe out the initialized slot so the proxy can be initialized again
         vm.store(address(systemConfig), bytes32(0), bytes32(0));
         // Fetch the current gas limit
@@ -359,9 +357,7 @@ contract SystemConfig_Init_CustomGasToken is SystemConfig_Init {
         address _token,
         string calldata _name,
         string calldata _symbol
-    )
-        external
-    {
+    ) external {
         // don't use vm's address
         vm.assume(_token != address(vm));
         // don't use console's address

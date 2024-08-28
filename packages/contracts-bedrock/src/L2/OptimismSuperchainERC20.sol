@@ -88,10 +88,7 @@ contract OptimismSuperchainERC20 is IOptimismSuperchainERC20Extension, ERC20, IS
         string memory _name,
         string memory _symbol,
         uint8 _decimals
-    )
-        external
-        initializer
-    {
+    ) external initializer {
         OptimismSuperchainERC20Metadata storage _storage = _getMetadataStorage();
         _storage.remoteToken = _remoteToken;
         _storage.name = _name;

@@ -89,9 +89,7 @@ contract SafeCall_Test is Test {
         uint64 minGas,
         uint64 value,
         bytes memory data
-    )
-        external
-    {
+    ) external {
         assumeNot(from);
         assumeNot(to);
 

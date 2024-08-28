@@ -29,9 +29,7 @@ contract LegacyMintableERC20 is ILegacyMintableERC20, ERC20 {
         address _l1Token,
         string memory _name,
         string memory _symbol
-    )
-        ERC20(_name, _symbol)
-    {
+    ) ERC20(_name, _symbol) {
         l1Token = _l1Token;
         l2Bridge = _l2Bridge;
     }

@@ -40,9 +40,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] memory _withdrawalProof
-    )
-        internal
-    {
+    ) internal {
         setUpInlined();
 
         // Pause Optimism Portal
@@ -60,9 +58,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-    {
+    ) external {
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }
 
@@ -73,9 +69,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-    {
+    ) external {
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }
 
@@ -86,9 +80,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-    {
+    ) external {
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }
 
@@ -99,9 +91,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-    {
+    ) external {
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }
 
@@ -112,9 +102,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-    {
+    ) external {
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }
 
@@ -125,9 +113,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-    {
+    ) external {
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }
 
@@ -138,9 +124,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-    {
+    ) external {
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }
 
@@ -151,9 +135,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-    {
+    ) external {
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }
 
@@ -164,9 +146,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-    {
+    ) external {
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }
 
@@ -177,9 +157,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-    {
+    ) external {
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }
 
@@ -187,9 +165,7 @@ contract OptimismPortalKontrol is DeploymentSummary, KontrolUtils {
         Types.WithdrawalTransaction memory _tx,
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof
-    )
-        external
-    {
+    ) external {
         bytes[] memory _withdrawalProof = new bytes[](0);
         prove_proveWithdrawalTransaction_paused_internal(_tx, _l2OutputIndex, _outputRootProof, _withdrawalProof);
     }

@@ -186,10 +186,7 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
         ResourceMetering.ResourceConfig memory _config,
         address _batchInbox,
         SystemConfig.Addresses memory _addresses
-    )
-        public
-        initializer
-    {
+    ) public initializer {
         __Ownable_init();
         transferOwnership(_owner);
 

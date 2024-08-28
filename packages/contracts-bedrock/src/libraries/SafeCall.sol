@@ -41,10 +41,7 @@ library SafeCall {
         uint256 _gas,
         uint256 _value,
         bytes memory _calldata
-    )
-        internal
-        returns (bool success_)
-    {
+    ) internal returns (bool success_) {
         assembly {
             success_ :=
                 call(
@@ -111,10 +108,7 @@ library SafeCall {
         uint256 _minGas,
         uint256 _value,
         bytes memory _calldata
-    )
-        internal
-        returns (bool)
-    {
+    ) internal returns (bool) {
         bool _success;
         bool _hasMinGas = hasMinGas(_minGas, 0);
         assembly {

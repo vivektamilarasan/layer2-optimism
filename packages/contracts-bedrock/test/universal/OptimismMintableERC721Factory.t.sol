@@ -75,11 +75,7 @@ contract OptimismMintableERC721Factory_Test is Bridge_Initializer {
         address _remote,
         string memory _name,
         string memory _symbol
-    )
-        internal
-        view
-        returns (address)
-    {
+    ) internal view returns (address) {
         bytes memory constructorArgs = abi.encode(address(l2ERC721Bridge), 1, _remote, _name, _symbol);
         bytes memory bytecode = abi.encodePacked(type(OptimismMintableERC721).creationCode, constructorArgs);
         bytes32 salt = keccak256(abi.encode(_remote, _name, _symbol));

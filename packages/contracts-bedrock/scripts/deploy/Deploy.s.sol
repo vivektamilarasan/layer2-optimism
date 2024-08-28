@@ -450,10 +450,7 @@ contract Deploy is Deployer {
         address[] memory _owners,
         uint256 _threshold,
         bool _keepDeployer
-    )
-        public
-        returns (address addr_)
-    {
+    ) public returns (address addr_) {
         bytes32 salt = keccak256(abi.encode(_name, _implSalt()));
         console.log("Deploying safe: %s with salt %s", _name, vm.toString(salt));
         (SafeProxyFactory safeProxyFactory, Safe safeSingleton) = _getSafeFactory();
@@ -578,11 +575,7 @@ contract Deploy is Deployer {
     function deployERC1967ProxyWithOwner(
         string memory _name,
         address _proxyOwner
-    )
-        public
-        broadcast
-        returns (address addr_)
-    {
+    ) public broadcast returns (address addr_) {
         console.log(string.concat("Deploying ERC1967 proxy for ", _name));
         Proxy proxy = new Proxy({ _admin: _proxyOwner });
 
@@ -1518,9 +1511,7 @@ contract Deploy is Deployer {
         DisputeGameFactory _factory,
         bool _allowUpgrade,
         FaultDisputeGameParams memory _params
-    )
-        internal
-    {
+    ) internal {
         if (address(_factory.gameImpls(_params.gameType)) != address(0) && !_allowUpgrade) {
             console.log(
                 "[WARN] DisputeGameFactoryProxy: `FaultDisputeGame` implementation already set for game type: %s",

@@ -89,11 +89,7 @@ library LibGameId {
         GameType _gameType,
         Timestamp _timestamp,
         address _gameProxy
-    )
-        internal
-        pure
-        returns (GameId gameId_)
-    {
+    ) internal pure returns (GameId gameId_) {
         assembly {
             gameId_ := or(or(shl(224, _gameType), shl(160, _timestamp)), _gameProxy)
         }
@@ -141,11 +137,7 @@ library LibClaim {
         Claim _claim,
         Position _position,
         uint256 _challengeIndex
-    )
-        internal
-        pure
-        returns (Hash claimHash_)
-    {
+    ) internal pure returns (Hash claimHash_) {
         assembly {
             mstore(0x00, _claim)
             mstore(0x20, or(shl(128, _position), and(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF, _challengeIndex)))

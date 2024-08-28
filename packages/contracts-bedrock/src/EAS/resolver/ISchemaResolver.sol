@@ -22,10 +22,7 @@ interface ISchemaResolver {
     function multiAttest(
         Attestation[] calldata attestations,
         uint256[] calldata values
-    )
-        external
-        payable
-        returns (bool);
+    ) external payable returns (bool);
 
     /// @notice Processes an attestation revocation and verifies if it can be revoked.
     /// @param attestation The existing attestation to be revoked.
@@ -39,8 +36,5 @@ interface ISchemaResolver {
     function multiRevoke(
         Attestation[] calldata attestations,
         uint256[] calldata values
-    )
-        external
-        payable
-        returns (bool);
+    ) external payable returns (bool);
 }

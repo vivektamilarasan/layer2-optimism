@@ -185,11 +185,7 @@ contract ProxyAdmin is Ownable {
         address payable _proxy,
         address _implementation,
         bytes memory _data
-    )
-        external
-        payable
-        onlyOwner
-    {
+    ) external payable onlyOwner {
         ProxyType ptype = proxyType[_proxy];
         if (ptype == ProxyType.ERC1967) {
             Proxy(_proxy).upgradeToAndCall{ value: msg.value }(_implementation, _data);

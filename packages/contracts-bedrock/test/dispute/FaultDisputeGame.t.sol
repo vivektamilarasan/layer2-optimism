@@ -211,9 +211,7 @@ contract FaultDisputeGame_Test is FaultDisputeGame_Init {
     function testFuzz_constructor_clockExtensionTooLong_reverts(
         uint64 _maxClockDuration,
         uint64 _clockExtension
-    )
-        public
-    {
+    ) public {
         AlphabetVM alphabetVM = new AlphabetVM(absolutePrestate, new PreimageOracle(0, 0));
 
         // Force the clock extension * 2 to be greater than the max clock duration, but keep things within
@@ -770,9 +768,7 @@ contract FaultDisputeGame_Test is FaultDisputeGame_Init {
         bytes32 _storageRoot,
         bytes32 _withdrawalRoot,
         uint256 _l2BlockNumber
-    )
-        public
-    {
+    ) public {
         _l2BlockNumber = bound(_l2BlockNumber, 0, type(uint256).max - 1);
 
         (Types.OutputRootProof memory outputRootProof, bytes32 outputRoot, bytes memory headerRLP) =
@@ -806,9 +802,7 @@ contract FaultDisputeGame_Test is FaultDisputeGame_Init {
         bytes32 _storageRoot,
         bytes32 _withdrawalRoot,
         uint256 _l2BlockNumber
-    )
-        public
-    {
+    ) public {
         vm.deal(address(0xb0b), 1 ether);
         _l2BlockNumber = bound(_l2BlockNumber, 0, type(uint256).max - 1);
 
@@ -866,9 +860,7 @@ contract FaultDisputeGame_Test is FaultDisputeGame_Init {
         bytes32 _storageRoot,
         bytes32 _withdrawalRoot,
         uint256 _l2BlockNumber
-    )
-        public
-    {
+    ) public {
         _l2BlockNumber = bound(_l2BlockNumber, 1, type(uint256).max);
 
         (Types.OutputRootProof memory outputRootProof, bytes32 outputRoot, bytes memory headerRLP) =
@@ -1983,11 +1975,7 @@ contract FaultDisputeGame_Test is FaultDisputeGame_Init {
         bytes32 _storageRoot,
         bytes32 _withdrawalRoot,
         bytes memory _l2BlockNumber
-    )
-        internal
-        pure
-        returns (Types.OutputRootProof memory proof_, bytes32 root_, bytes memory rlp_)
-    {
+    ) internal pure returns (Types.OutputRootProof memory proof_, bytes32 root_, bytes memory rlp_) {
         // L2 Block header
         bytes[] memory rawHeaderRLP = new bytes[](9);
         rawHeaderRLP[0] = hex"83FACADE";
@@ -2465,9 +2453,7 @@ contract FaultDispute_1v1_Actors_Test is FaultDisputeGame_Init {
         bytes memory _dishonestTrace,
         uint256[] memory _dishonestL2Outputs,
         GameStatus _expectedStatus
-    )
-        internal
-    {
+    ) internal {
         // Setup the environment
         bytes memory absolutePrestateData =
             _setup({ _absolutePrestateData: _absolutePrestateData, _rootClaim: _rootClaim });
@@ -2494,10 +2480,7 @@ contract FaultDispute_1v1_Actors_Test is FaultDisputeGame_Init {
     function _setup(
         uint256 _absolutePrestateData,
         uint256 _rootClaim
-    )
-        internal
-        returns (bytes memory absolutePrestateData_)
-    {
+    ) internal returns (bytes memory absolutePrestateData_) {
         absolutePrestateData_ = abi.encode(_absolutePrestateData);
         Claim absolutePrestateExec =
             _changeClaimStatus(Claim.wrap(keccak256(absolutePrestateData_)), VMStatuses.UNFINISHED);
@@ -2513,9 +2496,7 @@ contract FaultDispute_1v1_Actors_Test is FaultDisputeGame_Init {
         bytes memory _dishonestTrace,
         bytes memory _dishonestPreStateData,
         uint256[] memory _dishonestL2Outputs
-    )
-        internal
-    {
+    ) internal {
         honest = new HonestDisputeActor({
             _gameProxy: gameProxy,
             _l2Outputs: _honestL2Outputs,

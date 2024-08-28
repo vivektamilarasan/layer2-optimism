@@ -22,11 +22,7 @@ contract AlphabetVM is IBigStepper {
         bytes calldata _stateData,
         bytes calldata,
         bytes32 _localContext
-    )
-        external
-        view
-        returns (bytes32 postState_)
-    {
+    ) external view returns (bytes32 postState_) {
         uint256 traceIndex;
         uint256 claim;
         if ((keccak256(_stateData) << 8) == (Claim.unwrap(ABSOLUTE_PRESTATE) << 8)) {

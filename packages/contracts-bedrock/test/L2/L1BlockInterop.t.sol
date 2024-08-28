@@ -87,10 +87,7 @@ contract L1BlockInteropTest is CommonTest {
         uint8 _decimals,
         bytes32 _name,
         bytes32 _symbol
-    )
-        public
-        prankDepositor
-    {
+    ) public prankDepositor {
         vm.assume(_token != address(vm));
 
         vm.expectEmit(address(l1Block));
@@ -108,9 +105,7 @@ contract L1BlockInteropTest is CommonTest {
         uint8 _decimals,
         bytes32 _name,
         bytes32 _symbol
-    )
-        public
-    {
+    ) public {
         vm.assume(_token != address(vm));
 
         vm.expectRevert(NotDepositor.selector);

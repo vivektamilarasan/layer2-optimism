@@ -79,11 +79,7 @@ contract PermissionedDisputeGame is FaultDisputeGame {
         bool _isAttack,
         bytes calldata _stateData,
         bytes calldata _proof
-    )
-        public
-        override
-        onlyAuthorized
-    {
+    ) public override onlyAuthorized {
         super.step(_claimIndex, _isAttack, _stateData, _proof);
     }
 
@@ -97,12 +93,7 @@ contract PermissionedDisputeGame is FaultDisputeGame {
         uint256 _challengeIndex,
         Claim _claim,
         bool _isAttack
-    )
-        public
-        payable
-        override
-        onlyAuthorized
-    {
+    ) public payable override onlyAuthorized {
         super.move(_disputed, _challengeIndex, _claim, _isAttack);
     }
 

@@ -215,10 +215,7 @@ abstract contract CrossDomainMessenger is
         uint256 _value,
         uint256 _minGasLimit,
         bytes calldata _message
-    )
-        external
-        payable
-    {
+    ) external payable {
         // On L1 this function will check the Portal for its paused status.
         // On L2 this function should be a no-op, because paused will always return false.
         require(paused() == false, "CrossDomainMessenger: paused");

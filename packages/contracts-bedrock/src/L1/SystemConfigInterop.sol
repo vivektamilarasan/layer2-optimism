@@ -44,10 +44,7 @@ contract SystemConfigInterop is SystemConfig {
         address _batchInbox,
         SystemConfig.Addresses memory _addresses,
         address _dependencyManager
-    )
-        external
-        initializer
-    {
+    ) external initializer {
         initialize({
             _owner: _owner,
             _basefeeScalar: _basefeeScalar,

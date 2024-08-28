@@ -129,9 +129,7 @@ contract SuperchainWETH_Test is CommonTest {
         address _caller,
         address _recipient,
         uint256 _chainId
-    )
-        public
-    {
+    ) public {
         // Assume
         vm.assume(_chainId != block.chainid);
         _amount = bound(_amount, 0, type(uint248).max - 1);
@@ -268,9 +266,7 @@ contract SuperchainWETH_Test is CommonTest {
         address _sender,
         uint256 _amount,
         uint256 _chainId
-    )
-        public
-    {
+    ) public {
         // Assume
         _amount = bound(_amount, 0, type(uint248).max - 1);
 

@@ -49,10 +49,7 @@ contract OptimismPortal2_Depositor is StdUtils, ResourceMetering {
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        public
-        payable
-    {
+    ) public payable {
         vm.assume((!_isCreation || _to == address(0)) && _data.length <= 120_000);
 
         uint256 preDepositvalue = bound(_value, 0, type(uint128).max);

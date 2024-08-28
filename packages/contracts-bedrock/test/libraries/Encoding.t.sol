@@ -38,9 +38,7 @@ contract Encoding_Test is CommonTest {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        external
-    {
+    ) external {
         uint8 version = _version % 2;
         uint256 nonce = Encoding.encodeVersionedNonce(_nonce, version);
 
@@ -57,10 +55,7 @@ contract Encoding_Test is CommonTest {
         address _sender,
         address _target,
         bytes memory _data
-    )
-        external
-        pure
-    {
+    ) external pure {
         uint8 version = 0;
         uint256 nonce = Encoding.encodeVersionedNonce(_nonce, version);
 
@@ -81,9 +76,7 @@ contract Encoding_Test is CommonTest {
         bool isCreate,
         bytes memory _data,
         uint64 _logIndex
-    )
-        external
-    {
+    ) external {
         Types.UserDepositTransaction memory t = Types.UserDepositTransaction(
             _from, _to, isCreate, _value, _mint, _gas, _data, bytes32(uint256(0)), _logIndex
         );

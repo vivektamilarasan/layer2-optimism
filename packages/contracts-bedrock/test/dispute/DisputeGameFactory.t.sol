@@ -36,9 +36,7 @@ contract DisputeGameFactory_Create_Test is DisputeGameFactory_Init {
         Claim rootClaim,
         bytes calldata extraData,
         uint256 _value
-    )
-        public
-    {
+    ) public {
         // Ensure that the `gameType` is within the bounds of the `GameType` enum's possible values.
         GameType gt = GameType.wrap(uint8(bound(gameType, 0, 2)));
         // Ensure the rootClaim has a VMStatus that disagrees with the validity.
@@ -77,9 +75,7 @@ contract DisputeGameFactory_Create_Test is DisputeGameFactory_Init {
         uint32 gameType,
         Claim rootClaim,
         bytes calldata extraData
-    )
-        public
-    {
+    ) public {
         // Ensure that the `gameType` is within the bounds of the `GameType` enum's possible values.
         GameType gt = GameType.wrap(uint8(bound(gameType, 0, 2)));
         // Ensure the rootClaim has a VMStatus that disagrees with the validity.
@@ -319,9 +315,7 @@ contract DisputeGameFactory_FindLatestGames_Test is DisputeGameFactory_Init {
         uint256 _numGames,
         uint256 _numSearchedGames,
         uint256 _n
-    )
-        public
-    {
+    ) public {
         _numGames = bound(_numGames, 0, 1 << 8);
         _numSearchedGames = bound(_numSearchedGames, 0, _numGames);
         _n = bound(_n, 0, _numSearchedGames);

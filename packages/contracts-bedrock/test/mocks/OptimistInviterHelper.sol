@@ -81,11 +81,7 @@ contract OptimistInviterHelper {
         bytes memory _version,
         uint256 _chainid,
         address _verifyingContract
-    )
-        public
-        pure
-        returns (bytes32)
-    {
+    ) public pure returns (bytes32) {
         bytes32 domainSeparator = keccak256(
             abi.encode(EIP712_DOMAIN_TYPEHASH, keccak256(_name), keccak256(_version), _chainid, _verifyingContract)
         );

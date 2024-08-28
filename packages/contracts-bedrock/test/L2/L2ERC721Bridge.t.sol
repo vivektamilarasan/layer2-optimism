@@ -26,9 +26,7 @@ contract TestMintableERC721 is OptimismMintableERC721 {
     constructor(
         address _bridge,
         address _remoteToken
-    )
-        OptimismMintableERC721(_bridge, 1, _remoteToken, "Test", "TST")
-    { }
+    ) OptimismMintableERC721(_bridge, 1, _remoteToken, "Test", "TST") { }
 
     function mint(address to, uint256 tokenId) public {
         _mint(to, tokenId);

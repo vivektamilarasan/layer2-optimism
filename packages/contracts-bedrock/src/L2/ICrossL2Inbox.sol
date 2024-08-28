@@ -45,9 +45,7 @@ interface ICrossL2Inbox {
         ICrossL2Inbox.Identifier calldata _id,
         address _target,
         bytes calldata _msg
-    )
-        external
-        payable;
+    ) external payable;
 
     /// @notice Validates a cross chain message on the destination chain
     ///         and emits an ExecutingMessage event. This function is useful

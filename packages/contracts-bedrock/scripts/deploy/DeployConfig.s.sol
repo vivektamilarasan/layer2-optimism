@@ -287,11 +287,7 @@ contract DeployConfig is Script {
         string memory json,
         string memory key,
         string memory defaultValue
-    )
-        internal
-        view
-        returns (string memory)
-    {
+    ) internal view returns (string memory) {
         return vm.keyExists(json, key) ? json.readString(key) : defaultValue;
     }
 }

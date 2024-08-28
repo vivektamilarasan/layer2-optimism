@@ -52,9 +52,7 @@ contract OptimismMintableERC20 is IOptimismMintableERC20, ILegacyMintableERC20, 
         string memory _name,
         string memory _symbol,
         uint8 _decimals
-    )
-        ERC20(_name, _symbol)
-    {
+    ) ERC20(_name, _symbol) {
         REMOTE_TOKEN = _remoteToken;
         BRIDGE = _bridge;
         DECIMALS = _decimals;
@@ -66,12 +64,7 @@ contract OptimismMintableERC20 is IOptimismMintableERC20, ILegacyMintableERC20, 
     function mint(
         address _to,
         uint256 _amount
-    )
-        external
-        virtual
-        override(IOptimismMintableERC20, ILegacyMintableERC20)
-        onlyBridge
-    {
+    ) external virtual override(IOptimismMintableERC20, ILegacyMintableERC20) onlyBridge {
         _mint(_to, _amount);
         emit Mint(_to, _amount);
     }
@@ -82,12 +75,7 @@ contract OptimismMintableERC20 is IOptimismMintableERC20, ILegacyMintableERC20, 
     function burn(
         address _from,
         uint256 _amount
-    )
-        external
-        virtual
-        override(IOptimismMintableERC20, ILegacyMintableERC20)
-        onlyBridge
-    {
+    ) external virtual override(IOptimismMintableERC20, ILegacyMintableERC20) onlyBridge {
         _burn(_from, _amount);
         emit Burn(_from, _amount);
     }

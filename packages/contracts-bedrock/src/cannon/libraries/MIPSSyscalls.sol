@@ -159,11 +159,7 @@ library MIPSSyscalls {
         uint32 _a0,
         uint32 _a1,
         uint32 _heap
-    )
-        internal
-        pure
-        returns (uint32 v0_, uint32 v1_, uint32 newHeap_)
-    {
+    ) internal pure returns (uint32 v0_, uint32 v1_, uint32 newHeap_) {
         unchecked {
             v1_ = uint32(0);
             newHeap_ = _heap;
@@ -281,11 +277,7 @@ library MIPSSyscalls {
         uint32 _preimageOffset,
         uint256 _proofOffset,
         bytes32 _memRoot
-    )
-        internal
-        pure
-        returns (uint32 v0_, uint32 v1_, bytes32 newPreimageKey_, uint32 newPreimageOffset_)
-    {
+    ) internal pure returns (uint32 v0_, uint32 v1_, bytes32 newPreimageKey_, uint32 newPreimageOffset_) {
         unchecked {
             // args: _a0 = fd, _a1 = addr, _a2 = count
             // returns: v0_ = written, v1_ = err code
@@ -364,10 +356,7 @@ library MIPSSyscalls {
         uint32[32] memory _registers,
         uint32 _v0,
         uint32 _v1
-    )
-        internal
-        pure
-    {
+    ) internal pure {
         unchecked {
             // Write the results back to the state registers
             _registers[2] = _v0;

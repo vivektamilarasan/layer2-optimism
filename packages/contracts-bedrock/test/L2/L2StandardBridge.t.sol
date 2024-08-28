@@ -638,9 +638,7 @@ contract L2StandardBridge_Bridge_Test is Bridge_Initializer {
         uint256 _value,
         uint32 _minGasLimit,
         bytes calldata _extraData
-    )
-        external
-    {
+    ) external {
         vm.mockCall(address(l1Block), abi.encodeWithSignature("gasPayingToken()"), abi.encode(address(1), uint8(2)));
         vm.expectRevert("StandardBridge: cannot bridge ETH with custom gas token");
         vm.deal(address(this), _value);

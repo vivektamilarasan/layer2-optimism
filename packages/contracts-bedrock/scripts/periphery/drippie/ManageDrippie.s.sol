@@ -107,11 +107,7 @@ contract ManageDrippie is Script {
     function _makeGelatoDripTaskData(
         Drippie _drippie,
         string memory _name
-    )
-        internal
-        view
-        returns (GelatoTaskData memory _taskData)
-    {
+    ) internal view returns (GelatoTaskData memory _taskData) {
         // Get the drip interval.
         uint256 dripInterval = _drippie.getDripInterval(_name);
 
@@ -163,11 +159,7 @@ contract ManageDrippie is Script {
         IGelato _gelato,
         Drippie _drippie,
         string memory _name
-    )
-        internal
-        view
-        returns (bool _active)
-    {
+    ) internal view returns (bool _active) {
         GelatoTaskData memory taskData = _makeGelatoDripTaskData({ _drippie: _drippie, _name: _name });
         bytes32 taskId = GelatoTaskId.getTaskId({
             taskCreator: taskData.taskCreator,
@@ -213,9 +205,7 @@ contract ManageDrippie is Script {
         Drippie _drippie,
         string memory _name,
         Drippie.DripConfig memory _config
-    )
-        internal
-    {
+    ) internal {
         if (_drippie.getDripStatus(_name) == Drippie.DripStatus.NONE) {
             console.log("installing %s", _name);
             _drippie.create(_name, _config);

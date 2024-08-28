@@ -120,10 +120,7 @@ contract LibPosition_Test is Test {
         uint8 _maxDepth,
         uint8 _depth,
         uint128 _indexAtDepth
-    )
-        public
-        pure
-    {
+    ) public pure {
         // Max depth bound: [1, 63]
         // The max game depth MUST be at least 1.
         _maxDepth = uint8(bound(_maxDepth, 1, MAX_DEPTH));

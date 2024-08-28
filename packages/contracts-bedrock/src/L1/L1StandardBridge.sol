@@ -96,10 +96,7 @@ contract L1StandardBridge is StandardBridge, ISemver {
         CrossDomainMessenger _messenger,
         SuperchainConfig _superchainConfig,
         SystemConfig _systemConfig
-    )
-        public
-        initializer
-    {
+    ) public initializer {
         superchainConfig = _superchainConfig;
         systemConfig = _systemConfig;
         __StandardBridge_init({
@@ -163,11 +160,7 @@ contract L1StandardBridge is StandardBridge, ISemver {
         uint256 _amount,
         uint32 _minGasLimit,
         bytes calldata _extraData
-    )
-        external
-        virtual
-        onlyEOA
-    {
+    ) external virtual onlyEOA {
         _initiateERC20Deposit(_l1Token, _l2Token, msg.sender, msg.sender, _amount, _minGasLimit, _extraData);
     }
 
@@ -188,10 +181,7 @@ contract L1StandardBridge is StandardBridge, ISemver {
         uint256 _amount,
         uint32 _minGasLimit,
         bytes calldata _extraData
-    )
-        external
-        virtual
-    {
+    ) external virtual {
         _initiateERC20Deposit(_l1Token, _l2Token, msg.sender, _to, _amount, _minGasLimit, _extraData);
     }
 
@@ -206,10 +196,7 @@ contract L1StandardBridge is StandardBridge, ISemver {
         address _to,
         uint256 _amount,
         bytes calldata _extraData
-    )
-        external
-        payable
-    {
+    ) external payable {
         finalizeBridgeETH(_from, _to, _amount, _extraData);
     }
 
@@ -228,9 +215,7 @@ contract L1StandardBridge is StandardBridge, ISemver {
         address _to,
         uint256 _amount,
         bytes calldata _extraData
-    )
-        external
-    {
+    ) external {
         finalizeBridgeERC20(_l1Token, _l2Token, _from, _to, _amount, _extraData);
     }
 
@@ -266,9 +251,7 @@ contract L1StandardBridge is StandardBridge, ISemver {
         uint256 _amount,
         uint32 _minGasLimit,
         bytes memory _extraData
-    )
-        internal
-    {
+    ) internal {
         _initiateBridgeERC20(_l1Token, _l2Token, _from, _to, _amount, _minGasLimit, _extraData);
     }
 
@@ -280,10 +263,7 @@ contract L1StandardBridge is StandardBridge, ISemver {
         address _to,
         uint256 _amount,
         bytes memory _extraData
-    )
-        internal
-        override
-    {
+    ) internal override {
         emit ETHDepositInitiated(_from, _to, _amount, _extraData);
         super._emitETHBridgeInitiated(_from, _to, _amount, _extraData);
     }
@@ -296,10 +276,7 @@ contract L1StandardBridge is StandardBridge, ISemver {
         address _to,
         uint256 _amount,
         bytes memory _extraData
-    )
-        internal
-        override
-    {
+    ) internal override {
         emit ETHWithdrawalFinalized(_from, _to, _amount, _extraData);
         super._emitETHBridgeFinalized(_from, _to, _amount, _extraData);
     }
@@ -314,10 +291,7 @@ contract L1StandardBridge is StandardBridge, ISemver {
         address _to,
         uint256 _amount,
         bytes memory _extraData
-    )
-        internal
-        override
-    {
+    ) internal override {
         emit ERC20DepositInitiated(_localToken, _remoteToken, _from, _to, _amount, _extraData);
         super._emitERC20BridgeInitiated(_localToken, _remoteToken, _from, _to, _amount, _extraData);
     }
@@ -332,10 +306,7 @@ contract L1StandardBridge is StandardBridge, ISemver {
         address _to,
         uint256 _amount,
         bytes memory _extraData
-    )
-        internal
-        override
-    {
+    ) internal override {
         emit ERC20WithdrawalFinalized(_localToken, _remoteToken, _from, _to, _amount, _extraData);
         super._emitERC20BridgeFinalized(_localToken, _remoteToken, _from, _to, _amount, _extraData);
     }

@@ -81,10 +81,7 @@ contract OptimismMintableERC20Factory is ISemver, Initializable, IOptimismERC20F
         address _remoteToken,
         string memory _name,
         string memory _symbol
-    )
-        external
-        returns (address)
-    {
+    ) external returns (address) {
         return createOptimismMintableERC20(_remoteToken, _name, _symbol);
     }
 
@@ -97,10 +94,7 @@ contract OptimismMintableERC20Factory is ISemver, Initializable, IOptimismERC20F
         address _remoteToken,
         string memory _name,
         string memory _symbol
-    )
-        public
-        returns (address)
-    {
+    ) public returns (address) {
         return createOptimismMintableERC20WithDecimals(_remoteToken, _name, _symbol, 18);
     }
 
@@ -115,10 +109,7 @@ contract OptimismMintableERC20Factory is ISemver, Initializable, IOptimismERC20F
         string memory _name,
         string memory _symbol,
         uint8 _decimals
-    )
-        public
-        returns (address)
-    {
+    ) public returns (address) {
         require(_remoteToken != address(0), "OptimismMintableERC20Factory: must provide remote token address");
 
         bytes32 salt = keccak256(abi.encode(_remoteToken, _name, _symbol, _decimals));

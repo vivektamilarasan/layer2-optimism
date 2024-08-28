@@ -37,7 +37,5 @@ interface IL2ToL2CrossDomainMessenger {
         address _sender,
         address _target,
         bytes calldata _message
-    )
-        external
-        payable;
+    ) external payable;
 }

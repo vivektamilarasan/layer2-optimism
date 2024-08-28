@@ -125,10 +125,7 @@ contract OptimistInviter_Initializer is Test {
         bytes memory _eip712Version,
         uint256 _eip712Chainid,
         address _eip712VerifyingContract
-    )
-        internal
-        returns (OptimistInviter.ClaimableInvite memory, bytes memory)
-    {
+    ) internal returns (OptimistInviter.ClaimableInvite memory, bytes memory) {
         address issuer = vm.addr(_issuerPrivateKey);
         OptimistInviter.ClaimableInvite memory claimableInvite =
             optimistInviterHelper.getClaimableInviteWithNewNonce(issuer);
@@ -159,10 +156,7 @@ contract OptimistInviter_Initializer is Test {
     function _issueThenClaimShouldSucceed(
         uint256 _issuerPrivateKey,
         address _claimer
-    )
-        internal
-        returns (OptimistInviter.ClaimableInvite memory, bytes memory)
-    {
+    ) internal returns (OptimistInviter.ClaimableInvite memory, bytes memory) {
         address issuer = vm.addr(_issuerPrivateKey);
         uint256 prevInviteCount = _getInviteCount(issuer);
         (OptimistInviter.ClaimableInvite memory claimableInvite, bytes memory signature) =

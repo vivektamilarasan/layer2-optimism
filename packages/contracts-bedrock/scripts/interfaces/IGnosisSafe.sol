@@ -40,9 +40,7 @@ interface IGnosisSafe {
         bytes memory data,
         bytes memory signatures,
         uint256 requiredSignatures
-    )
-        external
-        view;
+    ) external view;
     function checkSignatures(bytes32 dataHash, bytes memory data, bytes memory signatures) external view;
     function disableModule(address prevModule, address module) external;
     function domainSeparator() external view returns (bytes32);
@@ -58,10 +56,7 @@ interface IGnosisSafe {
         address gasToken,
         address refundReceiver,
         uint256 _nonce
-    )
-        external
-        view
-        returns (bytes memory);
+    ) external view returns (bytes memory);
     function execTransaction(
         address to,
         uint256 value,
@@ -73,34 +68,24 @@ interface IGnosisSafe {
         address gasToken,
         address refundReceiver,
         bytes memory signatures
-    )
-        external
-        payable
-        returns (bool success);
+    ) external payable returns (bool success);
     function execTransactionFromModule(
         address to,
         uint256 value,
         bytes memory data,
         Enum.Operation operation
-    )
-        external
-        returns (bool success);
+    ) external returns (bool success);
     function execTransactionFromModuleReturnData(
         address to,
         uint256 value,
         bytes memory data,
         Enum.Operation operation
-    )
-        external
-        returns (bool success, bytes memory returnData);
+    ) external returns (bool success, bytes memory returnData);
     function getChainId() external view returns (uint256);
     function getModulesPaginated(
         address start,
         uint256 pageSize
-    )
-        external
-        view
-        returns (address[] memory array, address next);
+    ) external view returns (address[] memory array, address next);
     function getOwners() external view returns (address[] memory);
     function getStorageAt(uint256 offset, uint256 length) external view returns (bytes memory);
     function getThreshold() external view returns (uint256);
@@ -115,10 +100,7 @@ interface IGnosisSafe {
         address gasToken,
         address refundReceiver,
         uint256 _nonce
-    )
-        external
-        view
-        returns (bytes32);
+    ) external view returns (bytes32);
     function isModuleEnabled(address module) external view returns (bool);
     function isOwner(address owner) external view returns (bool);
     function nonce() external view returns (uint256);
@@ -128,9 +110,7 @@ interface IGnosisSafe {
         uint256 value,
         bytes memory data,
         Enum.Operation operation
-    )
-        external
-        returns (uint256);
+    ) external returns (uint256);
     function setFallbackHandler(address handler) external;
     function setGuard(address guard) external;
     function setup(
@@ -142,8 +122,7 @@ interface IGnosisSafe {
         address paymentToken,
         uint256 payment,
         address paymentReceiver
-    )
-        external;
+    ) external;
     function signedMessages(bytes32) external view returns (uint256);
     function simulateAndRevert(address targetContract, bytes memory calldataPayload) external;
     function swapOwner(address prevOwner, address oldOwner, address newOwner) external;

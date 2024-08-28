@@ -29,9 +29,7 @@ contract SystemConfigInterop_Test is CommonTest {
         address _token,
         string calldata _name,
         string calldata _symbol
-    )
-        public
-    {
+    ) public {
         assumeNotForgeAddress(_token);
         vm.assume(_token != address(0));
         vm.assume(_token != Constants.ETHER);

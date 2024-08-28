@@ -180,10 +180,7 @@ contract OptimismPortal2 is Initializable, ResourceMetering, ISemver {
         SystemConfig _systemConfig,
         SuperchainConfig _superchainConfig,
         GameType _initialRespectedGameType
-    )
-        public
-        initializer
-    {
+    ) public initializer {
         disputeGameFactory = _disputeGameFactory;
         systemConfig = _systemConfig;
         superchainConfig = _superchainConfig;
@@ -286,10 +283,7 @@ contract OptimismPortal2 is Initializable, ResourceMetering, ISemver {
         uint256 _disputeGameIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-        whenNotPaused
-    {
+    ) external whenNotPaused {
         // Prevent users from creating a deposit transaction where this address is the message
         // sender on L2. Because this is checked here, we do not need to check again in
         // `finalizeWithdrawalTransaction`.
@@ -362,10 +356,7 @@ contract OptimismPortal2 is Initializable, ResourceMetering, ISemver {
     function finalizeWithdrawalTransactionExternalProof(
         Types.WithdrawalTransaction memory _tx,
         address _proofSubmitter
-    )
-        public
-        whenNotPaused
-    {
+    ) public whenNotPaused {
         // Make sure that the l2Sender has not yet been set. The l2Sender is set to a value other
         // than the default value when a withdrawal transaction is being finalized. This check is
         // a defacto reentrancy guard.
@@ -460,10 +451,7 @@ contract OptimismPortal2 is Initializable, ResourceMetering, ISemver {
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        public
-        metered(_gasLimit)
-    {
+    ) public metered(_gasLimit) {
         // Can only be called if an ERC20 token is used for gas paying on L2
         (address token,) = gasPayingToken();
         if (token == Constants.ETHER) revert OnlyCustomGasToken();
@@ -507,11 +495,7 @@ contract OptimismPortal2 is Initializable, ResourceMetering, ISemver {
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        public
-        payable
-        metered(_gasLimit)
-    {
+    ) public payable metered(_gasLimit) {
         (address token,) = gasPayingToken();
         if (token != Constants.ETHER && msg.value != 0) revert NoValue();
 
@@ -539,9 +523,7 @@ contract OptimismPortal2 is Initializable, ResourceMetering, ISemver {
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        internal
-    {
+    ) internal {
         // Just to be safe, make sure that people specify address(0) as the target when doing
         // contract creations.
         if (_isCreation && _to != address(0)) revert BadTarget();

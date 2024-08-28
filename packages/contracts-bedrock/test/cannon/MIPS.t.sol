@@ -1755,10 +1755,7 @@ contract MIPS_Test is CommonTest {
         uint32 insn,
         uint32 addr,
         uint32 val
-    )
-        internal
-        returns (MIPS.State memory state, bytes memory proof)
-    {
+    ) internal returns (MIPS.State memory state, bytes memory proof) {
         (state.memRoot, proof) = ffi.getCannonMemoryProof(pc, insn, addr, val);
         state.pc = pc;
         state.nextPC = pc + 4;

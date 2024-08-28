@@ -52,11 +52,7 @@ library MerkleTrie {
         bytes memory _value,
         bytes[] memory _proof,
         bytes32 _root
-    )
-        internal
-        pure
-        returns (bool valid_)
-    {
+    ) internal pure returns (bool valid_) {
         valid_ = Bytes.equal(_value, get(_key, _proof, _root));
     }
 

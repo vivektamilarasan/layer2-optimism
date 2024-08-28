@@ -50,10 +50,7 @@ interface IDisputeGameFactory {
         GameType _gameType,
         Claim _rootClaim,
         bytes calldata _extraData
-    )
-        external
-        view
-        returns (IDisputeGame proxy_, Timestamp timestamp_);
+    ) external view returns (IDisputeGame proxy_, Timestamp timestamp_);
 
     /// @notice `gameAtIndex` returns the dispute game contract address and its creation timestamp
     ///          at the given index. Each created dispute game increments the underlying index.
@@ -88,10 +85,7 @@ interface IDisputeGameFactory {
         GameType _gameType,
         Claim _rootClaim,
         bytes calldata _extraData
-    )
-        external
-        payable
-        returns (IDisputeGame proxy_);
+    ) external payable returns (IDisputeGame proxy_);
 
     /// @notice Sets the implementation contract for a specific `GameType`.
     /// @dev May only be called by the `owner`.
@@ -116,10 +110,7 @@ interface IDisputeGameFactory {
         GameType _gameType,
         Claim _rootClaim,
         bytes memory _extraData
-    )
-        external
-        pure
-        returns (Hash uuid_);
+    ) external pure returns (Hash uuid_);
 
     /// @notice Finds the `_n` most recent `GameId`'s of type `_gameType` starting at `_start`. If there are less than
     ///         `_n` games of type `_gameType` starting at `_start`, then the returned array will be shorter than `_n`.
@@ -130,8 +121,5 @@ interface IDisputeGameFactory {
         GameType _gameType,
         uint256 _start,
         uint256 _n
-    )
-        external
-        view
-        returns (GameSearchResult[] memory games_);
+    ) external view returns (GameSearchResult[] memory games_);
 }

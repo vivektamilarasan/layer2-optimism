@@ -100,9 +100,7 @@ contract DelayedVetoable_HandleCall_Test is DelayedVetoable_Init {
     function testFuzz_handleCall_initialForwardingImmediately_succeeds(
         bytes calldata inData,
         bytes calldata outData
-    )
-        external
-    {
+    ) external {
         assumeNonzeroData(inData);
         assumeNoClash(inData);
 
@@ -195,9 +193,7 @@ contract DelayedVetoable_HandleCall_TestFail is DelayedVetoable_Init {
     function testFuzz_handleCall_forwardingTargetReverts_reverts(
         bytes calldata inData,
         bytes calldata outData
-    )
-        external
-    {
+    ) external {
         assumeNoClash(inData);
 
         // Initiate the call
@@ -220,9 +216,7 @@ contract DelayedVetoable_HandleCall_TestFail is DelayedVetoable_Init {
     function testFuzz_handleCall_forwardingTargetRetValue_succeeds(
         bytes calldata inData,
         bytes calldata outData
-    )
-        external
-    {
+    ) external {
         assumeNoClash(inData);
 
         // Initiate the call

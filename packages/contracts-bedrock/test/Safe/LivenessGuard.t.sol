@@ -232,9 +232,7 @@ contract LivenessGuard_FuzzOwnerManagement_Test is StdCheats, StdUtils, Liveness
         uint256 initialOwners,
         uint256 threshold,
         OwnerChange[] memory changes
-    )
-        external
-    {
+    ) external {
         vm.assume(changes.length < 20);
         // Initialize the safe with more owners than changes, to ensure we don't try to remove them all
         initialOwners = bound(initialOwners, changes.length, 2 * changes.length);
