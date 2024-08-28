@@ -93,12 +93,7 @@ contract L2StandardBridge is StandardBridge, ISemver {
     /// @param _amount      Amount of the L2 token to withdraw.
     /// @param _minGasLimit Minimum gas limit to use for the transaction.
     /// @param _extraData   Extra data attached to the withdrawal.
-    function withdraw(
-        address _l2Token,
-        uint256 _amount,
-        uint32 _minGasLimit,
-        bytes calldata _extraData
-    )
+    function withdraw(address _l2Token, uint256 _amount, uint32 _minGasLimit, bytes calldata _extraData)
         external
         payable
         virtual
@@ -122,13 +117,7 @@ contract L2StandardBridge is StandardBridge, ISemver {
     /// @param _amount      Amount of the L2 token to withdraw.
     /// @param _minGasLimit Minimum gas limit to use for the transaction.
     /// @param _extraData   Extra data attached to the withdrawal.
-    function withdrawTo(
-        address _l2Token,
-        address _to,
-        uint256 _amount,
-        uint32 _minGasLimit,
-        bytes calldata _extraData
-    )
+    function withdrawTo(address _l2Token, address _to, uint256 _amount, uint32 _minGasLimit, bytes calldata _extraData)
         external
         payable
         virtual
@@ -159,9 +148,7 @@ contract L2StandardBridge is StandardBridge, ISemver {
         uint256 _amount,
         uint32 _minGasLimit,
         bytes memory _extraData
-    )
-        internal
-    {
+    ) internal {
         if (_l2Token == Predeploys.LEGACY_ERC20_ETH) {
             _initiateBridgeETH(_from, _to, _amount, _minGasLimit, _extraData);
         } else {
@@ -173,12 +160,7 @@ contract L2StandardBridge is StandardBridge, ISemver {
     /// @notice Emits the legacy WithdrawalInitiated event followed by the ETHBridgeInitiated event.
     ///         This is necessary for backwards compatibility with the legacy bridge.
     /// @inheritdoc StandardBridge
-    function _emitETHBridgeInitiated(
-        address _from,
-        address _to,
-        uint256 _amount,
-        bytes memory _extraData
-    )
+    function _emitETHBridgeInitiated(address _from, address _to, uint256 _amount, bytes memory _extraData)
         internal
         override
     {
@@ -189,12 +171,7 @@ contract L2StandardBridge is StandardBridge, ISemver {
     /// @notice Emits the legacy DepositFinalized event followed by the ETHBridgeFinalized event.
     ///         This is necessary for backwards compatibility with the legacy bridge.
     /// @inheritdoc StandardBridge
-    function _emitETHBridgeFinalized(
-        address _from,
-        address _to,
-        uint256 _amount,
-        bytes memory _extraData
-    )
+    function _emitETHBridgeFinalized(address _from, address _to, uint256 _amount, bytes memory _extraData)
         internal
         override
     {
@@ -212,10 +189,7 @@ contract L2StandardBridge is StandardBridge, ISemver {
         address _to,
         uint256 _amount,
         bytes memory _extraData
-    )
-        internal
-        override
-    {
+    ) internal override {
         emit WithdrawalInitiated(_remoteToken, _localToken, _from, _to, _amount, _extraData);
         super._emitERC20BridgeInitiated(_localToken, _remoteToken, _from, _to, _amount, _extraData);
     }
@@ -230,10 +204,7 @@ contract L2StandardBridge is StandardBridge, ISemver {
         address _to,
         uint256 _amount,
         bytes memory _extraData
-    )
-        internal
-        override
-    {
+    ) internal override {
         emit DepositFinalized(_remoteToken, _localToken, _from, _to, _amount, _extraData);
         super._emitERC20BridgeFinalized(_localToken, _remoteToken, _from, _to, _amount, _extraData);
     }

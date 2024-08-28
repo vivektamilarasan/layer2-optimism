@@ -104,10 +104,7 @@ contract ManageDrippie is Script {
     /// @param _drippie The drippie contract.
     /// @param _name The name of the drip.
     /// @return _taskData Gelato task data.
-    function _makeGelatoDripTaskData(
-        Drippie _drippie,
-        string memory _name
-    )
+    function _makeGelatoDripTaskData(Drippie _drippie, string memory _name)
         internal
         view
         returns (GelatoTaskData memory _taskData)
@@ -159,11 +156,7 @@ contract ManageDrippie is Script {
     /// @param _drippie The drippie contract.
     /// @param _name The name of the drip being triggered.
     /// @return _active True if the task is active, false otherwise.
-    function _isGelatoDripTaskActive(
-        IGelato _gelato,
-        Drippie _drippie,
-        string memory _name
-    )
+    function _isGelatoDripTaskActive(IGelato _gelato, Drippie _drippie, string memory _name)
         internal
         view
         returns (bool _active)
@@ -208,12 +201,7 @@ contract ManageDrippie is Script {
     /// @param _drippie The drippie contract.
     /// @param _name The name of the drip.
     /// @param _config The configuration of the drip.
-    function _installDrip(
-        IGelato _gelato,
-        Drippie _drippie,
-        string memory _name,
-        Drippie.DripConfig memory _config
-    )
+    function _installDrip(IGelato _gelato, Drippie _drippie, string memory _name, Drippie.DripConfig memory _config)
         internal
     {
         if (_drippie.getDripStatus(_name) == Drippie.DripStatus.NONE) {

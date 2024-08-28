@@ -72,10 +72,7 @@ library SafeTestLib {
     }
 
     /// @dev Get arrays of addresses and private keys. The arrays are sorted by address, and the addresses are labelled
-    function makeAddrsAndKeys(
-        string memory prefix,
-        uint256 num
-    )
+    function makeAddrsAndKeys(string memory prefix, uint256 num)
         internal
         returns (address[] memory addrs, uint256[] memory keys)
     {
@@ -171,11 +168,7 @@ library SafeTestLib {
         uint256 gasPrice,
         address gasToken,
         address refundReceiver
-    )
-        internal
-        view
-        returns (uint8 v, bytes32 r, bytes32 s)
-    {
+    ) internal view returns (uint8 v, bytes32 r, bytes32 s) {
         bytes32 txDataHash;
         {
             uint256 _nonce = instance.safe.nonce();
@@ -210,10 +203,7 @@ library SafeTestLib {
     ///      It is useful when testing for a revert, as it avoids the need to call to the Safe contract.
     /// @param _owner The owner whose previous owner we want to find
     /// @param _ownersList The list of owners to search in
-    function getPrevOwnerFromList(
-        address _owner,
-        address[] memory _ownersList
-    )
+    function getPrevOwnerFromList(address _owner, address[] memory _ownersList)
         internal
         pure
         returns (address prevOwner_)
@@ -234,10 +224,7 @@ library SafeTestLib {
     ///         the owners list after each removal, in order to identify the correct previous owner.
     /// @param _ownersToRemove The owners to remove
     /// @return prevOwners_ The previous owners in the linked list
-    function getPrevOwners(
-        SafeInstance memory instance,
-        address[] memory _ownersToRemove
-    )
+    function getPrevOwners(SafeInstance memory instance, address[] memory _ownersToRemove)
         internal
         returns (address[] memory prevOwners_)
     {
@@ -406,10 +393,7 @@ library SafeTestLib {
         address gasToken,
         address refundReceiver,
         bytes memory signatures
-    )
-        internal
-        returns (bool)
-    {
+    ) internal returns (bool) {
         if (instance.owners.length == 0) {
             revert("SAFETEST: Instance not initialized. Call _setupSafe() to initialize a test safe");
         }
@@ -468,20 +452,12 @@ library SafeTestLib {
         uint256 value,
         bytes memory data,
         Enum.Operation operation
-    )
-        internal
-        returns (bool)
-    {
+    ) internal returns (bool) {
         return execTransaction(instance, to, value, data, operation, 0, 0, 0, address(0), address(0), "");
     }
 
     /// @dev Executes a CALL transaction.
-    function execTransaction(
-        SafeInstance memory instance,
-        address to,
-        uint256 value,
-        bytes memory data
-    )
+    function execTransaction(SafeInstance memory instance, address to, uint256 value, bytes memory data)
         internal
         returns (bool)
     {
@@ -519,10 +495,7 @@ contract SafeTestTools {
         uint256 threshold,
         uint256 initialBalance,
         AdvancedSafeInitParams memory advancedParams
-    )
-        public
-        returns (SafeInstance memory)
-    {
+    ) public returns (SafeInstance memory) {
         uint256[] memory sortedPKs = SafeTestLib.sortPKsByComputedAddress(ownerPKs);
         address[] memory owners = new address[](sortedPKs.length);
 
@@ -573,11 +546,7 @@ contract SafeTestTools {
     /// @param threshold The threshold for the Safe.
     /// @param initialBalance The initial balance of the Safe.
     /// @return The initialized Safe instance.
-    function _setupSafe(
-        uint256[] memory ownerPKs,
-        uint256 threshold,
-        uint256 initialBalance
-    )
+    function _setupSafe(uint256[] memory ownerPKs, uint256 threshold, uint256 initialBalance)
         public
         returns (SafeInstance memory)
     {

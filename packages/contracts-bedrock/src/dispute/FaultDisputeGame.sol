@@ -256,12 +256,7 @@ contract FaultDisputeGame is IFaultDisputeGame, Clone, ISemver {
     ////////////////////////////////////////////////////////////////
 
     /// @inheritdoc IFaultDisputeGame
-    function step(
-        uint256 _claimIndex,
-        bool _isAttack,
-        bytes calldata _stateData,
-        bytes calldata _proof
-    )
+    function step(uint256 _claimIndex, bool _isAttack, bytes calldata _stateData, bytes calldata _proof)
         public
         virtual
     {
@@ -529,10 +524,7 @@ contract FaultDisputeGame is IFaultDisputeGame, Clone, ISemver {
     ///         and showing that the committed L2 block number is incorrect relative to the claimed L2 block number.
     /// @param _outputRootProof The output root proof.
     /// @param _headerRLP The RLP-encoded L2 block header.
-    function challengeRootL2Block(
-        Types.OutputRootProof calldata _outputRootProof,
-        bytes calldata _headerRLP
-    )
+    function challengeRootL2Block(Types.OutputRootProof calldata _outputRootProof, bytes calldata _headerRLP)
         external
     {
         // INVARIANT: Moves cannot be made unless the game is currently in progress.
@@ -900,12 +892,7 @@ contract FaultDisputeGame is IFaultDisputeGame, Clone, ISemver {
     /// @notice Verifies the integrity of an execution bisection subgame's root claim. Reverts if the claim
     ///         is invalid.
     /// @param _rootClaim The root claim of the execution bisection subgame.
-    function _verifyExecBisectionRoot(
-        Claim _rootClaim,
-        uint256 _parentIdx,
-        Position _parentPos,
-        bool _isAttack
-    )
+    function _verifyExecBisectionRoot(Claim _rootClaim, uint256 _parentIdx, Position _parentPos, bool _isAttack)
         internal
         view
     {
@@ -941,11 +928,7 @@ contract FaultDisputeGame is IFaultDisputeGame, Clone, ISemver {
     /// @param _global Whether or not to search the entire dag or just within an execution trace subgame. If set to
     ///                `true`, and `_pos` is at or above the split depth, this function will revert.
     /// @return ancestor_ The ancestor claim that commits to the same trace index as `_pos`.
-    function _findTraceAncestor(
-        Position _pos,
-        uint256 _start,
-        bool _global
-    )
+    function _findTraceAncestor(Position _pos, uint256 _start, bool _global)
         internal
         view
         returns (ClaimData storage ancestor_)
@@ -1044,12 +1027,7 @@ contract FaultDisputeGame is IFaultDisputeGame, Clone, ISemver {
     /// @param _disputed The disputed claim.
     /// @param _disputedPos The disputed claim's position.
     /// @return uuid_ The local context hash.
-    function _computeLocalContext(
-        Claim _starting,
-        Position _startingPos,
-        Claim _disputed,
-        Position _disputedPos
-    )
+    function _computeLocalContext(Claim _starting, Position _startingPos, Claim _disputed, Position _disputedPos)
         internal
         pure
         returns (Hash uuid_)

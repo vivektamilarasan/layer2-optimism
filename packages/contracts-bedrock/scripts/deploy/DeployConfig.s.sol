@@ -283,11 +283,7 @@ contract DeployConfig is Script {
         return (keccak256(bytes(value)) == keccak256(bytes("null")));
     }
 
-    function _readOr(
-        string memory json,
-        string memory key,
-        string memory defaultValue
-    )
+    function _readOr(string memory json, string memory key, string memory defaultValue)
         internal
         view
         returns (string memory)

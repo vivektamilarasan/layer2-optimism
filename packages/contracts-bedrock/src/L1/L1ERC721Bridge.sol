@@ -62,10 +62,7 @@ contract L1ERC721Bridge is ERC721Bridge, ISemver {
         address _to,
         uint256 _tokenId,
         bytes calldata _extraData
-    )
-        external
-        onlyOtherBridge
-    {
+    ) external onlyOtherBridge {
         require(paused() == false, "L1ERC721Bridge: paused");
         require(_localToken != address(this), "L1ERC721Bridge: local token cannot be self");
 
@@ -96,10 +93,7 @@ contract L1ERC721Bridge is ERC721Bridge, ISemver {
         uint256 _tokenId,
         uint32 _minGasLimit,
         bytes calldata _extraData
-    )
-        internal
-        override
-    {
+    ) internal override {
         require(_remoteToken != address(0), "L1ERC721Bridge: remote token cannot be address(0)");
 
         // Construct calldata for _l2Token.finalizeBridgeERC721(_to, _tokenId)

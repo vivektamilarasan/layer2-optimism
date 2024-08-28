@@ -93,9 +93,7 @@ contract HonestGameSolver is GameSolver {
         uint256[] memory _l2Outputs,
         bytes memory _trace,
         bytes memory _preStateData
-    )
-        GameSolver(_gameProxy, _l2Outputs, _trace, _preStateData)
-    {
+    ) GameSolver(_gameProxy, _l2Outputs, _trace, _preStateData) {
         // Mark agreement with the root claim if the local opinion of the root claim is the same as the
         // observed root claim.
         agreeWithRoot = Claim.unwrap(outputAt(MAX_L2_BLOCK_NUMBER)) == Claim.unwrap(_gameProxy.rootClaim());
@@ -206,11 +204,7 @@ contract HonestGameSolver is GameSolver {
     ///
     /// @dev Note: This function assumes that the `movePos` and `challengeIndex` are valid within the
     ///            output bisection context. This is enforced by the `solveGame` function.
-    function handleBisectionMove(
-        Direction _direction,
-        Position _movePos,
-        uint256 _challengeIndex
-    )
+    function handleBisectionMove(Direction _direction, Position _movePos, uint256 _challengeIndex)
         internal
         view
         returns (Move memory move_)
@@ -231,12 +225,7 @@ contract HonestGameSolver is GameSolver {
     ///         bisection portion of the dispute game.
     /// @dev Note: This function assumes that the `movePos` and `challengeIndex` are valid within the
     ///            execution trace bisection context. This is enforced by the `solveGame` function.
-    function handleStepMove(
-        Direction _direction,
-        Position _parentPos,
-        Position _movePos,
-        uint256 _challengeIndex
-    )
+    function handleStepMove(Direction _direction, Position _parentPos, Position _movePos, uint256 _challengeIndex)
         internal
         view
         returns (Move memory move_)

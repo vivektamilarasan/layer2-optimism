@@ -15,10 +15,7 @@ contract OptimismPortalInterop is OptimismPortal2 {
     /// @notice Thrown when a non-depositor account attempts update static configuration.
     error Unauthorized();
 
-    constructor(
-        uint256 _proofMaturityDelaySeconds,
-        uint256 _disputeGameFinalityDelaySeconds
-    )
+    constructor(uint256 _proofMaturityDelaySeconds, uint256 _disputeGameFinalityDelaySeconds)
         OptimismPortal2(_proofMaturityDelaySeconds, _disputeGameFinalityDelaySeconds)
     { }
 

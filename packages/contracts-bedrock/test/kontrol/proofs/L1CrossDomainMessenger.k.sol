@@ -26,9 +26,7 @@ contract L1CrossDomainMessengerKontrol is DeploymentSummary, KontrolUtils {
         uint256 _value,
         uint256 _gas,
         bytes calldata _message
-    )
-        external
-    {
+    ) external {
         setUpInlined();
 
         // Pause System

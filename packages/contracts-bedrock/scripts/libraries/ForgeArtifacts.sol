@@ -153,10 +153,7 @@ library ForgeArtifacts {
     }
 
     /// @notice Returns the function ABIs of all L1 contracts.
-    function getContractFunctionAbis(
-        string memory path,
-        string[] memory pathExcludes
-    )
+    function getContractFunctionAbis(string memory path, string[] memory pathExcludes)
         internal
         returns (Abi[] memory abis_)
     {

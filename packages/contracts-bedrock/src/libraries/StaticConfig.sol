@@ -10,12 +10,7 @@ library StaticConfig {
     /// @param _name     Name of the gas paying token.
     /// @param _symbol   Symbol of the gas paying token.
     /// @return Encoded static configuration data.
-    function encodeSetGasPayingToken(
-        address _token,
-        uint8 _decimals,
-        bytes32 _name,
-        bytes32 _symbol
-    )
+    function encodeSetGasPayingToken(address _token, uint8 _decimals, bytes32 _name, bytes32 _symbol)
         internal
         pure
         returns (bytes memory)

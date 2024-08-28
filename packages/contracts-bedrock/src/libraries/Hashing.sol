@@ -43,11 +43,7 @@ library Hashing {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        internal
-        pure
-        returns (bytes32)
-    {
+    ) internal pure returns (bytes32) {
         (, uint16 version) = Encoding.decodeVersionedNonce(_nonce);
         if (version == 0) {
             return hashCrossDomainMessageV0(_target, _sender, _data, _nonce);
@@ -64,12 +60,7 @@ library Hashing {
     /// @param _data   Data to send with the message.
     /// @param _nonce  Message nonce.
     /// @return Hashed cross domain message.
-    function hashCrossDomainMessageV0(
-        address _target,
-        address _sender,
-        bytes memory _data,
-        uint256 _nonce
-    )
+    function hashCrossDomainMessageV0(address _target, address _sender, bytes memory _data, uint256 _nonce)
         internal
         pure
         returns (bytes32)
@@ -92,11 +83,7 @@ library Hashing {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        internal
-        pure
-        returns (bytes32)
-    {
+    ) internal pure returns (bytes32) {
         return keccak256(Encoding.encodeCrossDomainMessageV1(_nonce, _sender, _target, _value, _gasLimit, _data));
     }
 

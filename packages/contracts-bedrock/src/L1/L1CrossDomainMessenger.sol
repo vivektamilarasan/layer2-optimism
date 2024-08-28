@@ -41,11 +41,7 @@ contract L1CrossDomainMessenger is CrossDomainMessenger, ISemver {
     /// @param _superchainConfig Contract of the SuperchainConfig contract on this network.
     /// @param _portal Contract of the OptimismPortal contract on this network.
     /// @param _systemConfig Contract of the SystemConfig contract on this network.
-    function initialize(
-        SuperchainConfig _superchainConfig,
-        OptimismPortal _portal,
-        SystemConfig _systemConfig
-    )
+    function initialize(SuperchainConfig _superchainConfig, OptimismPortal _portal, SystemConfig _systemConfig)
         public
         initializer
     {

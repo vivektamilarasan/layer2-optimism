@@ -146,10 +146,7 @@ contract DataAvailabilityChallenge is OwnableUpgradeable, ISemver {
         uint256 _resolveWindow,
         uint256 _bondSize,
         uint256 _resolverRefundPercentage
-    )
-        public
-        initializer
-    {
+    ) public initializer {
         __Ownable_init();
         challengeWindow = _challengeWindow;
         resolveWindow = _resolveWindow;
@@ -222,10 +219,7 @@ contract DataAvailabilityChallenge is OwnableUpgradeable, ISemver {
     /// @param challengedBlockNumber The block number at which the commitment was made.
     /// @param challengedCommitment The commitment that is being challenged.
     /// @return The challenge struct.
-    function getChallenge(
-        uint256 challengedBlockNumber,
-        bytes calldata challengedCommitment
-    )
+    function getChallenge(uint256 challengedBlockNumber, bytes calldata challengedCommitment)
         public
         view
         returns (Challenge memory)
@@ -237,10 +231,7 @@ contract DataAvailabilityChallenge is OwnableUpgradeable, ISemver {
     /// @param challengedBlockNumber The block number at which the commitment was made.
     /// @param challengedCommitment The commitment that is being challenged.
     /// @return The status of the challenge.
-    function getChallengeStatus(
-        uint256 challengedBlockNumber,
-        bytes calldata challengedCommitment
-    )
+    function getChallengeStatus(uint256 challengedBlockNumber, bytes calldata challengedCommitment)
         public
         view
         returns (ChallengeStatus)
@@ -332,11 +323,7 @@ contract DataAvailabilityChallenge is OwnableUpgradeable, ISemver {
     /// @param challengedBlockNumber The block number at which the commitment was made.
     /// @param challengedCommitment The challenged commitment that is being resolved.
     /// @param resolveData The pre-image data corresponding to the challenged commitment.
-    function resolve(
-        uint256 challengedBlockNumber,
-        bytes calldata challengedCommitment,
-        bytes calldata resolveData
-    )
+    function resolve(uint256 challengedBlockNumber, bytes calldata challengedCommitment, bytes calldata resolveData)
         external
     {
         // require the commitment type to be known

@@ -48,10 +48,7 @@ contract AnchorStateRegistry is Initializable, IAnchorStateRegistry, ISemver {
     /// @notice Initializes the contract.
     /// @param _startingAnchorRoots An array of starting anchor roots.
     /// @param _superchainConfig The address of the SuperchainConfig contract.
-    function initialize(
-        StartingAnchorRoot[] memory _startingAnchorRoots,
-        SuperchainConfig _superchainConfig
-    )
+    function initialize(StartingAnchorRoot[] memory _startingAnchorRoots, SuperchainConfig _superchainConfig)
         public
         initializer
     {

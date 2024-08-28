@@ -82,12 +82,7 @@ contract L1BlockInteropTest is CommonTest {
     }
 
     /// @dev Tests that the config for setting the gas paying token succeeds.
-    function testFuzz_setConfig_gasPayingToken_succeeds(
-        address _token,
-        uint8 _decimals,
-        bytes32 _name,
-        bytes32 _symbol
-    )
+    function testFuzz_setConfig_gasPayingToken_succeeds(address _token, uint8 _decimals, bytes32 _name, bytes32 _symbol)
         public
         prankDepositor
     {
@@ -108,9 +103,7 @@ contract L1BlockInteropTest is CommonTest {
         uint8 _decimals,
         bytes32 _name,
         bytes32 _symbol
-    )
-        public
-    {
+    ) public {
         vm.assume(_token != address(vm));
 
         vm.expectRevert(NotDepositor.selector);

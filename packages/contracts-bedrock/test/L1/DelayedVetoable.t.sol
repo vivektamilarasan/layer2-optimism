@@ -97,10 +97,7 @@ contract DelayedVetoable_HandleCall_Test is DelayedVetoable_Init {
     }
 
     /// @dev The delay is inititially set to zero and the call is immediately forwarded.
-    function testFuzz_handleCall_initialForwardingImmediately_succeeds(
-        bytes calldata inData,
-        bytes calldata outData
-    )
+    function testFuzz_handleCall_initialForwardingImmediately_succeeds(bytes calldata inData, bytes calldata outData)
         external
     {
         assumeNonzeroData(inData);
@@ -192,10 +189,7 @@ contract DelayedVetoable_HandleCall_TestFail is DelayedVetoable_Init {
     }
 
     /// @dev If the target reverts, it is bubbled up.
-    function testFuzz_handleCall_forwardingTargetReverts_reverts(
-        bytes calldata inData,
-        bytes calldata outData
-    )
+    function testFuzz_handleCall_forwardingTargetReverts_reverts(bytes calldata inData, bytes calldata outData)
         external
     {
         assumeNoClash(inData);
@@ -217,10 +211,7 @@ contract DelayedVetoable_HandleCall_TestFail is DelayedVetoable_Init {
         assertTrue(revertsAsExpected);
     }
 
-    function testFuzz_handleCall_forwardingTargetRetValue_succeeds(
-        bytes calldata inData,
-        bytes calldata outData
-    )
+    function testFuzz_handleCall_forwardingTargetRetValue_succeeds(bytes calldata inData, bytes calldata outData)
         external
     {
         assumeNoClash(inData);

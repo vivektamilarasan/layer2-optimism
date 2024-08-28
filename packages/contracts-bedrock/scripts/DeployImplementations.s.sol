@@ -255,10 +255,7 @@ contract DeployImplementations is Script {
         _dso.set(_dso.l1StandardBridgeImpl.selector, address(l1StandardBridgeImpl));
     }
 
-    function deployOptimismMintableERC20FactoryImpl(
-        DeployImplementationsInput,
-        DeployImplementationsOutput _dso
-    )
+    function deployOptimismMintableERC20FactoryImpl(DeployImplementationsInput, DeployImplementationsOutput _dso)
         public
     {
         vm.broadcast(msg.sender);

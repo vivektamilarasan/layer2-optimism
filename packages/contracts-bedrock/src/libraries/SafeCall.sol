@@ -36,12 +36,7 @@ library SafeCall {
     /// @param _gas      Amount of gas to pass to the call
     /// @param _value    Amount of value to pass to the call
     /// @param _calldata Calldata to pass to the call
-    function call(
-        address _target,
-        uint256 _gas,
-        uint256 _value,
-        bytes memory _calldata
-    )
+    function call(address _target, uint256 _gas, uint256 _value, bytes memory _calldata)
         internal
         returns (bool success_)
     {
@@ -106,12 +101,7 @@ library SafeCall {
     /// @param _minGas   The minimum amount of gas that may be passed to the call
     /// @param _value    Amount of value to pass to the call
     /// @param _calldata Calldata to pass to the call
-    function callWithMinGas(
-        address _target,
-        uint256 _minGas,
-        uint256 _value,
-        bytes memory _calldata
-    )
+    function callWithMinGas(address _target, uint256 _minGas, uint256 _value, bytes memory _calldata)
         internal
         returns (bool)
     {

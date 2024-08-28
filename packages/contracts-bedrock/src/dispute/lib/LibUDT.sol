@@ -85,11 +85,7 @@ library LibGameId {
     /// @param _timestamp The timestamp of the game's creation.
     /// @param _gameProxy The game proxy address.
     /// @return gameId_ The packed GameId.
-    function pack(
-        GameType _gameType,
-        Timestamp _timestamp,
-        address _gameProxy
-    )
+    function pack(GameType _gameType, Timestamp _timestamp, address _gameProxy)
         internal
         pure
         returns (GameId gameId_)
@@ -137,11 +133,7 @@ library LibClaim {
     /// @param _position The position of `claim`.
     /// @param _challengeIndex The index of the claim being moved against.
     /// @return claimHash_ A hash of abi.encodePacked(claim, position|challengeIndex);
-    function hashClaimPos(
-        Claim _claim,
-        Position _position,
-        uint256 _challengeIndex
-    )
+    function hashClaimPos(Claim _claim, Position _position, uint256 _challengeIndex)
         internal
         pure
         returns (Hash claimHash_)

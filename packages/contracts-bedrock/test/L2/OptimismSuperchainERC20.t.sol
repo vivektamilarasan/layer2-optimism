@@ -49,10 +49,7 @@ contract OptimismSuperchainERC20Test is Test {
         string memory _name,
         string memory _symbol,
         uint8 _decimals
-    )
-        internal
-        returns (OptimismSuperchainERC20)
-    {
+    ) internal returns (OptimismSuperchainERC20) {
         return OptimismSuperchainERC20(
             address(
                 // TODO: Use the SuperchainERC20 Beacon Proxy
@@ -84,9 +81,7 @@ contract OptimismSuperchainERC20Test is Test {
         string memory _name,
         string memory _symbol,
         uint8 _decimals
-    )
-        public
-    {
+    ) public {
         // Expect the revert with `InvalidInitialization` selector
         vm.expectRevert(Initializable.InvalidInitialization.selector);
 
@@ -268,9 +263,7 @@ contract OptimismSuperchainERC20Test is Test {
         address _crossDomainMessageSender,
         address _to,
         uint256 _amount
-    )
-        public
-    {
+    ) public {
         vm.assume(_to != ZERO_ADDRESS);
         vm.assume(_crossDomainMessageSender != address(superchainERC20));
 

@@ -445,12 +445,7 @@ contract Deploy is Deployer {
     /// @param _owners The owners of the Safe.
     /// @param _threshold The threshold of the Safe.
     /// @param _keepDeployer Wether or not the deployer address will be added as an owner of the Safe.
-    function deploySafe(
-        string memory _name,
-        address[] memory _owners,
-        uint256 _threshold,
-        bool _keepDeployer
-    )
+    function deploySafe(string memory _name, address[] memory _owners, uint256 _threshold, bool _keepDeployer)
         public
         returns (address addr_)
     {
@@ -575,10 +570,7 @@ contract Deploy is Deployer {
     /// @param _name The name of the proxy contract to be deployed.
     /// @param _proxyOwner The address of the owner of the proxy contract.
     /// @return addr_ The address of the deployed proxy contract.
-    function deployERC1967ProxyWithOwner(
-        string memory _name,
-        address _proxyOwner
-    )
+    function deployERC1967ProxyWithOwner(string memory _name, address _proxyOwner)
         public
         broadcast
         returns (address addr_)
@@ -1518,9 +1510,7 @@ contract Deploy is Deployer {
         DisputeGameFactory _factory,
         bool _allowUpgrade,
         FaultDisputeGameParams memory _params
-    )
-        internal
-    {
+    ) internal {
         if (address(_factory.gameImpls(_params.gameType)) != address(0) && !_allowUpgrade) {
             console.log(
                 "[WARN] DisputeGameFactoryProxy: `FaultDisputeGame` implementation already set for game type: %s",

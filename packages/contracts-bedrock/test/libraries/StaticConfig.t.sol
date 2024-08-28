@@ -17,12 +17,7 @@ contract StaticConfig_Test is Test {
     }
 
     /// @dev Tests set gas paying token encoding.
-    function testDiff_encodeSetGasPayingToken_succeeds(
-        address _token,
-        uint8 _decimals,
-        bytes32 _name,
-        bytes32 _symbol
-    )
+    function testDiff_encodeSetGasPayingToken_succeeds(address _token, uint8 _decimals, bytes32 _name, bytes32 _symbol)
         external
     {
         bytes memory encoding = StaticConfig.encodeSetGasPayingToken(_token, _decimals, _name, _symbol);
@@ -33,12 +28,7 @@ contract StaticConfig_Test is Test {
     }
 
     /// @dev Tests set gas paying token decoding.
-    function test_decodeSetGasPayingToken_succeeds(
-        address _token,
-        uint8 _decimals,
-        bytes32 _name,
-        bytes32 _symbol
-    )
+    function test_decodeSetGasPayingToken_succeeds(address _token, uint8 _decimals, bytes32 _name, bytes32 _symbol)
         external
     {
         bytes memory encoding = ffi.encodeGasPayingToken(_token, _decimals, _name, _symbol);

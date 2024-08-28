@@ -25,11 +25,7 @@ contract SystemConfigInterop_Test is CommonTest {
     }
 
     /// @dev Tests that the gas paying token can be set.
-    function testFuzz_setGasPayingToken_succeeds(
-        address _token,
-        string calldata _name,
-        string calldata _symbol
-    )
+    function testFuzz_setGasPayingToken_succeeds(address _token, string calldata _name, string calldata _symbol)
         public
     {
         assumeNotForgeAddress(_token);

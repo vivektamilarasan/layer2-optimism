@@ -56,11 +56,7 @@ contract DisputeGameFactory is OwnableUpgradeable, IDisputeGameFactory, ISemver 
     }
 
     /// @inheritdoc IDisputeGameFactory
-    function games(
-        GameType _gameType,
-        Claim _rootClaim,
-        bytes calldata _extraData
-    )
+    function games(GameType _gameType, Claim _rootClaim, bytes calldata _extraData)
         external
         view
         returns (IDisputeGame proxy_, Timestamp timestamp_)
@@ -81,11 +77,7 @@ contract DisputeGameFactory is OwnableUpgradeable, IDisputeGameFactory, ISemver 
     }
 
     /// @inheritdoc IDisputeGameFactory
-    function create(
-        GameType _gameType,
-        Claim _rootClaim,
-        bytes calldata _extraData
-    )
+    function create(GameType _gameType, Claim _rootClaim, bytes calldata _extraData)
         external
         payable
         returns (IDisputeGame proxy_)
@@ -132,11 +124,7 @@ contract DisputeGameFactory is OwnableUpgradeable, IDisputeGameFactory, ISemver 
     }
 
     /// @inheritdoc IDisputeGameFactory
-    function getGameUUID(
-        GameType _gameType,
-        Claim _rootClaim,
-        bytes calldata _extraData
-    )
+    function getGameUUID(GameType _gameType, Claim _rootClaim, bytes calldata _extraData)
         public
         pure
         returns (Hash uuid_)
@@ -145,11 +133,7 @@ contract DisputeGameFactory is OwnableUpgradeable, IDisputeGameFactory, ISemver 
     }
 
     /// @inheritdoc IDisputeGameFactory
-    function findLatestGames(
-        GameType _gameType,
-        uint256 _start,
-        uint256 _n
-    )
+    function findLatestGames(GameType _gameType, uint256 _start, uint256 _n)
         external
         view
         returns (GameSearchResult[] memory games_)

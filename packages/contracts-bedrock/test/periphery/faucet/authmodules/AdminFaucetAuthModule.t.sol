@@ -64,11 +64,7 @@ contract AdminFaucetAuthModuleTest is Test {
         address recipient,
         bytes32 id,
         bytes32 nonce
-    )
-        internal
-        view
-        returns (bytes memory)
-    {
+    ) internal view returns (bytes memory) {
         AdminFaucetAuthModule.Proof memory proof = AdminFaucetAuthModule.Proof(recipient, nonce, id);
         return _getSignature(
             _issuerPrivateKey,

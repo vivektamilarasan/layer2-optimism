@@ -31,12 +31,7 @@ contract DisputeGameFactory_Init is CommonTest {
 contract DisputeGameFactory_Create_Test is DisputeGameFactory_Init {
     /// @dev Tests that the `create` function succeeds when creating a new dispute game
     ///      with a `GameType` that has an implementation set.
-    function testFuzz_create_succeeds(
-        uint32 gameType,
-        Claim rootClaim,
-        bytes calldata extraData,
-        uint256 _value
-    )
+    function testFuzz_create_succeeds(uint32 gameType, Claim rootClaim, bytes calldata extraData, uint256 _value)
         public
     {
         // Ensure that the `gameType` is within the bounds of the `GameType` enum's possible values.
@@ -73,11 +68,7 @@ contract DisputeGameFactory_Create_Test is DisputeGameFactory_Init {
     }
 
     /// @dev Tests that the `create` function reverts when creating a new dispute game with an incorrect bond amount.
-    function testFuzz_create_incorrectBondAmount_reverts(
-        uint32 gameType,
-        Claim rootClaim,
-        bytes calldata extraData
-    )
+    function testFuzz_create_incorrectBondAmount_reverts(uint32 gameType, Claim rootClaim, bytes calldata extraData)
         public
     {
         // Ensure that the `gameType` is within the bounds of the `GameType` enum's possible values.
@@ -315,11 +306,7 @@ contract DisputeGameFactory_FindLatestGames_Test is DisputeGameFactory_Init {
     }
 
     /// @dev Tests that the expected number of games are returned when `findLatestGames` is called.
-    function testFuzz_findLatestGames_correctAmount_succeeds(
-        uint256 _numGames,
-        uint256 _numSearchedGames,
-        uint256 _n
-    )
+    function testFuzz_findLatestGames_correctAmount_succeeds(uint256 _numGames, uint256 _numSearchedGames, uint256 _n)
         public
     {
         _numGames = bound(_numGames, 0, 1 << 8);

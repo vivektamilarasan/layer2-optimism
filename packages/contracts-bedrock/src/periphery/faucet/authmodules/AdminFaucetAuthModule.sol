@@ -34,11 +34,7 @@ contract AdminFaucetAuthModule is IFaucetAuthModule, EIP712 {
     }
 
     /// @inheritdoc IFaucetAuthModule
-    function verify(
-        Faucet.DripParameters memory _params,
-        bytes32 _id,
-        bytes memory _proof
-    )
+    function verify(Faucet.DripParameters memory _params, bytes32 _id, bytes memory _proof)
         external
         view
         returns (bool valid_)

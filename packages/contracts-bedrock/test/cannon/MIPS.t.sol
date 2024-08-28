@@ -1750,12 +1750,7 @@ contract MIPS_Test is CommonTest {
         }
     }
 
-    function constructMIPSState(
-        uint32 pc,
-        uint32 insn,
-        uint32 addr,
-        uint32 val
-    )
+    function constructMIPSState(uint32 pc, uint32 insn, uint32 addr, uint32 val)
         internal
         returns (MIPS.State memory state, bytes memory proof)
     {

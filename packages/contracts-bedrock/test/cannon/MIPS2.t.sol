@@ -866,9 +866,7 @@ contract MIPS2_Test is CommonTest {
         uint32 _futexVal,
         uint32 _futexTimeoutStep,
         bool _threadExited
-    )
-        public
-    {
+    ) public {
         vm.assume(_wakeup != sys.FUTEX_EMPTY_ADDR);
 
         threading.createThread();
@@ -914,9 +912,7 @@ contract MIPS2_Test is CommonTest {
         uint32 _futexVal,
         uint32 _futexTimeoutStep,
         bool _threadExited
-    )
-        public
-    {
+    ) public {
         vm.assume(_wakeup != sys.FUTEX_EMPTY_ADDR);
         vm.assume(_wakeup != _futexAddr);
 
@@ -2060,12 +2056,7 @@ contract MIPS2_Test is CommonTest {
     }
 
     /// @dev constructs a generic MIPS2 state for single-threaded execution.
-    function constructMIPSState(
-        uint32 pc,
-        uint32 insn,
-        uint32 addr,
-        uint32 val
-    )
+    function constructMIPSState(uint32 pc, uint32 insn, uint32 addr, uint32 val)
         internal
         returns (MIPS2.State memory state_, MIPS2.ThreadState memory thread_, bytes memory proof_)
     {
@@ -2089,12 +2080,7 @@ contract MIPS2_Test is CommonTest {
     }
 
     /// @dev Constructs a post-state after an arithmetic or logical instruction
-    function arithmeticPostState(
-        MIPS2.State memory _state,
-        MIPS2.ThreadState memory _thread,
-        uint32 reg,
-        uint32 regVal
-    )
+    function arithmeticPostState(MIPS2.State memory _state, MIPS2.ThreadState memory _thread, uint32 reg, uint32 regVal)
         internal
         pure
         returns (MIPS2.State memory out_)
@@ -2111,11 +2097,7 @@ contract MIPS2_Test is CommonTest {
     }
 
     /// @dev Constructs a post-state after a branch instruction
-    function controlFlowPostState(
-        MIPS2.State memory _state,
-        MIPS2.ThreadState memory _thread,
-        uint32 branchTarget
-    )
+    function controlFlowPostState(MIPS2.State memory _state, MIPS2.ThreadState memory _thread, uint32 branchTarget)
         internal
         pure
         returns (MIPS2.State memory out_)

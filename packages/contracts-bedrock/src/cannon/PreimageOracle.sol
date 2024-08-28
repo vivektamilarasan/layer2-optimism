@@ -124,13 +124,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
     }
 
     /// @inheritdoc IPreimageOracle
-    function loadLocalData(
-        uint256 _ident,
-        bytes32 _localContext,
-        bytes32 _word,
-        uint256 _size,
-        uint256 _partOffset
-    )
+    function loadLocalData(uint256 _ident, bytes32 _localContext, bytes32 _word, uint256 _size, uint256 _partOffset)
         external
         returns (bytes32 key_)
     {
@@ -254,9 +248,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         bytes calldata _commitment,
         bytes calldata _proof,
         uint256 _partOffset
-    )
-        external
-    {
+    ) external {
         bytes32 key;
         bytes32 part;
         assembly {
@@ -344,9 +336,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         address _precompile,
         uint64 _requiredGas,
         bytes calldata _input
-    )
-        external
-    {
+    ) external {
         bytes32 res;
         bytes32 key;
         bytes32 part;
@@ -472,9 +462,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         bytes calldata _input,
         bytes32[] calldata _stateCommitments,
         bool _finalize
-    )
-        external
-    {
+    ) external {
         // If we're finalizing, pad the input for the submitter. If not, copy the input into memory verbatim.
         bytes memory input;
         if (_finalize) {
@@ -602,9 +590,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         bytes32[] calldata _preStateProof,
         Leaf calldata _postState,
         bytes32[] calldata _postStateProof
-    )
-        external
-    {
+    ) external {
         // Verify that both leaves are present in the merkle tree.
         bytes32 root = getTreeRootLPP(_claimant, _uuid);
         if (
@@ -640,9 +626,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         uint256 _uuid,
         Leaf calldata _postState,
         bytes32[] calldata _postStateProof
-    )
-        external
-    {
+    ) external {
         // Verify that the leaf is present in the merkle tree.
         bytes32 root = getTreeRootLPP(_claimant, _uuid);
         if (!_verify(_postStateProof, root, _postState.index, _hashLeaf(_postState))) revert InvalidProof();
@@ -674,9 +658,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
         bytes32[] calldata _preStateProof,
         Leaf calldata _postState,
         bytes32[] calldata _postStateProof
-    )
-        external
-    {
+    ) external {
         LPPMetaData metaData = proposalMetadata[_claimant][_uuid];
 
         // Check if the proposal was countered.
@@ -743,12 +725,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
     /// @param _uuid The UUID of the large preimage proposal.
     /// @param _finalize Whether or not the proposal is being finalized in the current call.
     /// @param _metaData The metadata of the large preimage proposal.
-    function _extractPreimagePart(
-        bytes calldata _input,
-        uint256 _uuid,
-        bool _finalize,
-        LPPMetaData _metaData
-    )
+    function _extractPreimagePart(bytes calldata _input, uint256 _uuid, bool _finalize, LPPMetaData _metaData)
         internal
     {
         uint256 offset = _metaData.partOffset();
@@ -785,12 +762,7 @@ contract PreimageOracle is IPreimageOracle, ISemver {
 
     /// @notice Check if leaf` at `index` verifies against the Merkle `root` and `branch`.
     /// https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/beacon-chain.md#is_valid_merkle_branch
-    function _verify(
-        bytes32[] calldata _proof,
-        bytes32 _root,
-        uint256 _index,
-        bytes32 _leaf
-    )
+    function _verify(bytes32[] calldata _proof, bytes32 _root, uint256 _index, bytes32 _leaf)
         internal
         pure
         returns (bool isValid_)

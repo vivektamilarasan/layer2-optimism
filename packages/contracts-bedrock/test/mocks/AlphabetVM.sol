@@ -18,11 +18,7 @@ contract AlphabetVM is IBigStepper {
     }
 
     /// @inheritdoc IBigStepper
-    function step(
-        bytes calldata _stateData,
-        bytes calldata,
-        bytes32 _localContext
-    )
+    function step(bytes calldata _stateData, bytes calldata, bytes32 _localContext)
         external
         view
         returns (bytes32 postState_)

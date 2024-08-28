@@ -155,11 +155,7 @@ library MIPSSyscalls {
     /// @return v0_ The address of the new mapping
     /// @return v1_ Unused error code (0)
     /// @return newHeap_ The new value for the heap, may be unchanged
-    function handleSysMmap(
-        uint32 _a0,
-        uint32 _a1,
-        uint32 _heap
-    )
+    function handleSysMmap(uint32 _a0, uint32 _a1, uint32 _heap)
         internal
         pure
         returns (uint32 v0_, uint32 v1_, uint32 newHeap_)
@@ -281,11 +277,7 @@ library MIPSSyscalls {
         uint32 _preimageOffset,
         uint256 _proofOffset,
         bytes32 _memRoot
-    )
-        internal
-        pure
-        returns (uint32 v0_, uint32 v1_, bytes32 newPreimageKey_, uint32 newPreimageOffset_)
-    {
+    ) internal pure returns (uint32 v0_, uint32 v1_, bytes32 newPreimageKey_, uint32 newPreimageOffset_) {
         unchecked {
             // args: _a0 = fd, _a1 = addr, _a2 = count
             // returns: v0_ = written, v1_ = err code
@@ -359,12 +351,7 @@ library MIPSSyscalls {
         }
     }
 
-    function handleSyscallUpdates(
-        st.CpuScalars memory _cpu,
-        uint32[32] memory _registers,
-        uint32 _v0,
-        uint32 _v1
-    )
+    function handleSyscallUpdates(st.CpuScalars memory _cpu, uint32[32] memory _registers, uint32 _v0, uint32 _v1)
         internal
         pure
     {

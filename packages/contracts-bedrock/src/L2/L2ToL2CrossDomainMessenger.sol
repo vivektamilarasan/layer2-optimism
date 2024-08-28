@@ -130,11 +130,7 @@ contract L2ToL2CrossDomainMessenger is IL2ToL2CrossDomainMessenger, ISemver, Tra
         address _sender,
         address _target,
         bytes memory _message
-    )
-        external
-        payable
-        nonReentrant
-    {
+    ) external payable nonReentrant {
         if (msg.sender != Predeploys.CROSS_L2_INBOX) revert RelayMessageCallerNotCrossL2Inbox();
         if (CrossL2Inbox(Predeploys.CROSS_L2_INBOX).origin() != Predeploys.L2_TO_L2_CROSS_DOMAIN_MESSENGER) {
             revert CrossL2InboxOriginNotL2ToL2CrossDomainMessenger();

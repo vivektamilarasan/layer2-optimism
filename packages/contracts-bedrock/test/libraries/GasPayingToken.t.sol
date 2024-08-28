@@ -59,9 +59,7 @@ contract GasPayingToken_Roundtrip_Test is Test {
         uint8 _decimals,
         string memory _name,
         string memory _symbol
-    )
-        external
-    {
+    ) external {
         vm.assume(_token != address(0));
         vm.assume(bytes(_name).length <= 32);
         vm.assume(bytes(_symbol).length <= 32);

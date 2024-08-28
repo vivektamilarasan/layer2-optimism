@@ -125,10 +125,7 @@ contract OptimistInviter_Initializer is Test {
         bytes memory _eip712Version,
         uint256 _eip712Chainid,
         address _eip712VerifyingContract
-    )
-        internal
-        returns (OptimistInviter.ClaimableInvite memory, bytes memory)
-    {
+    ) internal returns (OptimistInviter.ClaimableInvite memory, bytes memory) {
         address issuer = vm.addr(_issuerPrivateKey);
         OptimistInviter.ClaimableInvite memory claimableInvite =
             optimistInviterHelper.getClaimableInviteWithNewNonce(issuer);
@@ -156,10 +153,7 @@ contract OptimistInviter_Initializer is Test {
     /// @notice Signs a claimable invite with the given private key. The claimer commits then claims
     ///         the invite. Checks that all expected events are emitted and that state is updated
     ///         correctly. Returns the signature and invite for use in tests.
-    function _issueThenClaimShouldSucceed(
-        uint256 _issuerPrivateKey,
-        address _claimer
-    )
+    function _issueThenClaimShouldSucceed(uint256 _issuerPrivateKey, address _claimer)
         internal
         returns (OptimistInviter.ClaimableInvite memory, bytes memory)
     {

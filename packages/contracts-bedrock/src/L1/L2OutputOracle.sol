@@ -90,10 +90,7 @@ contract L2OutputOracle is Initializable, ISemver {
         address _proposer,
         address _challenger,
         uint256 _finalizationPeriodSeconds
-    )
-        public
-        initializer
-    {
+    ) public initializer {
         require(_submissionInterval > 0, "L2OutputOracle: submission interval must be greater than 0");
         require(_l2BlockTime > 0, "L2OutputOracle: L2 block time must be greater than 0");
         require(
@@ -185,12 +182,7 @@ contract L2OutputOracle is Initializable, ISemver {
     /// @param _l2BlockNumber The L2 block number that resulted in _outputRoot.
     /// @param _l1BlockHash   A block hash which must be included in the current chain.
     /// @param _l1BlockNumber The block number with the specified block hash.
-    function proposeL2Output(
-        bytes32 _outputRoot,
-        uint256 _l2BlockNumber,
-        bytes32 _l1BlockHash,
-        uint256 _l1BlockNumber
-    )
+    function proposeL2Output(bytes32 _outputRoot, uint256 _l2BlockNumber, bytes32 _l1BlockHash, uint256 _l1BlockNumber)
         external
         payable
     {

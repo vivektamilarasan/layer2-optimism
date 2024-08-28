@@ -135,11 +135,7 @@ contract CrossL2Inbox is ICrossL2Inbox, ISemver, TransientReentrancyAware {
     /// @param _id      Identifier of the message.
     /// @param _target  Target address to call.
     /// @param _message Message payload to call target with.
-    function executeMessage(
-        Identifier calldata _id,
-        address _target,
-        bytes memory _message
-    )
+    function executeMessage(Identifier calldata _id, address _target, bytes memory _message)
         external
         payable
         reentrantAware

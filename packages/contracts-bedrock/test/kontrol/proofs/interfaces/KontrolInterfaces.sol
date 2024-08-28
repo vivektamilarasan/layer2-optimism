@@ -13,8 +13,7 @@ interface IOptimismPortal {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external;
+    ) external;
 
     function finalizeWithdrawalTransaction(Types.WithdrawalTransaction memory _tx) external;
 }
@@ -43,8 +42,7 @@ interface IL1StandardBridge {
         address _to,
         uint256 _amount,
         bytes calldata _extraData
-    )
-        external;
+    ) external;
 
     function finalizeBridgeETH(address _from, address _to, uint256 _amount, bytes calldata _extraData) external;
 }
@@ -63,8 +61,7 @@ interface IL1ERC721Bridge {
         address _to,
         uint256 _amount,
         bytes calldata _extraData
-    )
-        external;
+    ) external;
 }
 
 interface IL1CrossDomainMessenger {
@@ -75,9 +72,7 @@ interface IL1CrossDomainMessenger {
         uint256 _value,
         uint256 _minGasLimit,
         bytes calldata _message
-    )
-        external
-        payable;
+    ) external payable;
 
     function xDomainMessageSender() external view returns (address);
 }

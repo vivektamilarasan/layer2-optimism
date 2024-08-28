@@ -95,9 +95,7 @@ contract PreimageOracle_Test is Test {
         bytes32 word,
         uint256 size,
         uint256 partOffset
-    )
-        public
-    {
+    ) public {
         // Bound the size to [0, 32]
         size = bound(size, 0, 32);
         // Bound the part offset to [0, size + 8)
@@ -1368,10 +1366,7 @@ contract PreimageOracle_LargePreimageProposals_Test is Test {
     }
 
     /// @notice Helper to construct the keccak merkle tree's leaves from a given input `_data`.
-    function _generateLeaves(
-        LibKeccak.StateMatrix memory _stateMatrix,
-        bytes memory _data
-    )
+    function _generateLeaves(LibKeccak.StateMatrix memory _stateMatrix, bytes memory _data)
         internal
         pure
         returns (PreimageOracle.Leaf[] memory leaves_)
@@ -1394,10 +1389,7 @@ contract PreimageOracle_LargePreimageProposals_Test is Test {
     }
 
     /// @notice Helper to get the keccak state matrix before applying the block at `_blockIndex` within `_data`.
-    function _stateMatrixAtBlockIndex(
-        bytes memory _data,
-        uint256 _blockIndex
-    )
+    function _stateMatrixAtBlockIndex(bytes memory _data, uint256 _blockIndex)
         internal
         pure
         returns (LibKeccak.StateMatrix memory matrix_)
@@ -1412,10 +1404,7 @@ contract PreimageOracle_LargePreimageProposals_Test is Test {
     }
 
     /// @notice Helper to construct the keccak state commitments for each block processed in the input `_data`.
-    function _generateStateCommitments(
-        LibKeccak.StateMatrix memory _stateMatrix,
-        bytes memory _data
-    )
+    function _generateStateCommitments(LibKeccak.StateMatrix memory _stateMatrix, bytes memory _data)
         internal
         pure
         returns (bytes32[] memory stateCommitments_)
@@ -1435,10 +1424,7 @@ contract PreimageOracle_LargePreimageProposals_Test is Test {
 
     /// @notice Calls out to the `go-ffi` tool to generate a merkle proof for the leaf at `_leafIdx` in a merkle tree
     ///         constructed with `_leaves`.
-    function _generateProof(
-        uint256 _leafIdx,
-        PreimageOracle.Leaf[] memory _leaves
-    )
+    function _generateProof(uint256 _leafIdx, PreimageOracle.Leaf[] memory _leaves)
         internal
         returns (bytes32 root_, bytes32[] memory proof_)
     {

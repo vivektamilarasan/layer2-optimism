@@ -26,9 +26,7 @@ contract L1StandardBridgeKontrol is DeploymentSummary, KontrolUtils {
         address _to,
         uint256 _amount,
         bytes calldata _extraData
-    )
-        public
-    {
+    ) public {
         setUpInlined();
 
         // Pause Standard Bridge
@@ -46,12 +44,7 @@ contract L1StandardBridgeKontrol is DeploymentSummary, KontrolUtils {
         l1standardBridge.finalizeBridgeERC20(_localToken, _remoteToken, _from, _to, _amount, _extraData);
     }
 
-    function prove_finalizeBridgeETH_paused(
-        address _from,
-        address _to,
-        uint256 _amount,
-        bytes calldata _extraData
-    )
+    function prove_finalizeBridgeETH_paused(address _from, address _to, uint256 _amount, bytes calldata _extraData)
         public
     {
         setUpInlined();

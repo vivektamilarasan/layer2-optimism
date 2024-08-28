@@ -40,11 +40,7 @@ contract OptimismMintableERC721Factory is ISemver {
     /// @param _remoteToken Address of the corresponding token on the other domain.
     /// @param _name        ERC721 name.
     /// @param _symbol      ERC721 symbol.
-    function createOptimismMintableERC721(
-        address _remoteToken,
-        string memory _name,
-        string memory _symbol
-    )
+    function createOptimismMintableERC721(address _remoteToken, string memory _name, string memory _symbol)
         external
         returns (address)
     {

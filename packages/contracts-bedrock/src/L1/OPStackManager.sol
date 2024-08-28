@@ -33,12 +33,7 @@ contract OPStackManager is ISemver {
     /// @notice Temporary error since the deploy method is not yet implemented.
     error NotImplemented();
 
-    function deploy(
-        uint256 _l2ChainId,
-        uint32 _basefeeScalar,
-        uint32 _blobBasefeeScalar,
-        Roles calldata _roles
-    )
+    function deploy(uint256 _l2ChainId, uint32 _basefeeScalar, uint32 _blobBasefeeScalar, Roles calldata _roles)
         external
         view // This is only here to silence the compiler warning until the function is fully implemented.
         returns (SystemConfig systemConfig_)

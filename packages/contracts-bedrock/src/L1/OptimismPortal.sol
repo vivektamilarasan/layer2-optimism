@@ -146,11 +146,7 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
     /// @param _l2Oracle Contract of the L2OutputOracle.
     /// @param _systemConfig Contract of the SystemConfig.
     /// @param _superchainConfig Contract of the SuperchainConfig.
-    function initialize(
-        L2OutputOracle _l2Oracle,
-        SystemConfig _systemConfig,
-        SuperchainConfig _superchainConfig
-    )
+    function initialize(L2OutputOracle _l2Oracle, SystemConfig _systemConfig, SuperchainConfig _superchainConfig)
         public
         initializer
     {
@@ -236,10 +232,7 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         uint256 _l2OutputIndex,
         Types.OutputRootProof calldata _outputRootProof,
         bytes[] calldata _withdrawalProof
-    )
-        external
-        whenNotPaused
-    {
+    ) external whenNotPaused {
         // Prevent users from creating a deposit transaction where this address is the message
         // sender on L2. Because this is checked here, we do not need to check again in
         // `finalizeWithdrawalTransaction`.
@@ -446,10 +439,7 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        public
-        metered(_gasLimit)
-    {
+    ) public metered(_gasLimit) {
         // Can only be called if an ERC20 token is used for gas paying on L2
         (address token,) = gasPayingToken();
         if (token == Constants.ETHER) revert OnlyCustomGasToken();
@@ -487,13 +477,7 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
     /// @param _gasLimit   Amount of L2 gas to purchase by burning gas on L1.
     /// @param _isCreation Whether or not the transaction is a contract creation.
     /// @param _data       Data to trigger the recipient with.
-    function depositTransaction(
-        address _to,
-        uint256 _value,
-        uint64 _gasLimit,
-        bool _isCreation,
-        bytes memory _data
-    )
+    function depositTransaction(address _to, uint256 _value, uint64 _gasLimit, bool _isCreation, bytes memory _data)
         public
         payable
         metered(_gasLimit)
@@ -525,9 +509,7 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         uint64 _gasLimit,
         bool _isCreation,
         bytes memory _data
-    )
-        internal
-    {
+    ) internal {
         // Just to be safe, make sure that people specify address(0) as the target when doing
         // contract creations.
         if (_isCreation && _to != address(0)) revert BadTarget();

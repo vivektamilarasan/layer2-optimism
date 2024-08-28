@@ -139,10 +139,7 @@ contract LivenessModule_CanRemove_Test is LivenessModule_TestInit {
 
 contract LivenessModule_GetRequiredThreshold_Test is LivenessModule_TestInit {
     /// @dev Tests if getRequiredThreshold work correctly by implementing the same logic in a different manner
-    function _getLeastIntegerValueAbovePercentage(
-        uint256 _total,
-        uint256 _percentage
-    )
+    function _getLeastIntegerValueAbovePercentage(uint256 _total, uint256 _percentage)
         internal
         pure
         returns (uint256)
@@ -435,12 +432,7 @@ contract LivenessModule_RemoveOwnersFuzz_Test is LivenessModule_TestInit {
     }
 
     /// @dev Extracts the setup of the test environment into a separate function.
-    function _prepare(
-        uint256 _numOwners,
-        uint256 _minOwners,
-        uint256 _numLiveOwners,
-        uint256 _thresholdPercentage
-    )
+    function _prepare(uint256 _numOwners, uint256 _minOwners, uint256 _numLiveOwners, uint256 _thresholdPercentage)
         internal
         returns (uint256 numOwners_, uint256 minOwners_, uint256 numLiveOwners_, uint256 thresholdPercentage_)
     {
@@ -496,9 +488,7 @@ contract LivenessModule_RemoveOwnersFuzz_Test is LivenessModule_TestInit {
         uint256 _thresholdPercentage,
         uint256 _shutDownBehavior,
         uint256 _numOwnersToRemoveinShutDown
-    )
-        external
-    {
+    ) external {
         // Prepare the test env and test params
         (uint256 numOwners, uint256 minOwners, uint256 numLiveOwners, uint256 thresholdPercentage) =
             _prepare(_numOwners, _minOwners, _numLiveOwners, _thresholdPercentage);

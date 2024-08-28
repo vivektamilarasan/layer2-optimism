@@ -181,11 +181,7 @@ contract ProxyAdmin is Ownable {
     /// @param _proxy          Address of the proxy to upgrade.
     /// @param _implementation Address of the new implementation address.
     /// @param _data           Data to trigger the new implementation with.
-    function upgradeAndCall(
-        address payable _proxy,
-        address _implementation,
-        bytes memory _data
-    )
+    function upgradeAndCall(address payable _proxy, address _implementation, bytes memory _data)
         external
         payable
         onlyOwner

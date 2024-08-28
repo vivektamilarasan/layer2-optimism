@@ -77,11 +77,7 @@ contract OptimismMintableERC20Factory is ISemver, Initializable, IOptimismERC20F
     /// @param _name        ERC20 name.
     /// @param _symbol      ERC20 symbol.
     /// @return Address of the newly created token.
-    function createStandardL2Token(
-        address _remoteToken,
-        string memory _name,
-        string memory _symbol
-    )
+    function createStandardL2Token(address _remoteToken, string memory _name, string memory _symbol)
         external
         returns (address)
     {
@@ -93,11 +89,7 @@ contract OptimismMintableERC20Factory is ISemver, Initializable, IOptimismERC20F
     /// @param _name        ERC20 name.
     /// @param _symbol      ERC20 symbol.
     /// @return Address of the newly created token.
-    function createOptimismMintableERC20(
-        address _remoteToken,
-        string memory _name,
-        string memory _symbol
-    )
+    function createOptimismMintableERC20(address _remoteToken, string memory _name, string memory _symbol)
         public
         returns (address)
     {
@@ -115,10 +107,7 @@ contract OptimismMintableERC20Factory is ISemver, Initializable, IOptimismERC20F
         string memory _name,
         string memory _symbol,
         uint8 _decimals
-    )
-        public
-        returns (address)
-    {
+    ) public returns (address) {
         require(_remoteToken != address(0), "OptimismMintableERC20Factory: must provide remote token address");
 
         bytes32 salt = keccak256(abi.encode(_remoteToken, _name, _symbol, _decimals));

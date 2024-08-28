@@ -74,12 +74,7 @@ contract PermissionedDisputeGame is FaultDisputeGame {
     }
 
     /// @inheritdoc IFaultDisputeGame
-    function step(
-        uint256 _claimIndex,
-        bool _isAttack,
-        bytes calldata _stateData,
-        bytes calldata _proof
-    )
+    function step(uint256 _claimIndex, bool _isAttack, bytes calldata _stateData, bytes calldata _proof)
         public
         override
         onlyAuthorized
@@ -92,12 +87,7 @@ contract PermissionedDisputeGame is FaultDisputeGame {
     /// @param _challengeIndex The index of the claim being moved against. This must match the `_disputed` claim.
     /// @param _claim The claim at the next logical position in the game.
     /// @param _isAttack Whether or not the move is an attack or defense.
-    function move(
-        Claim _disputed,
-        uint256 _challengeIndex,
-        Claim _claim,
-        bool _isAttack
-    )
+    function move(Claim _disputed, uint256 _challengeIndex, Claim _claim, bool _isAttack)
         public
         payable
         override

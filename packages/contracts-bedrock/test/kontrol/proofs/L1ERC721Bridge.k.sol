@@ -26,9 +26,7 @@ contract L1ERC721BridgeKontrol is DeploymentSummary, KontrolUtils {
         address _to,
         uint256 _amount,
         bytes calldata _extraData
-    )
-        public
-    {
+    ) public {
         setUpInlined();
 
         // Pause Standard Bridge

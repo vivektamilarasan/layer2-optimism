@@ -50,10 +50,7 @@ abstract contract SchemaResolver is ISchemaResolver {
     }
 
     /// @inheritdoc ISchemaResolver
-    function multiAttest(
-        Attestation[] calldata attestations,
-        uint256[] calldata values
-    )
+    function multiAttest(Attestation[] calldata attestations, uint256[] calldata values)
         external
         payable
         onlyEAS
@@ -97,10 +94,7 @@ abstract contract SchemaResolver is ISchemaResolver {
     }
 
     /// @inheritdoc ISchemaResolver
-    function multiRevoke(
-        Attestation[] calldata attestations,
-        uint256[] calldata values
-    )
+    function multiRevoke(Attestation[] calldata attestations, uint256[] calldata values)
         external
         payable
         onlyEAS

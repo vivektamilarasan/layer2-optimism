@@ -634,11 +634,7 @@ contract L2StandardBridge_Bridge_Test is Bridge_Initializer {
     }
 
     /// @dev Tests that bridging reverts with custom gas token.
-    function testFuzz_bridgeETHTo_customGasToken_reverts(
-        uint256 _value,
-        uint32 _minGasLimit,
-        bytes calldata _extraData
-    )
+    function testFuzz_bridgeETHTo_customGasToken_reverts(uint256 _value, uint32 _minGasLimit, bytes calldata _extraData)
         external
     {
         vm.mockCall(address(l1Block), abi.encodeWithSignature("gasPayingToken()"), abi.encode(address(1), uint8(2)));

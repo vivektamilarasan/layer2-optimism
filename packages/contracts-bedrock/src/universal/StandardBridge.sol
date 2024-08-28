@@ -115,10 +115,7 @@ abstract contract StandardBridge is Initializable {
     /// @notice Initializer.
     /// @param _messenger   Contract for CrossDomainMessenger on this network.
     /// @param _otherBridge Contract for the other StandardBridge contract.
-    function __StandardBridge_init(
-        CrossDomainMessenger _messenger,
-        StandardBridge _otherBridge
-    )
+    function __StandardBridge_init(CrossDomainMessenger _messenger, StandardBridge _otherBridge)
         internal
         onlyInitializing
     {
@@ -202,11 +199,7 @@ abstract contract StandardBridge is Initializable {
         uint256 _amount,
         uint32 _minGasLimit,
         bytes calldata _extraData
-    )
-        public
-        virtual
-        onlyEOA
-    {
+    ) public virtual onlyEOA {
         _initiateBridgeERC20(_localToken, _remoteToken, msg.sender, msg.sender, _amount, _minGasLimit, _extraData);
     }
 
@@ -226,10 +219,7 @@ abstract contract StandardBridge is Initializable {
         uint256 _amount,
         uint32 _minGasLimit,
         bytes calldata _extraData
-    )
-        public
-        virtual
-    {
+    ) public virtual {
         _initiateBridgeERC20(_localToken, _remoteToken, msg.sender, _to, _amount, _minGasLimit, _extraData);
     }
 
@@ -241,12 +231,7 @@ abstract contract StandardBridge is Initializable {
     /// @param _extraData Extra data to be sent with the transaction. Note that the recipient will
     ///                   not be triggered with this data, but it will be emitted and can be used
     ///                   to identify the transaction.
-    function finalizeBridgeETH(
-        address _from,
-        address _to,
-        uint256 _amount,
-        bytes calldata _extraData
-    )
+    function finalizeBridgeETH(address _from, address _to, uint256 _amount, bytes calldata _extraData)
         public
         payable
         onlyOtherBridge
@@ -282,10 +267,7 @@ abstract contract StandardBridge is Initializable {
         address _to,
         uint256 _amount,
         bytes calldata _extraData
-    )
-        public
-        onlyOtherBridge
-    {
+    ) public onlyOtherBridge {
         require(paused() == false, "StandardBridge: paused");
         if (_isOptimismMintableERC20(_localToken)) {
             require(
@@ -318,9 +300,7 @@ abstract contract StandardBridge is Initializable {
         uint256 _amount,
         uint32 _minGasLimit,
         bytes memory _extraData
-    )
-        internal
-    {
+    ) internal {
         require(isCustomGasToken() == false, "StandardBridge: cannot bridge ETH with custom gas token");
         require(msg.value == _amount, "StandardBridge: bridging ETH must include sufficient ETH value");
 
@@ -352,9 +332,7 @@ abstract contract StandardBridge is Initializable {
         uint256 _amount,
         uint32 _minGasLimit,
         bytes memory _extraData
-    )
-        internal
-    {
+    ) internal {
         require(msg.value == 0, "StandardBridge: cannot send value");
 
         if (_isOptimismMintableERC20(_localToken)) {
@@ -420,12 +398,7 @@ abstract contract StandardBridge is Initializable {
     /// @param _to        Address of the receiver.
     /// @param _amount    Amount of ETH sent.
     /// @param _extraData Extra data sent with the transaction.
-    function _emitETHBridgeInitiated(
-        address _from,
-        address _to,
-        uint256 _amount,
-        bytes memory _extraData
-    )
+    function _emitETHBridgeInitiated(address _from, address _to, uint256 _amount, bytes memory _extraData)
         internal
         virtual
     {
@@ -438,12 +411,7 @@ abstract contract StandardBridge is Initializable {
     /// @param _to        Address of the receiver.
     /// @param _amount    Amount of ETH sent.
     /// @param _extraData Extra data sent with the transaction.
-    function _emitETHBridgeFinalized(
-        address _from,
-        address _to,
-        uint256 _amount,
-        bytes memory _extraData
-    )
+    function _emitETHBridgeFinalized(address _from, address _to, uint256 _amount, bytes memory _extraData)
         internal
         virtual
     {
@@ -465,10 +433,7 @@ abstract contract StandardBridge is Initializable {
         address _to,
         uint256 _amount,
         bytes memory _extraData
-    )
-        internal
-        virtual
-    {
+    ) internal virtual {
         emit ERC20BridgeInitiated(_localToken, _remoteToken, _from, _to, _amount, _extraData);
     }
 
@@ -487,10 +452,7 @@ abstract contract StandardBridge is Initializable {
         address _to,
         uint256 _amount,
         bytes memory _extraData
-    )
-        internal
-        virtual
-    {
+    ) internal virtual {
         emit ERC20BridgeFinalized(_localToken, _remoteToken, _from, _to, _amount, _extraData);
     }
 }

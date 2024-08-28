@@ -11,13 +11,7 @@ import { GnosisSafe } from "safe-contracts/GnosisSafe.sol";
 /// author: Colin Nielsen
 /// https://github.com/colinnielsen/safe-tools/blob/ce6c654a76d91b619ab7778c77d1a76b3ced6666/src/CompatibilityFallbackHandler_1_3_0.sol
 contract DefaultCallbackHandler is ERC1155TokenReceiver, ERC777TokensRecipient, ERC721TokenReceiver, IERC165 {
-    function onERC1155Received(
-        address,
-        address,
-        uint256,
-        uint256,
-        bytes calldata
-    )
+    function onERC1155Received(address, address, uint256, uint256, bytes calldata)
         external
         pure
         override
@@ -26,13 +20,7 @@ contract DefaultCallbackHandler is ERC1155TokenReceiver, ERC777TokensRecipient, 
         return 0xf23a6e61;
     }
 
-    function onERC1155BatchReceived(
-        address,
-        address,
-        uint256[] calldata,
-        uint256[] calldata,
-        bytes calldata
-    )
+    function onERC1155BatchReceived(address, address, uint256[] calldata, uint256[] calldata, bytes calldata)
         external
         pure
         override
@@ -45,14 +33,7 @@ contract DefaultCallbackHandler is ERC1155TokenReceiver, ERC777TokensRecipient, 
         return 0x150b7a02;
     }
 
-    function tokensReceived(
-        address,
-        address,
-        address,
-        uint256,
-        bytes calldata,
-        bytes calldata
-    )
+    function tokensReceived(address, address, address, uint256, bytes calldata, bytes calldata)
         external
         pure
         override
@@ -149,10 +130,7 @@ contract CompatibilityFallbackHandler is DefaultCallbackHandler, ISignatureValid
      * @param targetContract Address of the contract containing the code to execute.
      * @param calldataPayload Calldata that should be sent to the target contract (encoded method name and arguments).
      */
-    function simulate(
-        address targetContract,
-        bytes calldata calldataPayload
-    )
+    function simulate(address targetContract, bytes calldata calldataPayload)
         external
         returns (bytes memory response)
     {

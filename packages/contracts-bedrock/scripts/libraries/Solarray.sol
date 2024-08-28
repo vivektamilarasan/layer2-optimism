@@ -39,13 +39,7 @@ library Solarray {
         return arr;
     }
 
-    function addresses(
-        address a,
-        address b,
-        address c,
-        address d,
-        address e
-    )
+    function addresses(address a, address b, address c, address d, address e)
         internal
         pure
         returns (address[] memory)
@@ -59,14 +53,7 @@ library Solarray {
         return arr;
     }
 
-    function addresses(
-        address a,
-        address b,
-        address c,
-        address d,
-        address e,
-        address f
-    )
+    function addresses(address a, address b, address c, address d, address e, address f)
         internal
         pure
         returns (address[] memory)
@@ -81,15 +68,7 @@ library Solarray {
         return arr;
     }
 
-    function addresses(
-        address a,
-        address b,
-        address c,
-        address d,
-        address e,
-        address f,
-        address g
-    )
+    function addresses(address a, address b, address c, address d, address e, address f, address g)
         internal
         pure
         returns (address[] memory)
@@ -105,16 +84,7 @@ library Solarray {
         return arr;
     }
 
-    function addresses(
-        address a,
-        address b,
-        address c,
-        address d,
-        address e,
-        address f,
-        address g,
-        address h
-    )
+    function addresses(address a, address b, address c, address d, address e, address f, address g, address h)
         internal
         pure
         returns (address[] memory)
@@ -141,11 +111,7 @@ library Solarray {
         address g,
         address h,
         address i
-    )
-        internal
-        pure
-        returns (address[] memory)
-    {
+    ) internal pure returns (address[] memory) {
         address[] memory arr = new address[](9);
         arr[0] = a;
         arr[1] = b;
@@ -170,11 +136,7 @@ library Solarray {
         address h,
         address i,
         address j
-    )
-        internal
-        pure
-        returns (address[] memory)
-    {
+    ) internal pure returns (address[] memory) {
         address[] memory arr = new address[](10);
         arr[0] = a;
         arr[1] = b;

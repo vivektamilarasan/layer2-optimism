@@ -113,9 +113,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         address _target,
         bytes calldata _message,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Ensure the destination is not the same as the source, otherwise the function will revert
         vm.assume(_destination != block.chainid);
 
@@ -166,9 +164,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
     function testFuzz_sendMessage_targetL2ToL2CrossDomainMessenger_reverts(
         uint256 _destination,
         bytes calldata _message
-    )
-        external
-    {
+    ) external {
         // Ensure the destination is not the same as the source, otherwise the function will revert regardless of target
         vm.assume(_destination != block.chainid);
 
@@ -191,9 +187,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         address _target,
         bytes calldata _message,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Ensure that the target contract is not CrossL2Inbox or L2ToL2CrossDomainMessenger
         vm.assume(_target != Predeploys.CROSS_L2_INBOX && _target != Predeploys.L2_TO_L2_CROSS_DOMAIN_MESSENGER);
 
@@ -270,9 +264,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         uint256 _nonce,
         address _sender,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Since the target is this contract, we want to ensure the payment doesn't lead to overflow, since this
         // contract has a non-zero balance. Thus, we set this contract's balance to zero and we hoax afterwards.
         vm.deal(address(this), 0);
@@ -362,9 +354,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         address _sender2, // sender passed to `relayMessage` by the reentrant call.
         uint256 _nonce,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Since the target is this contract, we want to ensure the payment doesn't lead to overflow, since this
         // contract has a non-zero balance. Thus, we set this contract's balance to zero and we hoax afterwards.
         vm.deal(address(this), 0);
@@ -421,9 +411,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         address _target,
         bytes calldata _message,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Add sufficient value to the contract to relay the message with
         vm.deal(address(this), _value);
 
@@ -451,9 +439,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         address _target,
         bytes calldata _message,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Set address(0) as the origin of the CrossL2Inbox contract, which is not the L2ToL2CrossDomainMessenger
         vm.mockCall({
             callee: Predeploys.CROSS_L2_INBOX,
@@ -487,9 +473,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         address _target,
         bytes calldata _message,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Ensure the destination is not this chain
         vm.assume(_destination != block.chainid);
 
@@ -524,9 +508,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         address _sender,
         bytes calldata _message,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Mock the CrossL2Inbox origin to return the L2ToL2CrossDomainMessenger contract
         vm.mockCall({
             callee: Predeploys.CROSS_L2_INBOX,
@@ -559,9 +541,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         address _sender,
         bytes calldata _message,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Mock the CrossL2Inbox origin to return the L2ToL2CrossDomainMessenger contract
         vm.mockCall({
             callee: Predeploys.CROSS_L2_INBOX,
@@ -595,9 +575,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         address _target,
         bytes calldata _message,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Ensure that payment doesn't overflow since we send value to L2ToL2CrossDomainMessenger twice
         _value = bound(_value, 0, type(uint256).max / 2);
 
@@ -662,9 +640,7 @@ contract L2ToL2CrossDomainMessengerTest is Test {
         address _target,
         bytes calldata _message,
         uint256 _value
-    )
-        external
-    {
+    ) external {
         // Ensure that the target contract is not CrossL2Inbox or L2ToL2CrossDomainMessenger
         vm.assume(_target != Predeploys.CROSS_L2_INBOX && _target != Predeploys.L2_TO_L2_CROSS_DOMAIN_MESSENGER);
 

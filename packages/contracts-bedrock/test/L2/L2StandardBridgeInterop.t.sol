@@ -86,9 +86,7 @@ contract L2StandardBridgeInterop_LegacyToSuper_Test is L2StandardBridgeInterop_T
         address _to,
         uint8 _decimalsTo,
         uint256 _amount
-    )
-        public
-    {
+    ) public {
         // Assume
         _assumeAddress(_from);
         _assumeAddress(_to);
@@ -128,9 +126,7 @@ contract L2StandardBridgeInterop_LegacyToSuper_Test is L2StandardBridgeInterop_T
         address _to,
         uint256 _amount,
         address _remoteToken
-    )
-        public
-    {
+    ) public {
         // Assume
         vm.assume(_remoteToken != address(0));
 
@@ -157,9 +153,7 @@ contract L2StandardBridgeInterop_LegacyToSuper_Test is L2StandardBridgeInterop_T
         uint256 _amount,
         address _fromRemoteToken,
         address _toRemoteToken
-    )
-        public
-    {
+    ) public {
         // Assume
         vm.assume(_fromRemoteToken != address(0));
         vm.assume(_toRemoteToken != address(0));
@@ -188,9 +182,7 @@ contract L2StandardBridgeInterop_LegacyToSuper_Test is L2StandardBridgeInterop_T
         address _to,
         uint256 _amount,
         address _remoteToken
-    )
-        public
-    {
+    ) public {
         // Assume
         vm.assume(_remoteToken != address(0));
 
@@ -235,9 +227,7 @@ contract L2StandardBridgeInterop_SuperToLegacy_Test is L2StandardBridgeInterop_T
         address _to,
         uint8 _decimalsTo,
         uint256 _amount
-    )
-        public
-    {
+    ) public {
         // Assume
         _assumeAddress(_from);
         _assumeAddress(_to);
@@ -277,9 +267,7 @@ contract L2StandardBridgeInterop_SuperToLegacy_Test is L2StandardBridgeInterop_T
         address _to,
         uint256 _amount,
         address _remoteToken
-    )
-        public
-    {
+    ) public {
         // Assume
         vm.assume(_remoteToken != address(0));
 
@@ -306,9 +294,7 @@ contract L2StandardBridgeInterop_SuperToLegacy_Test is L2StandardBridgeInterop_T
         uint256 _amount,
         address _fromRemoteToken,
         address _toRemoteToken
-    )
-        public
-    {
+    ) public {
         // Assume
         vm.assume(_fromRemoteToken != address(0));
         vm.assume(_toRemoteToken != address(0));
@@ -337,9 +323,7 @@ contract L2StandardBridgeInterop_SuperToLegacy_Test is L2StandardBridgeInterop_T
         address _to,
         uint256 _amount,
         address _remoteToken
-    )
-        public
-    {
+    ) public {
         // Assume
         vm.assume(_remoteToken != address(0));
 

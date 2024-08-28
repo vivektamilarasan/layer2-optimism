@@ -383,69 +383,101 @@ contract MIPS2 is ISemver {
                 v1 = sys.EBADF;
             } else if (syscall_no == sys.SYS_CLOCK_GETTIME) {
                 // ignored
-            } else if (syscall_no == sys.SYS_GET_AFFINITY) {
+            }
+            else if (syscall_no == sys.SYS_GET_AFFINITY) {
                 // ignored
-            } else if (syscall_no == sys.SYS_MADVISE) {
+            }
+            else if (syscall_no == sys.SYS_MADVISE) {
                 // ignored
-            } else if (syscall_no == sys.SYS_RTSIGPROCMASK) {
+            }
+            else if (syscall_no == sys.SYS_RTSIGPROCMASK) {
                 // ignored
-            } else if (syscall_no == sys.SYS_SIGALTSTACK) {
+            }
+            else if (syscall_no == sys.SYS_SIGALTSTACK) {
                 // ignored
-            } else if (syscall_no == sys.SYS_RTSIGACTION) {
+            }
+            else if (syscall_no == sys.SYS_RTSIGACTION) {
                 // ignored
-            } else if (syscall_no == sys.SYS_PRLIMIT64) {
+            }
+            else if (syscall_no == sys.SYS_PRLIMIT64) {
                 // ignored
-            } else if (syscall_no == sys.SYS_CLOSE) {
+            }
+            else if (syscall_no == sys.SYS_CLOSE) {
                 // ignored
-            } else if (syscall_no == sys.SYS_PREAD64) {
+            }
+            else if (syscall_no == sys.SYS_PREAD64) {
                 // ignored
-            } else if (syscall_no == sys.SYS_FSTAT64) {
+            }
+            else if (syscall_no == sys.SYS_FSTAT64) {
                 // ignored
-            } else if (syscall_no == sys.SYS_OPENAT) {
+            }
+            else if (syscall_no == sys.SYS_OPENAT) {
                 // ignored
-            } else if (syscall_no == sys.SYS_READLINK) {
+            }
+            else if (syscall_no == sys.SYS_READLINK) {
                 // ignored
-            } else if (syscall_no == sys.SYS_READLINKAT) {
+            }
+            else if (syscall_no == sys.SYS_READLINKAT) {
                 // ignored
-            } else if (syscall_no == sys.SYS_IOCTL) {
+            }
+            else if (syscall_no == sys.SYS_IOCTL) {
                 // ignored
-            } else if (syscall_no == sys.SYS_EPOLLCREATE1) {
+            }
+            else if (syscall_no == sys.SYS_EPOLLCREATE1) {
                 // ignored
-            } else if (syscall_no == sys.SYS_PIPE2) {
+            }
+            else if (syscall_no == sys.SYS_PIPE2) {
                 // ignored
-            } else if (syscall_no == sys.SYS_EPOLLCTL) {
+            }
+            else if (syscall_no == sys.SYS_EPOLLCTL) {
                 // ignored
-            } else if (syscall_no == sys.SYS_EPOLLPWAIT) {
+            }
+            else if (syscall_no == sys.SYS_EPOLLPWAIT) {
                 // ignored
-            } else if (syscall_no == sys.SYS_GETRANDOM) {
+            }
+            else if (syscall_no == sys.SYS_GETRANDOM) {
                 // ignored
-            } else if (syscall_no == sys.SYS_UNAME) {
+            }
+            else if (syscall_no == sys.SYS_UNAME) {
                 // ignored
-            } else if (syscall_no == sys.SYS_STAT64) {
+            }
+            else if (syscall_no == sys.SYS_STAT64) {
                 // ignored
-            } else if (syscall_no == sys.SYS_GETUID) {
+            }
+            else if (syscall_no == sys.SYS_GETUID) {
                 // ignored
-            } else if (syscall_no == sys.SYS_GETGID) {
+            }
+            else if (syscall_no == sys.SYS_GETGID) {
                 // ignored
-            } else if (syscall_no == sys.SYS_LLSEEK) {
+            }
+            else if (syscall_no == sys.SYS_LLSEEK) {
                 // ignored
-            } else if (syscall_no == sys.SYS_MINCORE) {
+            }
+            else if (syscall_no == sys.SYS_MINCORE) {
                 // ignored
-            } else if (syscall_no == sys.SYS_TGKILL) {
+            }
+            else if (syscall_no == sys.SYS_TGKILL) {
                 // ignored
-            } else if (syscall_no == sys.SYS_SETITIMER) {
+            }
+            else if (syscall_no == sys.SYS_SETITIMER) {
                 // ignored
-            } else if (syscall_no == sys.SYS_TIMERCREATE) {
+            }
+            else if (syscall_no == sys.SYS_TIMERCREATE) {
                 // ignored
-            } else if (syscall_no == sys.SYS_TIMERSETTIME) {
+            }
+            else if (syscall_no == sys.SYS_TIMERSETTIME) {
                 // ignored
-            } else if (syscall_no == sys.SYS_TIMERDELETE) {
+            }
+            else if (syscall_no == sys.SYS_TIMERDELETE) {
                 // ignored
-            } else if (syscall_no == sys.SYS_CLOCKGETTIME) {
+            }
+            else if (syscall_no == sys.SYS_CLOCKGETTIME) {
                 // ignored
-            } else if (syscall_no == sys.SYS_MUNMAP) {
+            }
+            else if (syscall_no == sys.SYS_MUNMAP) {
                 // ignored
-            } else {
+            }
+            else {
                 revert("MIPS2: unimplemented syscall");
             }
 
@@ -537,11 +569,7 @@ contract MIPS2 is ISemver {
     }
 
     /// @notice Completes the FUTEX_WAIT syscall.
-    function onWaitComplete(
-        State memory _state,
-        ThreadState memory _thread,
-        bool _isTimedOut
-    )
+    function onWaitComplete(State memory _state, ThreadState memory _thread, bool _isTimedOut)
         internal
         returns (bytes32 out_)
     {
@@ -565,10 +593,7 @@ contract MIPS2 is ISemver {
 
     /// @notice Preempts the current thread for another and updates the VM state.
     ///         It reads the inner thread root from calldata to update the current thread stack root.
-    function preemptThread(
-        State memory _state,
-        ThreadState memory _thread
-    )
+    function preemptThread(State memory _state, ThreadState memory _thread)
         internal
         pure
         returns (bool _changedDirections)

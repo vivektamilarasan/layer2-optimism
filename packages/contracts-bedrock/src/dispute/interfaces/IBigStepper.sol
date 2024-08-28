@@ -32,11 +32,7 @@ interface IBigStepper {
     /// @param _localContext The local key context for the preimage oracle. Optional, can be set as a constant if the
     ///                      implementation only requires one set of local keys.
     /// @return postState_ The hash of the post state witness after the state transition.
-    function step(
-        bytes calldata _stateData,
-        bytes calldata _proof,
-        bytes32 _localContext
-    )
+    function step(bytes calldata _stateData, bytes calldata _proof, bytes32 _localContext)
         external
         returns (bytes32 postState_);
 

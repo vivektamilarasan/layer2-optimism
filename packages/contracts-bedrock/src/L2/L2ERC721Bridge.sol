@@ -54,10 +54,7 @@ contract L2ERC721Bridge is ERC721Bridge, ISemver {
         address _to,
         uint256 _tokenId,
         bytes calldata _extraData
-    )
-        external
-        onlyOtherBridge
-    {
+    ) external onlyOtherBridge {
         require(_localToken != address(this), "L2ERC721Bridge: local token cannot be self");
 
         // Note that supportsInterface makes a callback to the _localToken address which is user
@@ -89,10 +86,7 @@ contract L2ERC721Bridge is ERC721Bridge, ISemver {
         uint256 _tokenId,
         uint32 _minGasLimit,
         bytes calldata _extraData
-    )
-        internal
-        override
-    {
+    ) internal override {
         require(_remoteToken != address(0), "L2ERC721Bridge: remote token cannot be address(0)");
 
         // Check that the withdrawal is being initiated by the NFT owner

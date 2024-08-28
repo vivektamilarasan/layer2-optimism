@@ -83,12 +83,7 @@ contract OptimismSuperchainERC20 is IOptimismSuperchainERC20Extension, ERC20, IS
     /// @param _name           ERC20 name.
     /// @param _symbol         ERC20 symbol.
     /// @param _decimals       ERC20 decimals.
-    function initialize(
-        address _remoteToken,
-        string memory _name,
-        string memory _symbol,
-        uint8 _decimals
-    )
+    function initialize(address _remoteToken, string memory _name, string memory _symbol, uint8 _decimals)
         external
         initializer
     {

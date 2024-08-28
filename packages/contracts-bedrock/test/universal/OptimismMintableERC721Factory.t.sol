@@ -71,11 +71,7 @@ contract OptimismMintableERC721Factory_Test is Bridge_Initializer {
         factory.createOptimismMintableERC721(address(0), "L2Token", "L2T");
     }
 
-    function calculateTokenAddress(
-        address _remote,
-        string memory _name,
-        string memory _symbol
-    )
+    function calculateTokenAddress(address _remote, string memory _name, string memory _symbol)
         internal
         view
         returns (address)

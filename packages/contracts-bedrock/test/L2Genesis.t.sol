@@ -99,11 +99,7 @@ contract L2GenesisTest is Test {
     }
 
     /// @notice Returns the number of accounts that have a particular slot set to a particular value.
-    function getPredeployCountWithSlotSetToValue(
-        string memory path,
-        bytes32 slot,
-        bytes32 value
-    )
+    function getPredeployCountWithSlotSetToValue(string memory path, bytes32 slot, bytes32 value)
         internal
         returns (uint256)
     {

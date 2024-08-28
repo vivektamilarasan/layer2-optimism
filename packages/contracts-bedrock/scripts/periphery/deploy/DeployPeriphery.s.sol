@@ -253,11 +253,7 @@ contract DeployPeriphery is Script, Artifacts {
     /// @param _name The name of the contract.
     /// @param _creationCode The contract creation code.
     /// @param _constructorParams The constructor parameters.
-    function _deployCreate2(
-        string memory _name,
-        bytes memory _creationCode,
-        bytes memory _constructorParams
-    )
+    function _deployCreate2(string memory _name, bytes memory _creationCode, bytes memory _constructorParams)
         internal
         returns (address addr_)
     {

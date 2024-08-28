@@ -41,11 +41,7 @@ interface ICrossL2Inbox {
     /// @param _id An Identifier pointing to the initiating message.
     /// @param _target Account that is called with _msg.
     /// @param _msg The message payload, matching the initiating message.
-    function executeMessage(
-        ICrossL2Inbox.Identifier calldata _id,
-        address _target,
-        bytes calldata _msg
-    )
+    function executeMessage(ICrossL2Inbox.Identifier calldata _id, address _target, bytes calldata _msg)
         external
         payable;
 

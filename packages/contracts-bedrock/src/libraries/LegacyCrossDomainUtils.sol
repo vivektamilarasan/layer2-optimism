@@ -14,12 +14,7 @@ library LegacyCrossDomainUtils {
     /// @param _message Message to send to the target.
     /// @param _messageNonce Nonce for the provided message.
     /// @return ABI encoded cross domain calldata.
-    function encodeXDomainCalldata(
-        address _target,
-        address _sender,
-        bytes memory _message,
-        uint256 _messageNonce
-    )
+    function encodeXDomainCalldata(address _target, address _sender, bytes memory _message, uint256 _messageNonce)
         internal
         pure
         returns (bytes memory)

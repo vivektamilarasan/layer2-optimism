@@ -43,11 +43,7 @@ library Encoding {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
+    ) internal pure returns (bytes memory) {
         (, uint16 version) = decodeVersionedNonce(_nonce);
         if (version == 0) {
             return encodeCrossDomainMessageV0(_target, _sender, _data, _nonce);
@@ -64,12 +60,7 @@ library Encoding {
     /// @param _data   Data to send with the message.
     /// @param _nonce  Message nonce.
     /// @return Encoded cross domain message.
-    function encodeCrossDomainMessageV0(
-        address _target,
-        address _sender,
-        bytes memory _data,
-        uint256 _nonce
-    )
+    function encodeCrossDomainMessageV0(address _target, address _sender, bytes memory _data, uint256 _nonce)
         internal
         pure
         returns (bytes memory)
@@ -92,11 +83,7 @@ library Encoding {
         uint256 _value,
         uint256 _gasLimit,
         bytes memory _data
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
+    ) internal pure returns (bytes memory) {
         return abi.encodeWithSignature(
             "relayMessage(uint256,address,address,uint256,uint256,bytes)",
             _nonce,
@@ -154,11 +141,7 @@ library Encoding {
         uint256 blobBaseFee,
         bytes32 hash,
         bytes32 batcherHash
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
+    ) internal pure returns (bytes memory) {
         bytes4 functionSignature = bytes4(keccak256("setL1BlockValuesEcotone()"));
         return abi.encodePacked(
             functionSignature,
@@ -196,11 +179,7 @@ library Encoding {
         bytes32 _hash,
         bytes32 _batcherHash,
         uint256[] memory _dependencySet
-    )
-        internal
-        pure
-        returns (bytes memory)
-    {
+    ) internal pure returns (bytes memory) {
         require(_dependencySet.length <= type(uint8).max, "Encoding: dependency set length is too large");
         // Check that the batcher hash is just the address with 0 padding to the left for version 0.
         require(uint160(uint256(_batcherHash)) == uint256(_batcherHash), "Encoding: invalid batcher hash");

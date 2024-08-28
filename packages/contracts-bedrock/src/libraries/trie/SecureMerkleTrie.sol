@@ -16,12 +16,7 @@ library SecureMerkleTrie {
     /// @param _root  Known root of the Merkle trie. Used to verify that the included proof is
     ///               correctly constructed.
     /// @return valid_ Whether or not the proof is valid.
-    function verifyInclusionProof(
-        bytes memory _key,
-        bytes memory _value,
-        bytes[] memory _proof,
-        bytes32 _root
-    )
+    function verifyInclusionProof(bytes memory _key, bytes memory _value, bytes[] memory _proof, bytes32 _root)
         internal
         pure
         returns (bool valid_)

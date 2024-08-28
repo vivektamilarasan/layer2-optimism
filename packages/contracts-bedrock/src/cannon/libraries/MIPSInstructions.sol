@@ -11,11 +11,7 @@ library MIPSInstructions {
     /// @return insn_ The current 32-bit instruction at the pc.
     /// @return opcode_ The opcode value parsed from insn_.
     /// @return fun_ The function value parsed from insn_.
-    function getInstructionDetails(
-        uint32 _pc,
-        bytes32 _memRoot,
-        uint256 _insnProofOffset
-    )
+    function getInstructionDetails(uint32 _pc, bytes32 _memRoot, uint256 _insnProofOffset)
         internal
         pure
         returns (uint32 insn_, uint32 opcode_, uint32 fun_)
@@ -46,11 +42,7 @@ library MIPSInstructions {
         uint32 _insn,
         uint32 _opcode,
         uint32 _fun
-    )
-        internal
-        pure
-        returns (bytes32 newMemRoot_)
-    {
+    ) internal pure returns (bytes32 newMemRoot_) {
         unchecked {
             newMemRoot_ = _memRoot;
 
@@ -171,14 +163,7 @@ library MIPSInstructions {
     }
 
     /// @notice Execute an instruction.
-    function executeMipsInstruction(
-        uint32 _insn,
-        uint32 _opcode,
-        uint32 _fun,
-        uint32 _rs,
-        uint32 _rt,
-        uint32 _mem
-    )
+    function executeMipsInstruction(uint32 _insn, uint32 _opcode, uint32 _fun, uint32 _rs, uint32 _rt, uint32 _mem)
         internal
         pure
         returns (uint32 out_)
@@ -457,10 +442,7 @@ library MIPSInstructions {
         uint32 _insn,
         uint32 _rtReg,
         uint32 _rs
-    )
-        internal
-        pure
-    {
+    ) internal pure {
         unchecked {
             bool shouldBranch = false;
 
@@ -523,10 +505,7 @@ library MIPSInstructions {
         uint32 _rs,
         uint32 _rt,
         uint32 _storeReg
-    )
-        internal
-        pure
-    {
+    ) internal pure {
         unchecked {
             uint32 val = 0;
 
@@ -595,12 +574,7 @@ library MIPSInstructions {
     /// @param _registers Holds the current state of the cpu registers.
     /// @param _linkReg The register to store the link to the instruction after the delay slot instruction.
     /// @param _dest The destination to jump to.
-    function handleJump(
-        st.CpuScalars memory _cpu,
-        uint32[32] memory _registers,
-        uint32 _linkReg,
-        uint32 _dest
-    )
+    function handleJump(st.CpuScalars memory _cpu, uint32[32] memory _registers, uint32 _linkReg, uint32 _dest)
         internal
         pure
     {
@@ -633,10 +607,7 @@ library MIPSInstructions {
         uint32 _storeReg,
         uint32 _val,
         bool _conditional
-    )
-        internal
-        pure
-    {
+    ) internal pure {
         unchecked {
             // The destination register must be valid.
             require(_storeReg < 32, "valid register");

@@ -394,10 +394,7 @@ contract EAS is IEAS, ISemver, EIP1271Verifier {
         address attester,
         uint256 availableValue,
         bool last
-    )
-        private
-        returns (AttestationsResult memory)
-    {
+    ) private returns (AttestationsResult memory) {
         uint256 length = data.length;
 
         AttestationsResult memory res;
@@ -488,10 +485,7 @@ contract EAS is IEAS, ISemver, EIP1271Verifier {
         address revoker,
         uint256 availableValue,
         bool last
-    )
-        private
-        returns (uint256)
-    {
+    ) private returns (uint256) {
         // Ensure that a non-existing schema ID wasn't passed by accident.
         SchemaRecord memory schemaRecord = _schemaRegistry.getSchema(schemaUID);
         if (schemaRecord.uid == EMPTY_UID) {
@@ -559,10 +553,7 @@ contract EAS is IEAS, ISemver, EIP1271Verifier {
         bool isRevocation,
         uint256 availableValue,
         bool last
-    )
-        private
-        returns (uint256)
-    {
+    ) private returns (uint256) {
         ISchemaResolver resolver = schemaRecord.resolver;
         if (address(resolver) == address(0)) {
             // Ensure that we don't accept payments if there is no resolver.
@@ -624,10 +615,7 @@ contract EAS is IEAS, ISemver, EIP1271Verifier {
         bool isRevocation,
         uint256 availableValue,
         bool last
-    )
-        private
-        returns (uint256)
-    {
+    ) private returns (uint256) {
         uint256 length = attestations.length;
         if (length == 1) {
             return _resolveAttestation(schemaRecord, attestations[0], values[0], isRevocation, availableValue, last);

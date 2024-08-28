@@ -56,9 +56,7 @@ contract OptimismMintableTokenFactory_Test is Bridge_Initializer {
         address _remoteToken,
         string memory _name,
         string memory _symbol
-    )
-        external
-    {
+    ) external {
         // Assume
         vm.assume(_remoteToken != address(0));
 
@@ -89,9 +87,7 @@ contract OptimismMintableTokenFactory_Test is Bridge_Initializer {
         string memory _name,
         string memory _symbol,
         uint8 _decimals
-    )
-        external
-    {
+    ) external {
         // Assume
         vm.assume(_remoteToken != address(0));
 
@@ -122,9 +118,7 @@ contract OptimismMintableTokenFactory_Test is Bridge_Initializer {
         address _remoteToken,
         string memory _name,
         string memory _symbol
-    )
-        external
-    {
+    ) external {
         // Assume
         vm.assume(_remoteToken != address(0));
 
@@ -146,9 +140,7 @@ contract OptimismMintableTokenFactory_Test is Bridge_Initializer {
         string memory _name,
         string memory _symbol,
         uint8 _decimals
-    )
-        external
-    {
+    ) external {
         // Assume
         vm.assume(_remoteToken != address(0));
 
@@ -168,9 +160,7 @@ contract OptimismMintableTokenFactory_Test is Bridge_Initializer {
         address _caller,
         string memory _name,
         string memory _symbol
-    )
-        external
-    {
+    ) external {
         // Arrange
         address remote = address(0);
         vm.expectRevert("OptimismMintableERC20Factory: must provide remote token address");
@@ -186,9 +176,7 @@ contract OptimismMintableTokenFactory_Test is Bridge_Initializer {
         string memory _name,
         string memory _symbol,
         uint8 _decimals
-    )
-        external
-    {
+    ) external {
         // Arrange
         address remote = address(0);
         vm.expectRevert("OptimismMintableERC20Factory: must provide remote token address");
@@ -199,12 +187,7 @@ contract OptimismMintableTokenFactory_Test is Bridge_Initializer {
     }
 
     /// @notice Precalculates the address of the token contract.
-    function _calculateTokenAddress(
-        address _remote,
-        string memory _name,
-        string memory _symbol,
-        uint8 _decimals
-    )
+    function _calculateTokenAddress(address _remote, string memory _name, string memory _symbol, uint8 _decimals)
         internal
         view
         returns (address)

@@ -446,9 +446,7 @@ contract L1StandardBridge_DepositETHTo_TestFail is Bridge_Initializer {
         address _to,
         uint32 _minGasLimit,
         bytes calldata _extraData
-    )
-        external
-    {
+    ) external {
         vm.mockCall(
             address(systemConfig), abi.encodeWithSignature("gasPayingToken()"), abi.encode(address(1), uint8(2))
         );
@@ -474,11 +472,7 @@ contract L1StandardBridge_BridgeETHTo_Test is PreBridgeETHTo {
 
 contract L1StandardBridge_BridgeETHTo_TestFail is PreBridgeETHTo {
     /// @dev Tests that bridging reverts with custom gas token.
-    function testFuzz_bridgeETHTo_customGasToken_reverts(
-        uint256 _value,
-        uint32 _minGasLimit,
-        bytes calldata _extraData
-    )
+    function testFuzz_bridgeETHTo_customGasToken_reverts(uint256 _value, uint32 _minGasLimit, bytes calldata _extraData)
         external
     {
         vm.mockCall(
@@ -709,10 +703,7 @@ contract L1StandardBridge_FinalizeETHWithdrawal_Test is Bridge_Initializer {
 
 contract L1StandardBridge_FinalizeETHWithdrawal_TestFail is Bridge_Initializer {
     /// @dev Tests that finalizeETHWithdrawal reverts with custom gas token.
-    function testFuzz_finalizeETHWithdrawal_customGasToken_reverts(
-        uint256 _value,
-        bytes calldata _extraData
-    )
+    function testFuzz_finalizeETHWithdrawal_customGasToken_reverts(uint256 _value, bytes calldata _extraData)
         external
     {
         vm.mockCall(

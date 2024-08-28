@@ -64,10 +64,7 @@ contract Proxy {
     ///         atomic execution of initialization-based upgrades.
     /// @param _implementation Address of the implementation contract.
     /// @param _data           Calldata to delegatecall the new implementation with.
-    function upgradeToAndCall(
-        address _implementation,
-        bytes calldata _data
-    )
+    function upgradeToAndCall(address _implementation, bytes calldata _data)
         public
         payable
         virtual

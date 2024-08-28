@@ -15,11 +15,7 @@ contract Transactor is Owned {
     /// @param _value  ETH value to send with the call.
     /// @return success_ Boolean success value.
     /// @return data_ Bytes data returned by the call.
-    function CALL(
-        address _target,
-        bytes memory _data,
-        uint256 _value
-    )
+    function CALL(address _target, bytes memory _data, uint256 _value)
         external
         payable
         onlyOwner
@@ -33,10 +29,7 @@ contract Transactor is Owned {
     /// @param _data   Data to send with the call.
     /// @return success_ Boolean success value.
     /// @return data_ Bytes data returned by the call.
-    function DELEGATECALL(
-        address _target,
-        bytes memory _data
-    )
+    function DELEGATECALL(address _target, bytes memory _data)
         external
         payable
         onlyOwner

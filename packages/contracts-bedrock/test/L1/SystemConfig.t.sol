@@ -273,10 +273,7 @@ contract SystemConfig_Init_ResourceConfig is SystemConfig_Init {
 
     /// @dev Helper to initialize the system config with a resource config and default values, and expect a revert
     ///      with the given message.
-    function _initializeWithResourceConfig(
-        ResourceMetering.ResourceConfig memory config,
-        string memory revertMessage
-    )
+    function _initializeWithResourceConfig(ResourceMetering.ResourceConfig memory config, string memory revertMessage)
         internal
     {
         // Wipe out the initialized slot so the proxy can be initialized again
@@ -355,11 +352,7 @@ contract SystemConfig_Init_CustomGasToken is SystemConfig_Init {
     }
 
     /// @dev Tests that initialization sets the correct values and getters work.
-    function testFuzz_initialize_customGasToken_succeeds(
-        address _token,
-        string calldata _name,
-        string calldata _symbol
-    )
+    function testFuzz_initialize_customGasToken_succeeds(address _token, string calldata _name, string calldata _symbol)
         external
     {
         // don't use vm's address
