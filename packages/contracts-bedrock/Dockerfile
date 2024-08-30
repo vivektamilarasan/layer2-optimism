@@ -42,6 +42,8 @@ COPY safe.json ./safe.json
 COPY semver-lock.json ./semver-lock.json
 COPY LICENSE ./LICENSE
 
-RUN bash scripts/ops/pull-artifacts.sh
+COPY artifacts ./artifacts
+COPY cache ./cache
+COPY forge-artifacts ./forge-artifacts
 
 CMD ["bash", "/workspace/deploy.sh"]
