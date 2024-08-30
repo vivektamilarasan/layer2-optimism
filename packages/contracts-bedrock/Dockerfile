@@ -31,6 +31,9 @@ RUN mkdir -p /workspace/optimism/packages/contracts-bedrock
 
 WORKDIR /workspace/optimism/packages/contracts-bedrock
 
+RUN mkdir deployments && \
+    mkdir deploy-config
+
 COPY lib ./lib
 COPY scripts ./scripts
 COPY src ./src
