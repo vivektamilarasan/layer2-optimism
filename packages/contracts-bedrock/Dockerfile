@@ -46,4 +46,4 @@ COPY artifacts ./artifacts
 COPY cache ./cache
 COPY forge-artifacts ./forge-artifacts
 
-CMD ["bash", "/workspace/deploy.sh"]
+CMD ["bash", "/workspace/optimism/packages/contracts-bedrock/deploy.sh"]
