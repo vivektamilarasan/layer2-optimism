@@ -66,7 +66,7 @@ echoerr "> Done."
 echoerr "> Deploying..."
 DEPLOY_CONFIG_PATH=/tmp/deploy-config.json \
 IMPL_SALT="$DEPLOY_IMPL_SALT" \
-DEPLOYMENT_OUTFILE=/tmp/deployment.json
+DEPLOYMENT_OUTFILE=/tmp/deployment.json \
 DEPLOYMENT_CONTEXT="docker-deployer" \
   forge script scripts/Deploy.s.sol:Deploy \
     --private-key "$DEPLOY_PRIVATE_KEY" \
