@@ -60,13 +60,13 @@ fi
 
 
 echoerr "> Extracting deploy config..."
-cat "$DEPLOY_STATE_PATH" | jq -r '.deployConfig' > /tmp/deploy-config.json
+cat "$DEPLOY_STATE_PATH" | jq -r '.deployConfig' > ./deploy-config/deploy-config.json
 echoerr "> Done."
 
 echoerr "> Deploying..."
-DEPLOY_CONFIG_PATH=/tmp/deploy-config.json \
+DEPLOY_CONFIG_PATH=./deploy-config/deploy-config.json \
 IMPL_SALT="$DEPLOY_IMPL_SALT" \
-DEPLOYMENT_OUTFILE=/tmp/deployment.json \
+DEPLOYMENT_OUTFILE=./deployments/deployment.json \
 DEPLOYMENT_CONTEXT="docker-deployer" \
   forge script scripts/deploy/Deploy.s.sol:Deploy \
     --private-key "$DEPLOY_PRIVATE_KEY" \
