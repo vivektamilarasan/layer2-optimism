@@ -26,20 +26,20 @@ if [ -z "${DEPLOY_IMPL_SALT:-}" ]; then
 fi
 
 set +e
-cast codesize 0x4e59b44847b379578588920cA78FbF26c0B4956C
-if [ $? -eq 0 ]; then
+codesize=$(cast codesize 0x4e59b44847b379578588920cA78FbF26c0B4956C)
+if [ "$codesize" == "0" ]; then
   cast publish 0xf8a58085174876e800830186a08080b853604580600e600039806000f350fe7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe03601600081602082378035828234f58015156039578182fd5b8082525050506014600cf31ba02222222222222222222222222222222222222222222222222222222222222222a02222222222222222222222222222222222222222222222222222222222222222
-  cast codesize 0x4e59b44847b379578588920cA78FbF26c0B4956C
-  if [ $? -eq 0 ]; then
+  codesize=$(cast codesize 0x4e59b44847b379578588920cA78FbF26c0B4956C)
+  if [ "$codesize" == "0" ]; then
     echo "CREATE2 deployment failed."
     exit 1
-  elif [ $? -eq 69 ]; then
+  elif [ "$codesize" == "69" ]; then
     echo "CREATE2 deployer successfully deployed."
   else
     echo "CREATE2 deployer failed with unexpected exit code $?."
     exit 1
   fi
-elif [ $? -eq 69 ]; then
+elif [ "$codesize" == "69" ]; then
   echo "CREATE2 deployer is already deployed."
 else
   echo "CREATE2 deployer failed with unexpected exit code $?."
