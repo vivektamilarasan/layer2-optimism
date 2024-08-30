@@ -1,0 +1,8 @@
+{
+  "intent": {
+    "l1ChainID": 11155111,
+    "l2ChainID": 901,
+    "useFaultProofs": true,
+    "fundDevAccounts": true
+  }
+}

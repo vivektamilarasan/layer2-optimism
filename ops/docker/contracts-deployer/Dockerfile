@@ -42,4 +42,6 @@ RUN git clone https://github.com/ethereum-optimism/optimism.git \
 
 WORKDIR /workspace/optimism/packages/contracts-bedrock
 
+COPY deploy.sh /workspace/optimism/packages/contracts-bedrock/deploy.sh
+
 RUN bash scripts/ops/pull-artifacts.sh

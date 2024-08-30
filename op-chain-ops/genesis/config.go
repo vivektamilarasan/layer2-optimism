@@ -848,7 +848,7 @@ func (d *DeployConfig) Check(log log.Logger) error {
 		return fmt.Errorf("%w: EIP1559DenominatorCanyon cannot be 0 if Canyon is activated", ErrInvalidDeployConfig)
 	}
 	// L2 block time must always be smaller than L1 block time
-	if d.L1BlockTime < d.L2BlockTime {
+	if d.L1BlockTime > 0 && d.L1BlockTime < d.L2BlockTime {
 		return fmt.Errorf("L2 block time (%d) is larger than L1 block time (%d)", d.L2BlockTime, d.L1BlockTime)
 	}
 	return checkConfigBundle(d, log)
