@@ -10,19 +10,19 @@ import (
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "op-configurator"
+	app.Name = "op-deployer"
 	app.Usage = "Tool to configure and deploy OP Chains."
 	app.Flags = cliapp.ProtectFlags([]cli.Flag{})
 	app.Commands = []*cli.Command{
 		{
-			Name:  "gen-deploy-config",
+			Name:  "configure",
 			Usage: "generate a deploy config",
 			Flags: cliapp.ProtectFlags([]cli.Flag{
 				&cli.StringFlag{
 					Name:  configurator.GenDeployConfigInfileFlagName,
 					Usage: "input configuration file",
 					EnvVars: []string{
-						"INFILE",
+						"DEPLOYER_INFILE",
 					},
 				},
 				&cli.StringFlag{
@@ -48,6 +48,11 @@ func main() {
 				},
 			}),
 			Action: configurator.GenDeployConfigCLI(),
+		},
+		{
+			Name:  "deploy",
+			Usage: "deploys a chain",
+			Flags: cliapp.ProtectFlags([]cli.Flag{}),
 		},
 	}
 	app.Writer = os.Stdout
