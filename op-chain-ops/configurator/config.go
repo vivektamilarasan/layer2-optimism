@@ -91,12 +91,15 @@ func NewDeployConfig(keygen KeyGenerator, l1RPC *ethclient.Client, intent *Chain
 				FinalSystemOwner: addrFor(devkeys.L1ProxyAdminOwnerRole),
 			},
 			L2VaultsDeployConfig: genesis.L2VaultsDeployConfig{
-				BaseFeeVaultRecipient:              addrFor(devkeys.BaseFeeVaultRecipientRole),
-				L1FeeVaultRecipient:                addrFor(devkeys.L1FeeVaultRecipientRole),
-				SequencerFeeVaultRecipient:         addrFor(devkeys.SequencerFeeVaultRecipientRole),
-				BaseFeeVaultWithdrawalNetwork:      genesis.WithdrawalNetwork("local"),
-				L1FeeVaultWithdrawalNetwork:        genesis.WithdrawalNetwork("local"),
-				SequencerFeeVaultWithdrawalNetwork: genesis.WithdrawalNetwork("local"),
+				BaseFeeVaultRecipient:                    addrFor(devkeys.BaseFeeVaultRecipientRole),
+				L1FeeVaultRecipient:                      addrFor(devkeys.L1FeeVaultRecipientRole),
+				SequencerFeeVaultRecipient:               addrFor(devkeys.SequencerFeeVaultRecipientRole),
+				BaseFeeVaultWithdrawalNetwork:            genesis.WithdrawalNetwork("local"),
+				L1FeeVaultWithdrawalNetwork:              genesis.WithdrawalNetwork("local"),
+				SequencerFeeVaultWithdrawalNetwork:       genesis.WithdrawalNetwork("local"),
+				SequencerFeeVaultMinimumWithdrawalAmount: mustHexBigFromHex("0x8ac7230489e80000"),
+				BaseFeeVaultMinimumWithdrawalAmount:      mustHexBigFromHex("0x8ac7230489e80000"),
+				L1FeeVaultMinimumWithdrawalAmount:        mustHexBigFromHex("0x8ac7230489e80000"),
 			},
 			GovernanceDeployConfig: genesis.GovernanceDeployConfig{
 				EnableGovernance:      true,
@@ -235,4 +238,10 @@ func batchInboxAddress(chainID *big.Int) common.Address {
 		}
 	}
 	return addr
+}
+
+func mustHexBigFromHex(hex string) *hexutil.Big {
+	num := hexutil.MustDecodeBig(hex)
+	hexBig := hexutil.Big(*num)
+	return &hexBig
 }

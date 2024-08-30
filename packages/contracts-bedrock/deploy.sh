@@ -29,6 +29,8 @@ if [ -z "${DEPLOY_IMPL_SALT:-}" ]; then
   DEPLOY_IMPL_SALT=$(openssl rand -hex 32)
 fi
 
+echoerr "> Using impl salt: $DEPLOY_IMPL_SALT"
+
 echoerr "> Checking CREATE2 deployer..."
 
 set +e
