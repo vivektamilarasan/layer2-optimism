@@ -27,24 +27,20 @@ RUN svm install 0.8.25 && \
   svm install 0.8.15 && \
   svm install 0.8.19
 
-ARG MONOREPO_VERSION=b6e17498e
-
-COPY
-
-RUN git clone https://github.com/ethereum-optimism/optimism.git \
-    && cd optimism \
-    && git checkout $MONOREPO_VERSION \
-    && git submodule update --init --recursive \
-    && mkdir -p /workspace/optimism-tmp/packages \
-    && mv /workspace/optimism/packages/contracts-bedrock /workspace/optimism-tmp/packages/contracts-bedrock \
-    && cp /workspace/optimism/versions.json /workspace/optimism-tmp/versions.json \
-    && rm -rf /workspace/optimism \
-    && mv /workspace/optimism-tmp /workspace/optimism \
-    && cd /workspace/optimism/packages/contracts-bedrock
+RUN mkdir -p /workspace/optimism/packages/contracts-bedrock
 
 WORKDIR /workspace/optimism/packages/contracts-bedrock
 
-COPY deploy.sh /workspace/deploy.sh
+COPY lib ./lib
+COPY scripts ./scripts
+COPY src ./src
+COPY test ./test
+COPY deploy.sh ./deploy.sh
+COPY foundry.toml ./foundry.toml
+COPY justfile ./justfile
+COPY safe.json ./safe.json
+COPY semver-lock.json ./semver-lock.json
+COPY LICENSE ./LICENSE
 
 RUN bash scripts/ops/pull-artifacts.sh
 
