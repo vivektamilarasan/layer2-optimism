@@ -72,6 +72,7 @@ DEPLOYMENT_OUTFILE=./deployments/deployment.json \
 DEPLOYMENT_CONTEXT="docker-deployer" \
   forge script scripts/deploy/Deploy.s.sol:Deploy \
     --private-key "$DEPLOY_PRIVATE_KEY" \
+    --rpc-url "$DEPLOY_ETH_RPC_URL" \
     --broadcast \
     "$verify_flag"
 echoerr "> Done."
