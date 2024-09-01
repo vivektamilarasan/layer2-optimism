@@ -82,6 +82,7 @@ func Genesis(ctx context.Context, config GenesisCMDConfig) error {
 		return fmt.Errorf("failed to create docker backend: %w", err)
 	}
 
+	lgr.Info("generating l2 allocs")
 	allocData, err := backend.GenesisAllocs(ctx, GenerateAllocsOpts{
 		L2ChainID: state.DeployConfig.L2ChainID,
 		State:     state,
@@ -95,6 +96,7 @@ func Genesis(ctx context.Context, config GenesisCMDConfig) error {
 		return fmt.Errorf("failed to unmarshal allocs: %w", err)
 	}
 
+	lgr.Info("fetching L2 start block on L1")
 	ethClient, err := ethclient.Dial(config.L1RPCURL)
 	if err != nil {
 		return fmt.Errorf("failed to connect to L1 RPC: %w", err)
@@ -104,6 +106,7 @@ func Genesis(ctx context.Context, config GenesisCMDConfig) error {
 		return fmt.Errorf("failed to fetch start block: %w", err)
 	}
 
+	lgr.Info("building L2 genesis")
 	l2Genesis, err := genesis.BuildL2Genesis(state.DeployConfig, &l2Allocs, startBlock)
 	if err != nil {
 		return fmt.Errorf("failed to build L2 genesis: %w", err)
