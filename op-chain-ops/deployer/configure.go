@@ -120,7 +120,15 @@ func NewDeployConfig(keygen KeyGenerator, l1RPC *ethclient.Client, intent *Chain
 				EIP1559DenominatorCanyon: 250,
 				EIP1559Elasticity:        6,
 			},
-			UpgradeScheduleDeployConfig: genesis.UpgradeScheduleDeployConfig{},
+			UpgradeScheduleDeployConfig: genesis.UpgradeScheduleDeployConfig{
+				L2GenesisRegolithTimeOffset: u64UtilPtr(0),
+				L2GenesisCanyonTimeOffset:   u64UtilPtr(0),
+				L2GenesisDeltaTimeOffset:    u64UtilPtr(0),
+				L2GenesisEcotoneTimeOffset:  u64UtilPtr(0),
+				L2GenesisFjordTimeOffset:    u64UtilPtr(0),
+				L2GenesisGraniteTimeOffset:  u64UtilPtr(0),
+				UseInterop:                  false,
+			},
 			L2CoreDeployConfig: genesis.L2CoreDeployConfig{
 				L1ChainID:                 intent.L1ChainID,
 				L2ChainID:                 intent.L2ChainID,
@@ -244,4 +252,9 @@ func mustHexBigFromHex(hex string) *hexutil.Big {
 	num := hexutil.MustDecodeBig(hex)
 	hexBig := hexutil.Big(*num)
 	return &hexBig
+}
+
+func u64UtilPtr(in uint64) *hexutil.Uint64 {
+	util := hexutil.Uint64(in)
+	return &util
 }
