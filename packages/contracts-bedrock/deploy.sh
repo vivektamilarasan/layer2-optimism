@@ -71,6 +71,6 @@ DEPLOYMENT_CONTEXT="docker-deployer" \
     --private-key "$DEPLOY_PRIVATE_KEY" \
     --rpc-url "$DEPLOY_ETH_RPC_URL" \
     --broadcast \
-    --gas-estimate-multipler 200 \
+    --gas-estimate-multiplier 200 \
     "$verify_flag"
 echoerr "> Done."
