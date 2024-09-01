@@ -67,6 +67,7 @@ var DeployFlags = []cli.Flag{
 }
 
 var GenesisFlags = []cli.Flag{
+	L1RPCURLFlag,
 	InfileFlag,
 	OutfileFlag,
 	ContractsImageFlag,
