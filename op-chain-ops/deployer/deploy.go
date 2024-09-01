@@ -227,8 +227,6 @@ func extractAddressesFile(r io.ReadCloser) (*Addresses, error) {
 			return &addrs, nil
 		}
 	}
-
-	return nil, errors.New("addresses file not found in tar")
 }
 
 func imageExists(dkr *client.Client, imgStr string) (bool, error) {
