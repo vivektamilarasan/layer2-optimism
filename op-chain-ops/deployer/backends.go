@@ -302,7 +302,11 @@ func (d *DockerContractDeployer) awaitContainerExit(ctx context.Context, id stri
 		}
 
 		return ctx.Err()
-	case <-statusCh:
+	case status := <-statusCh:
+		if status.StatusCode != 0 {
+			return fmt.Errorf("container exited with status %d", status.StatusCode)
+		}
+
 		return nil
 	}
 }
