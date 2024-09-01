@@ -172,6 +172,7 @@ func Deploy(ctx context.Context, config DeployCMDConfig) error {
 	if err != nil {
 		return fmt.Errorf("failed to copy addresses file: %w", err)
 	}
+	defer addressesTarStream.Close()
 
 	addresses, err := extractAddressesFile(addressesTarStream)
 	if err != nil {
