@@ -122,9 +122,18 @@ func (d *DockerContractDeployer) GenesisAllocs(ctx context.Context, opts Generat
 	}
 	defer os.Remove(addressesFile.Name())
 
-	encoder := json.NewEncoder(addressesFile)
-	if err := encoder.Encode(opts.State.Addresses); err != nil {
+	if err := json.NewEncoder(addressesFile).Encode(opts.State.Addresses); err != nil {
 		return nil, fmt.Errorf("failed to encode addresses file: %w", err)
+	}
+
+	deployConfigFile, err := os.CreateTemp("", "deploy-config-*.json")
+	if err != nil {
+		return nil, fmt.Errorf("failed to create temp deploy config file: %w", err)
+	}
+	defer os.Remove(deployConfigFile.Name())
+
+	if err := json.NewEncoder(deployConfigFile).Encode(opts.State.DeployConfig); err != nil {
+		return nil, fmt.Errorf("failed to encode deploy config file: %w", err)
 	}
 
 	d.lgr.Info("creating contracts container")
@@ -132,6 +141,7 @@ func (d *DockerContractDeployer) GenesisAllocs(ctx context.Context, opts Generat
 		Image: d.contractsImage,
 		Env: []string{
 			envVar("CONTRACT_ADDRESSES_PATH", "/addresses.json"),
+			envVar("DEPLOY_CONFIG_PATH", "/deploy-config.json"),
 		},
 		Cmd: []string{
 			"forge",
@@ -148,6 +158,11 @@ func (d *DockerContractDeployer) GenesisAllocs(ctx context.Context, opts Generat
 				Type:   mount.TypeBind,
 				Source: addressesFile.Name(),
 				Target: "/addresses.json",
+			},
+			{
+				Type:   mount.TypeBind,
+				Source: deployConfigFile.Name(),
+				Target: "/deploy-config.json",
 			},
 		},
 	}, nil, nil, "")
