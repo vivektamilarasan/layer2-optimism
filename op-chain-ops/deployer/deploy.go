@@ -216,8 +216,7 @@ func extractAddressesFile(r io.ReadCloser) (*Addresses, error) {
 		if err != nil {
 			return nil, fmt.Errorf("failed to read tar header: %w", err)
 		}
-		fmt.Println("header.Name", header.Name)
-		if header.Name == containerAddressesPath[1:] {
+		if header.Name == "deployment.json" {
 			decoder := json.NewDecoder(tr)
 			var addrs Addresses
 			if err := decoder.Decode(&addrs); err != nil {
