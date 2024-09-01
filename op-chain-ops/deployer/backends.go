@@ -138,7 +138,7 @@ func (d *DockerContractDeployer) GenesisAllocs(ctx context.Context, opts Generat
 			"script",
 			"scripts/L2Genesis.s.sol:L2Genesis",
 			"--sig",
-			"'runWithStateDump()'",
+			"runWithStateDump()",
 			"--chain-id",
 			fmt.Sprintf("%d", opts.L2ChainID),
 		},
