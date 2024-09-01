@@ -1,4 +1,4 @@
-package configurator
+package deployer
 
 import (
 	"fmt"
@@ -6,19 +6,12 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const (
-	GenDeployConfigInfileFlagName   = "infile"
-	GenDeployConfigOutfileFlagName  = "outfile"
-	GenDeployConfigMnemonicFlagName = "mnemonic"
-	GenDeployConfigL1RPCURLFlagName = "l1-rpc-url"
-)
-
 func GenDeployConfigCLI() func(ctx *cli.Context) error {
 	return func(ctx *cli.Context) error {
-		infile := ctx.String(GenDeployConfigInfileFlagName)
-		outfile := ctx.String(GenDeployConfigOutfileFlagName)
-		mnemonic := ctx.String(GenDeployConfigMnemonicFlagName)
-		l1RPCURL := ctx.String(GenDeployConfigL1RPCURLFlagName)
+		infile := ctx.String(InfileFlagName)
+		outfile := ctx.String(OutfileFlagName)
+		mnemonic := ctx.String(ConfigureMnemonicFlagName)
+		l1RPCURL := ctx.String(L1RPCURLFlagName)
 
 		if infile == "" {
 			return fmt.Errorf("infile must be specified")

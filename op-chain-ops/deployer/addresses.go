@@ -1,4 +1,4 @@
-package configurator
+package deployer
 
 import "github.com/ethereum/go-ethereum/common"
 
