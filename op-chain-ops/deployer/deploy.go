@@ -91,15 +91,21 @@ func Deploy(ctx context.Context, config DeployCMDConfig) error {
 		return fmt.Errorf("failed to read infile: %w", err)
 	}
 
-	reader, err := dkr.ImagePull(ctx, config.ContractsImage, image.PullOptions{})
+	exists, err := imageExists(dkr, config.ContractsImage)
 	if err != nil {
-		return fmt.Errorf("failed to pull image: %w", err)
+		return fmt.Errorf("failed to check image existence: %w", err)
 	}
-	if _, err := io.Copy(os.Stderr, reader); err != nil {
+	if !exists {
+		reader, err := dkr.ImagePull(ctx, config.ContractsImage, image.PullOptions{})
+		if err != nil {
+			return fmt.Errorf("failed to pull image: %w", err)
+		}
+		if _, err := io.Copy(os.Stderr, reader); err != nil {
+			_ = reader.Close()
+			return fmt.Errorf("failed to copy image pull output: %w", err)
+		}
 		_ = reader.Close()
-		return fmt.Errorf("failed to copy image pull output: %w", err)
 	}
-	_ = reader.Close()
 
 	absInfile, err := filepath.Abs(config.Infile)
 	if err != nil {
@@ -222,4 +228,21 @@ func extractAddressesFile(r io.ReadCloser) (*Addresses, error) {
 	}
 
 	return nil, errors.New("addresses file not found in tar")
+}
+
+func imageExists(dkr *client.Client, imgStr string) (bool, error) {
+	images, err := dkr.ImageList(context.Background(), image.ListOptions{})
+	if err != nil {
+		return false, fmt.Errorf("failed to list images: %w", err)
+	}
+
+	for _, img := range images {
+		for _, tag := range img.RepoTags {
+			if tag == imgStr {
+				return true, nil
+			}
+		}
+	}
+
+	return false, nil
 }
