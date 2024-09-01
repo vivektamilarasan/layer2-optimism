@@ -6,7 +6,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func GenDeployConfigCLI() func(ctx *cli.Context) error {
+func ConfigureCLI() func(ctx *cli.Context) error {
 	return func(ctx *cli.Context) error {
 		infile := ctx.String(InfileFlagName)
 		outfile := ctx.String(OutfileFlagName)

@@ -6,6 +6,7 @@ import (
 )
 
 const (
+	EnvVarPrefix              = "DEPLOYER"
 	L1RPCURLFlagName          = "l1-rpc-url"
 	InfileFlagName            = "infile"
 	OutfileFlagName           = "outfile"
@@ -66,5 +67,5 @@ var DeployFlags = []cli.Flag{
 }
 
 func prefixEnvVar(name string) []string {
-	return op_service.PrefixEnvVar("DEPLOYER", name)
+	return op_service.PrefixEnvVar(EnvVarPrefix, name)
 }
