@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/ethereum-optimism/optimism/op-chain-ops/foundry"
 	"github.com/ethereum-optimism/optimism/op-chain-ops/genesis"
+	"github.com/ethereum-optimism/optimism/op-node/rollup"
 	oplog "github.com/ethereum-optimism/optimism/op-service/log"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/log"
@@ -132,6 +133,9 @@ func Genesis(ctx context.Context, config GenesisCMDConfig) error {
 
 	if state.GenesisFiles == nil {
 		state.GenesisFiles = make(map[uint64]Base64Encoded)
+	}
+	if state.RollupConfigs == nil {
+		state.RollupConfigs = make(map[uint64]*rollup.Config)
 	}
 	state.GenesisFiles[state.DeployConfig.L2ChainID] = buf.Bytes()
 	state.RollupConfigs[state.DeployConfig.L2ChainID] = rollupConfig
