@@ -120,7 +120,6 @@ func Deploy(ctx context.Context, config DeployCMDConfig) error {
 			envVar("DEPLOY_STATE_PATH", "/infile.json"),
 		},
 	}, &container.HostConfig{
-		AutoRemove: true,
 		Mounts: []mount.Mount{
 			{
 				Type:   mount.TypeBind,
