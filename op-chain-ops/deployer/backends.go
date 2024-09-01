@@ -141,7 +141,7 @@ func (d *DockerContractDeployer) GenesisAllocs(ctx context.Context, opts Generat
 		Image: d.contractsImage,
 		Env: []string{
 			envVar("CONTRACT_ADDRESSES_PATH", "/addresses.json"),
-			envVar("DEPLOY_CONFIG_PATH", "/workspace/optimism/packages/contracts-bedrock/deploy-config.json"),
+			envVar("DEPLOY_CONFIG_PATH", "/workspace/optimism/packages/contracts-bedrock/deploy-config/deploy-config.json"),
 		},
 		Cmd: []string{
 			"forge",
@@ -162,7 +162,7 @@ func (d *DockerContractDeployer) GenesisAllocs(ctx context.Context, opts Generat
 			{
 				Type:   mount.TypeBind,
 				Source: deployConfigFile.Name(),
-				Target: "/workspace/optimism/packages/contracts-bedrock/deploy-config.json",
+				Target: "/workspace/optimism/packages/contracts-bedrock/deploy-config/deploy-config.json",
 			},
 		},
 	}, nil, nil, "")
