@@ -27,6 +27,12 @@ func main() {
 			Flags:  cliapp.ProtectFlags(deployer.DeployFlags),
 			Action: deployer.DeployCLI(),
 		},
+		{
+			Name:   "genesis",
+			Usage:  "generate a genesis file for an L2 chain",
+			Flags:  cliapp.ProtectFlags(deployer.GenesisFlags),
+			Action: deployer.GenesisCLI(),
+		},
 	}
 	app.Writer = os.Stdout
 	app.ErrWriter = os.Stderr

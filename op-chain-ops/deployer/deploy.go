@@ -9,6 +9,8 @@ import (
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/libp2p/go-libp2p/core/crypto"
 	"github.com/urfave/cli/v2"
+	"os"
+	"os/signal"
 )
 
 type DeployCMDConfig struct {
@@ -58,7 +60,7 @@ func DeployCLI() func(ctx *cli.Context) error {
 			L1RPCURL:       cliCtx.String(L1RPCURLFlagName),
 			Infile:         cliCtx.String(InfileFlagName),
 			Outfile:        cliCtx.String(OutfileFlagName),
-			ContractsImage: cliCtx.String(DeployImageFlagName),
+			ContractsImage: cliCtx.String(ContractsImageFlagName),
 			PrivateKeyHex:  cliCtx.String(DeployPrivateKeyFlagName),
 			Logger:         l,
 		}
@@ -70,7 +72,23 @@ func DeployCLI() func(ctx *cli.Context) error {
 		ctx, cancel := context.WithCancel(cliCtx.Context)
 		defer cancel()
 
-		return Deploy(ctx, config)
+		errCh := make(chan error, 1)
+		sigs := make(chan os.Signal, 1)
+		signal.Notify(sigs, os.Interrupt)
+
+		go func() {
+			err := Deploy(ctx, config)
+			errCh <- err
+		}()
+
+		select {
+		case err := <-errCh:
+			return err
+		case <-sigs:
+			cancel()
+			<-errCh
+			return nil
+		}
 	}
 }
 
@@ -84,11 +102,11 @@ func Deploy(ctx context.Context, config DeployCMDConfig) error {
 	}
 
 	lgr.Info("performing deployment")
-	deployer, err := NewDockerContractDeployer(config.Logger, config.ContractsImage)
+	deployer, err := NewDockerBackend(config.Logger, config.ContractsImage)
 	if err != nil {
 		return err
 	}
-	addresses, err := deployer.Deploy(ctx, ContractDeployerOpts{
+	addresses, err := deployer.Deploy(ctx, DeployContractsOpts{
 		L1RPCURL:      config.L1RPCURL,
 		State:         state,
 		PrivateKeyHex: config.PrivateKeyHex,

@@ -11,7 +11,7 @@ const (
 	InfileFlagName            = "infile"
 	OutfileFlagName           = "outfile"
 	ConfigureMnemonicFlagName = "mnemonic"
-	DeployImageFlagName       = "image"
+	ContractsImageFlagName    = "image"
 	DeployPrivateKeyFlagName  = "private-key"
 )
 
@@ -38,8 +38,8 @@ var (
 		Usage:   "mnemonic for account generation",
 		EnvVars: prefixEnvVar("MNEMONIC"),
 	}
-	DeployContractsImageFlag = &cli.StringFlag{
-		Name:    DeployImageFlagName,
+	ContractsImageFlag = &cli.StringFlag{
+		Name:    ContractsImageFlagName,
 		Usage:   "Docker image for deploying contracts",
 		EnvVars: prefixEnvVar("IMAGE"),
 		Value:   "ethereumoptimism/contracts-bedrock:latest",
@@ -62,8 +62,14 @@ var DeployFlags = []cli.Flag{
 	L1RPCURLFlag,
 	InfileFlag,
 	OutfileFlag,
-	DeployContractsImageFlag,
+	ContractsImageFlag,
 	DeployPrivateKeyFlag,
+}
+
+var GenesisFlags = []cli.Flag{
+	InfileFlag,
+	OutfileFlag,
+	ContractsImageFlag,
 }
 
 func prefixEnvVar(name string) []string {
