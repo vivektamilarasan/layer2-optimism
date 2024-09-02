@@ -423,7 +423,7 @@ func (l *LocalBackend) GenerateAllocs(ctx context.Context, opts GenerateAllocsOp
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, []string{
 		envVar("CONTRACT_ADDRESSES_PATH", addressesFile.Name()),
-		envVar("DEPLOY_CONFIG_PATH", filepath.Join(cmd.Dir, "deploy-config", "deploy-config.json")),
+		envVar("DEPLOY_CONFIG_PATH", deployConfigFile.Name()),
 	}...)
 
 	if err := cmd.Start(); err != nil {
