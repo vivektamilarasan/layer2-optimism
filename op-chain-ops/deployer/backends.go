@@ -354,11 +354,12 @@ func (l *LocalBackend) Deploy(ctx context.Context, opts DeployContractsOpts) (*A
 	cmd.Dir = filepath.Join(l.monorepoDir, "packages", "contracts-bedrock")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Env = []string{
+	cmd.Env = os.Environ()
+	cmd.Env = append(cmd.Env, []string{
 		envVar("DEPLOY_ETH_RPC_URL", opts.L1RPCURL),
 		envVar("DEPLOY_PRIVATE_KEY", opts.PrivateKeyHex),
 		envVar("DEPLOY_STATE_PATH", stateFile.Name()),
-	}
+	}...)
 
 	if err := cmd.Start(); err != nil {
 		return nil, fmt.Errorf("failed to start deploy script: %w", err)
@@ -419,10 +420,11 @@ func (l *LocalBackend) GenerateAllocs(ctx context.Context, opts GenerateAllocsOp
 	cmd.Dir = filepath.Join(l.monorepoDir, "packages", "contracts-bedrock")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Env = []string{
+	cmd.Env = os.Environ()
+	cmd.Env = append(cmd.Env, []string{
 		envVar("CONTRACT_ADDRESSES_PATH", addressesFile.Name()),
 		envVar("DEPLOY_CONFIG_PATH", filepath.Join(cmd.Dir, "deploy-config", "deploy-config.json")),
-	}
+	}...)
 
 	if err := cmd.Start(); err != nil {
 		return nil, fmt.Errorf("failed to start forge script: %w", err)
