@@ -6,12 +6,17 @@ import (
 	"errors"
 	"fmt"
 	oplog "github.com/ethereum-optimism/optimism/op-service/log"
+	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/log"
+	"github.com/ethereum/go-ethereum/rpc"
 	"github.com/libp2p/go-libp2p/core/crypto"
 	"github.com/urfave/cli/v2"
 	"os"
 	"os/signal"
 	"path/filepath"
+	"time"
 )
 
 type DeployCMDConfig struct {
@@ -113,6 +118,10 @@ func Deploy(ctx context.Context, config DeployCMDConfig) error {
 
 	lgr.Info("performing deployment")
 
+	if err := checkCreate2(ctx, config); err != nil {
+		return fmt.Errorf("failed to check/create CREATE2 deployer: %w", err)
+	}
+
 	var backend ContractDeployerBackend
 	if config.Local {
 		lgr.Info("using local backend")
@@ -141,6 +150,65 @@ func Deploy(ctx context.Context, config DeployCMDConfig) error {
 	}
 
 	return nil
+}
+
+// var Create2Address = common.HexToAddress("0x4e59b44847b379578588920cA78FbF26c0B4956C")
+// break it to test it
+var Create2Address = common.HexToAddress("0x4e59b44847b379578588920cA78FbF26c0B4956d")
+
+var Create2Bytecode = "0xf8a58085174876e800830186a08080b853604580600e600039806000f350fe7f" +
+	"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0" +
+	"3601600081602082378035828234f58015156039578182fd5b80825250505060" +
+	"14600cf31ba02222222222222222222222222222222222222222222222222222" +
+	"222222222222a022222222222222222222222222222222222222222222222222" +
+	"22222222222222"
+
+func checkCreate2(ctx context.Context, config DeployCMDConfig) error {
+	lgr := config.Logger
+
+	rc, err := rpc.Dial(config.L1RPCURL)
+	if err != nil {
+		return fmt.Errorf("failed to connect to L1 RPC: %w", err)
+	}
+	defer rc.Close()
+
+	ec := ethclient.NewClient(rc)
+	code, err := ec.CodeAt(context.Background(), Create2Address, nil)
+	if err != nil {
+		return fmt.Errorf("failed to get code at address: %w", err)
+	}
+
+	if len(code) > 0 {
+		lgr.Info("CREATE2 deployer already exists")
+		return nil
+	}
+
+	lgr.Info("no CREATE2 deployer found, deploying")
+	var txHash common.Hash
+	if err := rc.CallContext(ctx, &txHash, "eth_sendRawTransaction", Create2Bytecode); err != nil {
+		return fmt.Errorf("failed to send CREATE2 deploy transaction: %w", err)
+	}
+
+	lgr.Info("sent CREATE2 deploy transaction, awaiting receipt", "txHash", txHash)
+	tick := time.NewTicker(time.Second)
+	for {
+		select {
+		case <-tick.C:
+			receipt, err := ec.TransactionReceipt(ctx, txHash)
+			if errors.Is(err, ethereum.NotFound) {
+				continue
+			}
+			if err != nil {
+				return fmt.Errorf("failed to get transaction receipt: %w", err)
+			}
+			if receipt.Status == 0 {
+				return errors.New("deployment transaction failed")
+			}
+			return nil
+		case <-ctx.Done():
+			return ctx.Err()
+		}
+	}
 }
 
 func checkPriv(data string) error {
