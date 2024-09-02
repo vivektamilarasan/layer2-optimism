@@ -11,6 +11,7 @@ import (
 	"github.com/urfave/cli/v2"
 	"os"
 	"os/signal"
+	"path/filepath"
 )
 
 type DeployCMDConfig struct {
@@ -58,6 +59,11 @@ func DeployCLI() func(ctx *cli.Context) error {
 		l := oplog.NewLogger(oplog.AppOut(cliCtx), logCfg)
 		oplog.SetGlobalLogHandler(l.Handler())
 
+		absMonorepoDir, err := filepath.Abs(cliCtx.String(MonorepoDirFlagName))
+		if err != nil {
+			return fmt.Errorf("failed to get absolute path for monorepo-dir: %w", err)
+		}
+
 		config := DeployCMDConfig{
 			L1RPCURL:       cliCtx.String(L1RPCURLFlagName),
 			Infile:         cliCtx.String(InfileFlagName),
@@ -65,7 +71,7 @@ func DeployCLI() func(ctx *cli.Context) error {
 			ContractsImage: cliCtx.String(ContractsImageFlagName),
 			PrivateKeyHex:  cliCtx.String(DeployPrivateKeyFlagName),
 			Local:          cliCtx.Bool(LocalFlagName),
-			MonorepoDir:    cliCtx.String(MonorepoDirFlagName),
+			MonorepoDir:    absMonorepoDir,
 			Logger:         l,
 		}
 

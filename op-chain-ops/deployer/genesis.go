@@ -13,6 +13,7 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/urfave/cli/v2"
+	"path/filepath"
 )
 
 type GenesisCMDConfig struct {
@@ -55,13 +56,18 @@ func GenesisCLI() func(ctx *cli.Context) error {
 		l := oplog.NewLogger(oplog.AppOut(cliCtx), logCfg)
 		oplog.SetGlobalLogHandler(l.Handler())
 
+		absMonorepoDir, err := filepath.Abs(cliCtx.String(MonorepoDirFlagName))
+		if err != nil {
+			return fmt.Errorf("failed to get absolute path for monorepo-dir: %w", err)
+		}
+
 		config := GenesisCMDConfig{
 			L1RPCURL:       cliCtx.String(L1RPCURLFlagName),
 			Infile:         cliCtx.String(InfileFlagName),
 			Outfile:        cliCtx.String(OutfileFlagName),
 			ContractsImage: cliCtx.String(ContractsImageFlagName),
 			Local:          cliCtx.Bool(LocalFlagName),
-			MonorepoDir:    cliCtx.String(MonorepoDirFlagName),
+			MonorepoDir:    absMonorepoDir,
 			Logger:         l,
 		}
 
