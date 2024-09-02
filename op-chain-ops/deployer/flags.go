@@ -2,6 +2,7 @@ package deployer
 
 import (
 	op_service "github.com/ethereum-optimism/optimism/op-service"
+	oplog "github.com/ethereum-optimism/optimism/op-service/log"
 	"github.com/urfave/cli/v2"
 	"os"
 )
@@ -65,6 +66,11 @@ var (
 	}
 )
 
+var GlobalFlags = append([]cli.Flag{
+	LocalFlag,
+	MonorepoDirFlag,
+}, oplog.CLIFlags(EnvVarPrefix)...)
+
 var ConfigureFlags = []cli.Flag{
 	L1RPCURLFlag,
 	InfileFlag,
@@ -78,8 +84,6 @@ var DeployFlags = []cli.Flag{
 	OutfileFlag,
 	ContractsImageFlag,
 	DeployPrivateKeyFlag,
-	LocalFlag,
-	MonorepoDirFlag,
 }
 
 var GenesisFlags = []cli.Flag{
@@ -87,8 +91,6 @@ var GenesisFlags = []cli.Flag{
 	InfileFlag,
 	OutfileFlag,
 	ContractsImageFlag,
-	LocalFlag,
-	MonorepoDirFlag,
 }
 
 func prefixEnvVar(name string) []string {

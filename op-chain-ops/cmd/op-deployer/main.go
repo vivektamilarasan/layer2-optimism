@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/ethereum-optimism/optimism/op-chain-ops/deployer"
 	"github.com/ethereum-optimism/optimism/op-service/cliapp"
-	oplog "github.com/ethereum-optimism/optimism/op-service/log"
 	"github.com/urfave/cli/v2"
 	"os"
 )
@@ -13,7 +12,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "op-deployer"
 	app.Usage = "Tool to configure and deploy OP Chains."
-	app.Flags = cliapp.ProtectFlags(oplog.CLIFlags(deployer.EnvVarPrefix))
+	app.Flags = cliapp.ProtectFlags(deployer.GlobalFlags)
 	app.Commands = []*cli.Command{
 		{
 			Name:   "configure",

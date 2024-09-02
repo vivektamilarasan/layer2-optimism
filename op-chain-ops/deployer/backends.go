@@ -86,6 +86,7 @@ func (d *DockerBackend) Deploy(ctx context.Context, opts DeployContractsOpts) (*
 			envVar("DEPLOY_PRIVATE_KEY", opts.PrivateKeyHex),
 			envVar("DEPLOY_STATE_PATH", "/infile.json"),
 		},
+		Cmd: []string{"bash", "/usr/local/bin/deploy.sh"},
 	}, &container.HostConfig{
 		Mounts: []mount.Mount{
 			{
