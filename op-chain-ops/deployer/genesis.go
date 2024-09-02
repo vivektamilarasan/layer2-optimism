@@ -94,8 +94,10 @@ func Genesis(ctx context.Context, config GenesisCMDConfig) error {
 
 	var backend AllocsBackend
 	if config.Local {
+		lgr.Info("using local backend")
 		backend = NewLocalBackend(lgr, config.MonorepoDir)
 	} else {
+		lgr.Info("using docker backend", "image", config.ContractsImage)
 		backend, err = NewDockerBackend(lgr, config.ContractsImage)
 		if err != nil {
 			return fmt.Errorf("failed to create docker backend: %w", err)

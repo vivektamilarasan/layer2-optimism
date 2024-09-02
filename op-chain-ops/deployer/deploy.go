@@ -115,8 +115,10 @@ func Deploy(ctx context.Context, config DeployCMDConfig) error {
 
 	var backend ContractDeployerBackend
 	if config.Local {
+		lgr.Info("using local backend")
 		backend = NewLocalBackend(config.Logger, config.MonorepoDir)
 	} else {
+		lgr.Info("using docker backend", "image", config.ContractsImage)
 		backend, err = NewDockerBackend(config.Logger, config.ContractsImage)
 		if err != nil {
 			return err
