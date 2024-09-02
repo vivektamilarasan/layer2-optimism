@@ -3,6 +3,7 @@ package deployer
 import (
 	op_service "github.com/ethereum-optimism/optimism/op-service"
 	"github.com/urfave/cli/v2"
+	"os"
 )
 
 const (
@@ -13,6 +14,8 @@ const (
 	ConfigureMnemonicFlagName = "mnemonic"
 	ContractsImageFlagName    = "image"
 	DeployPrivateKeyFlagName  = "private-key"
+	LocalFlagName             = "local"
+	MonorepoDirFlagName       = "monorepo-dir"
 )
 
 var (
@@ -49,6 +52,17 @@ var (
 		Usage:   "private key for deployment",
 		EnvVars: prefixEnvVar("PRIVATE_KEY"),
 	}
+	LocalFlag = &cli.BoolFlag{
+		Name:    LocalFlagName,
+		Usage:   "shell out to local tooling rather than using Docker images",
+		EnvVars: prefixEnvVar("LOCAL"),
+	}
+	MonorepoDirFlag = &cli.StringFlag{
+		Name:    MonorepoDirFlagName,
+		Usage:   "path to the monorepo directory. will be ignored unless --local is set",
+		EnvVars: prefixEnvVar("MONOREPO_DIR"),
+		Value:   cwd(),
+	}
 )
 
 var ConfigureFlags = []cli.Flag{
@@ -64,6 +78,8 @@ var DeployFlags = []cli.Flag{
 	OutfileFlag,
 	ContractsImageFlag,
 	DeployPrivateKeyFlag,
+	LocalFlag,
+	MonorepoDirFlag,
 }
 
 var GenesisFlags = []cli.Flag{
@@ -71,8 +87,18 @@ var GenesisFlags = []cli.Flag{
 	InfileFlag,
 	OutfileFlag,
 	ContractsImageFlag,
+	LocalFlag,
+	MonorepoDirFlag,
 }
 
 func prefixEnvVar(name string) []string {
 	return op_service.PrefixEnvVar(EnvVarPrefix, name)
+}
+
+func cwd() string {
+	dir, err := os.Getwd()
+	if err != nil {
+		return ""
+	}
+	return dir
 }

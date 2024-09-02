@@ -19,6 +19,8 @@ type DeployCMDConfig struct {
 	Outfile        string
 	ContractsImage string
 	PrivateKeyHex  string
+	Local          bool
+	MonorepoDir    string
 	Logger         log.Logger
 }
 
@@ -62,6 +64,8 @@ func DeployCLI() func(ctx *cli.Context) error {
 			Outfile:        cliCtx.String(OutfileFlagName),
 			ContractsImage: cliCtx.String(ContractsImageFlagName),
 			PrivateKeyHex:  cliCtx.String(DeployPrivateKeyFlagName),
+			Local:          cliCtx.Bool(LocalFlagName),
+			MonorepoDir:    cliCtx.String(MonorepoDirFlagName),
 			Logger:         l,
 		}
 
@@ -102,11 +106,17 @@ func Deploy(ctx context.Context, config DeployCMDConfig) error {
 	}
 
 	lgr.Info("performing deployment")
-	deployer, err := NewDockerBackend(config.Logger, config.ContractsImage)
-	if err != nil {
-		return err
+
+	var backend ContractDeployerBackend
+	if config.Local {
+		backend = NewLocalBackend(config.Logger, config.MonorepoDir)
+	} else {
+		backend, err = NewDockerBackend(config.Logger, config.ContractsImage)
+		if err != nil {
+			return err
+		}
 	}
-	addresses, err := deployer.Deploy(ctx, DeployContractsOpts{
+	addresses, err := backend.Deploy(ctx, DeployContractsOpts{
 		L1RPCURL:      config.L1RPCURL,
 		State:         state,
 		PrivateKeyHex: config.PrivateKeyHex,

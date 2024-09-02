@@ -15,6 +15,7 @@ import (
 	"github.com/ethereum/go-ethereum/log"
 	"io"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"time"
 )
@@ -42,26 +43,26 @@ type AllocsBackend interface {
 	GenerateAllocs(ctx context.Context, opts GenerateAllocsOpts) ([]byte, error)
 }
 
-type DockerContractDeployer struct {
+type DockerBackend struct {
 	contractsImage string
 	dkr            *client.Client
 	lgr            log.Logger
 }
 
-func NewDockerBackend(lgr log.Logger, contractsImage string) (*DockerContractDeployer, error) {
+func NewDockerBackend(lgr log.Logger, contractsImage string) (*DockerBackend, error) {
 	dkr, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create docker client: %w", err)
 	}
 
-	return &DockerContractDeployer{
+	return &DockerBackend{
 		contractsImage: contractsImage,
 		dkr:            dkr,
 		lgr:            lgr,
 	}, nil
 }
 
-func (d *DockerContractDeployer) Deploy(ctx context.Context, opts DeployContractsOpts) (*Addresses, error) {
+func (d *DockerBackend) Deploy(ctx context.Context, opts DeployContractsOpts) (*Addresses, error) {
 	if err := d.ensureImage(ctx); err != nil {
 		return nil, err
 	}
@@ -106,7 +107,7 @@ func (d *DockerContractDeployer) Deploy(ctx context.Context, opts DeployContract
 	return d.readAddressesFile(ctx, createRes.ID)
 }
 
-func (d *DockerContractDeployer) GenesisAllocs(ctx context.Context, opts GenerateAllocsOpts) ([]byte, error) {
+func (d *DockerBackend) GenerateAllocs(ctx context.Context, opts GenerateAllocsOpts) ([]byte, error) {
 	if err := d.ensureImage(ctx); err != nil {
 		return nil, err
 	}
@@ -181,7 +182,7 @@ func (d *DockerContractDeployer) GenesisAllocs(ctx context.Context, opts Generat
 	)
 }
 
-func (d *DockerContractDeployer) ensureImage(ctx context.Context) error {
+func (d *DockerBackend) ensureImage(ctx context.Context) error {
 	exists, err := d.imageExists(ctx)
 	if err != nil {
 		return fmt.Errorf("failed to check if image exists: %w", err)
@@ -197,7 +198,7 @@ func (d *DockerContractDeployer) ensureImage(ctx context.Context) error {
 	return nil
 }
 
-func (d *DockerContractDeployer) runContainer(ctx context.Context, id string) error {
+func (d *DockerBackend) runContainer(ctx context.Context, id string) error {
 	d.lgr.Info("starting container", "id", id)
 	if err := d.dkr.ContainerStart(ctx, id, container.StartOptions{}); err != nil {
 		return fmt.Errorf("failed to start container: %w", err)
@@ -214,7 +215,7 @@ func (d *DockerContractDeployer) runContainer(ctx context.Context, id string) er
 	return nil
 }
 
-func (d *DockerContractDeployer) imageExists(ctx context.Context) (bool, error) {
+func (d *DockerBackend) imageExists(ctx context.Context) (bool, error) {
 	images, err := d.dkr.ImageList(ctx, image.ListOptions{})
 	if err != nil {
 		return false, fmt.Errorf("failed to list images: %w", err)
@@ -231,7 +232,7 @@ func (d *DockerContractDeployer) imageExists(ctx context.Context) (bool, error) 
 	return false, nil
 }
 
-func (d *DockerContractDeployer) pullImage(ctx context.Context) error {
+func (d *DockerBackend) pullImage(ctx context.Context) error {
 	reader, err := d.dkr.ImagePull(ctx, d.contractsImage, image.PullOptions{})
 	if err != nil {
 		return fmt.Errorf("failed to pull image: %w", err)
@@ -244,7 +245,7 @@ func (d *DockerContractDeployer) pullImage(ctx context.Context) error {
 	return nil
 }
 
-func (d *DockerContractDeployer) streamLogs(ctx context.Context, id string) {
+func (d *DockerBackend) streamLogs(ctx context.Context, id string) {
 	stream, err := d.dkr.ContainerLogs(ctx, id, container.LogsOptions{
 		ShowStdout: true,
 		ShowStderr: true,
@@ -258,7 +259,7 @@ func (d *DockerContractDeployer) streamLogs(ctx context.Context, id string) {
 	_, _ = stdcopy.StdCopy(os.Stdout, os.Stderr, stream)
 }
 
-func (d *DockerContractDeployer) readAddressesFile(ctx context.Context, id string) (*Addresses, error) {
+func (d *DockerBackend) readAddressesFile(ctx context.Context, id string) (*Addresses, error) {
 	data, err := d.readFileFromContainer(ctx, id, containerAddressesPath)
 	if err != nil {
 		return nil, err
@@ -271,7 +272,7 @@ func (d *DockerContractDeployer) readAddressesFile(ctx context.Context, id strin
 	return &addrs, nil
 }
 
-func (d *DockerContractDeployer) readFileFromContainer(ctx context.Context, id, path string) ([]byte, error) {
+func (d *DockerBackend) readFileFromContainer(ctx context.Context, id, path string) ([]byte, error) {
 	stream, _, err := d.dkr.CopyFromContainer(ctx, id, path)
 	if err != nil {
 		return nil, fmt.Errorf("failed to copy addresses file: %w", err)
@@ -298,7 +299,7 @@ func (d *DockerContractDeployer) readFileFromContainer(ctx context.Context, id, 
 	}
 }
 
-func (d *DockerContractDeployer) awaitContainerExit(ctx context.Context, id string) error {
+func (d *DockerBackend) awaitContainerExit(ctx context.Context, id string) error {
 	statusCh, errCh := d.dkr.ContainerWait(ctx, id, container.WaitConditionNotRunning)
 	select {
 	case err := <-errCh:
@@ -328,4 +329,143 @@ func (d *DockerContractDeployer) awaitContainerExit(ctx context.Context, id stri
 
 func envVar(key, value string) string {
 	return fmt.Sprintf("%s=%s", key, value)
+}
+
+type LocalBackend struct {
+	monorepoDir string
+	lgr         log.Logger
+}
+
+func NewLocalBackend(lgr log.Logger, monorepoDir string) *LocalBackend {
+	return &LocalBackend{
+		monorepoDir: monorepoDir,
+		lgr:         lgr,
+	}
+}
+
+func (l *LocalBackend) Deploy(ctx context.Context, opts DeployContractsOpts) (*Addresses, error) {
+	stateFile, err := os.CreateTemp("", "infile-*.json")
+	if err != nil {
+		return nil, fmt.Errorf("failed to create temp state file: %w", err)
+	}
+	defer os.Remove(stateFile.Name())
+
+	cmd := exec.Command("bash", "deploy.sh")
+	cmd.Dir = filepath.Join(l.monorepoDir, "packages", "contracts-bedrock")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Env = []string{
+		envVar("DEPLOY_ETH_RPC_URL", opts.L1RPCURL),
+		envVar("DEPLOY_PRIVATE_KEY", opts.PrivateKeyHex),
+		envVar("DEPLOY_STATE_PATH", stateFile.Name()),
+	}
+
+	if err := cmd.Start(); err != nil {
+		return nil, fmt.Errorf("failed to start deploy script: %w", err)
+	}
+	if err := l.awaitCommand(ctx, cmd); err != nil {
+		return nil, err
+	}
+
+	addrFilePath := filepath.Join(l.monorepoDir, "packages", "contracts-bedrock", "deployments", "deployment.json")
+	addrFile, err := os.Open(addrFilePath)
+	if err != nil {
+		return nil, fmt.Errorf("failed to open addresses file: %w", err)
+	}
+	defer addrFile.Close()
+
+	var addrs Addresses
+	if err := json.NewDecoder(addrFile).Decode(&addrs); err != nil {
+		return nil, fmt.Errorf("failed to decode addresses file: %w", err)
+	}
+	return &addrs, nil
+}
+
+func (l *LocalBackend) GenerateAllocs(ctx context.Context, opts GenerateAllocsOpts) ([]byte, error) {
+	if opts.State.Addresses == nil {
+		return nil, errors.New("addresses not found in state")
+	}
+
+	l.lgr.Info("writing addresses to temporary file")
+	addressesFile, err := os.CreateTemp("", "addresses-*.json")
+	if err != nil {
+		return nil, fmt.Errorf("failed to create temp addresses file: %w", err)
+	}
+	defer os.Remove(addressesFile.Name())
+
+	if err := json.NewEncoder(addressesFile).Encode(opts.State.Addresses); err != nil {
+		return nil, fmt.Errorf("failed to encode addresses file: %w", err)
+	}
+
+	deployConfigFile, err := os.CreateTemp("", "deploy-config-*.json")
+	if err != nil {
+		return nil, fmt.Errorf("failed to create temp deploy config file: %w", err)
+	}
+	defer os.Remove(deployConfigFile.Name())
+
+	if err := json.NewEncoder(deployConfigFile).Encode(opts.State.DeployConfig); err != nil {
+		return nil, fmt.Errorf("failed to encode deploy config file: %w", err)
+	}
+
+	cmd := exec.Command(
+		"forge",
+		"script",
+		"scripts/L2Genesis.s.sol:L2Genesis",
+		"--sig",
+		"runWithStateDump()",
+		"--chain-id",
+		fmt.Sprintf("%d", opts.L2ChainID),
+	)
+	cmd.Dir = filepath.Join(l.monorepoDir, "packages", "contracts-bedrock")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Env = []string{
+		envVar("CONTRACT_ADDRESSES_PATH", addressesFile.Name()),
+		envVar("DEPLOY_CONFIG_PATH", filepath.Join(cmd.Dir, "deploy-config", "deploy-config.json")),
+	}
+
+	if err := cmd.Start(); err != nil {
+		return nil, fmt.Errorf("failed to start forge script: %w", err)
+	}
+	if err := l.awaitCommand(ctx, cmd); err != nil {
+		return nil, err
+	}
+
+	allocFilePath := filepath.Join(l.monorepoDir, "packages", "contracts-bedrock", fmt.Sprintf("state-dump-%d-granite.json", opts.L2ChainID))
+	allocFile, err := os.Open(allocFilePath)
+	if err != nil {
+		return nil, fmt.Errorf("failed to open allocs file: %w", err)
+	}
+	defer allocFile.Close()
+
+	allocData, err := io.ReadAll(allocFile)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read allocs file: %w", err)
+	}
+	return allocData, nil
+}
+
+func (l *LocalBackend) awaitCommand(ctx context.Context, cmd *exec.Cmd) error {
+	cmdErrCh := make(chan error, 1)
+	go func() {
+		err := cmd.Wait()
+		cmdErrCh <- err
+	}()
+
+	select {
+	case <-ctx.Done():
+		if err := cmd.Process.Kill(); err != nil {
+			l.lgr.Error("failed to kill script", "err", err)
+		}
+
+		<-cmdErrCh
+
+		return ctx.Err()
+	case err := <-cmdErrCh:
+		if err != nil {
+			return fmt.Errorf("script failed: %w", err)
+		}
+
+		return nil
+	}
 }

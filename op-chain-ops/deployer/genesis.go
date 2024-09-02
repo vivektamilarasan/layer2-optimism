@@ -20,6 +20,8 @@ type GenesisCMDConfig struct {
 	Infile         string
 	Outfile        string
 	ContractsImage string
+	Local          bool
+	MonorepoDir    string
 	Logger         log.Logger
 }
 
@@ -40,6 +42,10 @@ func (g *GenesisCMDConfig) Check() error {
 		return fmt.Errorf("image must be specified")
 	}
 
+	if g.Local && g.MonorepoDir == "" {
+		return fmt.Errorf("monorepo-dir must be specified if local is set")
+	}
+
 	return nil
 }
 
@@ -54,6 +60,8 @@ func GenesisCLI() func(ctx *cli.Context) error {
 			Infile:         cliCtx.String(InfileFlagName),
 			Outfile:        cliCtx.String(OutfileFlagName),
 			ContractsImage: cliCtx.String(ContractsImageFlagName),
+			Local:          cliCtx.Bool(LocalFlagName),
+			MonorepoDir:    cliCtx.String(MonorepoDirFlagName),
 			Logger:         l,
 		}
 
@@ -78,13 +86,18 @@ func Genesis(ctx context.Context, config GenesisCMDConfig) error {
 		return fmt.Errorf("no addresses found in state - contracts must be deployed first")
 	}
 
-	backend, err := NewDockerBackend(lgr, config.ContractsImage)
-	if err != nil {
-		return fmt.Errorf("failed to create docker backend: %w", err)
+	var backend AllocsBackend
+	if config.Local {
+		backend = NewLocalBackend(lgr, config.MonorepoDir)
+	} else {
+		backend, err = NewDockerBackend(lgr, config.ContractsImage)
+		if err != nil {
+			return fmt.Errorf("failed to create docker backend: %w", err)
+		}
 	}
 
 	lgr.Info("generating l2 allocs")
-	allocData, err := backend.GenesisAllocs(ctx, GenerateAllocsOpts{
+	allocData, err := backend.GenerateAllocs(ctx, GenerateAllocsOpts{
 		L2ChainID: state.DeployConfig.L2ChainID,
 		State:     state,
 	})
