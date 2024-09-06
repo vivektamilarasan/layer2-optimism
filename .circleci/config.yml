@@ -7,6 +7,10 @@ parameters:
   base_image:
     type: string
     default: ubuntu-2204:2022.07.1
+  main_dispatch:
+    docker_publish_dispatch:
+      type: boolean
+      default: false
 
 orbs:
   go: circleci/go@1.8.0
@@ -1835,118 +1839,16 @@ workflows:
 
   scheduled-docker-publish:
     when:
-      equal: [ build_hourly, <<pipeline.schedule.name>> ]
+      or:
+        - equal: [ build_hourly, <<pipeline.schedule.name>> ]
+        - equal: [ true, << pipeline.parameters.docker_publish_dispatch >> ]
     jobs:
-      - docker-build: # just to warm up the cache (other jobs run in parallel)
-          name: op-stack-go-docker-build-publish
-          docker_name: op-stack-go
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
-          platforms: "linux/amd64,linux/arm64"
-          context:
-            - oplabs-gcr
-            - slack
-      - docker-build:
-          name: op-node-docker-publish
-          docker_name: op-node
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
-          requires: [ 'op-stack-go-docker-build-publish' ]
-          platforms: "linux/amd64,linux/arm64"
-          publish: true
-          context:
-            - oplabs-gcr
-            - slack
-      - docker-build:
-          name: op-batcher-docker-publish
-          docker_name: op-batcher
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
-          requires: [ 'op-stack-go-docker-build-publish' ]
-          platforms: "linux/amd64,linux/arm64"
-          publish: true
-          context:
-            - oplabs-gcr
-            - slack
-      - docker-build:
-          name: op-program-docker-publish
-          docker_name: op-program
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
-          requires: [ 'op-stack-go-docker-build-publish' ]
-          platforms: "linux/amd64,linux/arm64"
-          publish: true
-          context:
-            - oplabs-gcr
-            - slack
-      - docker-build:
-          name: op-proposer-docker-publish
-          docker_name: op-proposer
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
-          requires: [ 'op-stack-go-docker-build-publish' ]
-          platforms: "linux/amd64,linux/arm64"
-          publish: true
-          context:
-            - oplabs-gcr
-            - slack
-      - docker-build:
-          name: op-challenger-docker-publish
-          docker_name: op-challenger
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
-          requires: [ 'op-stack-go-docker-build-publish' ]
-          platforms: "linux/amd64,linux/arm64"
-          publish: true
-          context:
-            - oplabs-gcr
-            - slack
-      - docker-build:
-          name: op-conductor-docker-publish
-          docker_name: op-conductor
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
-          requires: [ 'op-stack-go-docker-build-publish' ]
-          platforms: "linux/amd64,linux/arm64"
-          publish: true
-          context:
-            - oplabs-gcr
-            - slack
-      - docker-build:
-          name: op-heartbeat-docker-publish
-          docker_name: op-heartbeat
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
-          requires: [ 'op-stack-go-docker-build-publish' ]
-          platforms: "linux/amd64,linux/arm64"
-          publish: true
-          context:
-            - oplabs-gcr
-            - slack
-      - docker-build:
-          name: indexer-docker-publish
-          docker_name: indexer
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
-          publish: true
-          context:
-            - oplabs-gcr
-            - slack
-          platforms: "linux/amd64,linux/arm64"
-      - docker-build:
-          name: chain-mon-docker-publish
-          docker_name: chain-mon
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
-          resource_class: xlarge
-          publish: true
-          context:
-            - oplabs-gcr
-            - slack
       - docker-build:
           name: contracts-bedrock-docker-publish
           docker_name: contracts-bedrock
           docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
           resource_class: xlarge
           requires: [ 'chain-mon-docker-publish' ] # use the cached base image
-          publish: true
-          context:
-            - oplabs-gcr
-            - slack
-      - docker-build:
-          name: ufm-metamask-docker-publish
-          docker_name: ufm-metamask
-          docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
           publish: true
           context:
             - oplabs-gcr
