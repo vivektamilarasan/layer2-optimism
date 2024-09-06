@@ -8,9 +8,11 @@ parameters:
     type: string
     default: ubuntu-2204:2022.07.1
   main_dispatch:
-    docker_publish_dispatch:
-      type: boolean
-      default: false
+    type: boolean
+    default: true
+  docker_publish_dispatch:
+    type: boolean
+    default: false
 
 orbs:
   go: circleci/go@1.8.0
