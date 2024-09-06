@@ -1850,7 +1850,6 @@ workflows:
           docker_name: contracts-bedrock
           docker_tags: <<pipeline.git.revision>>,<<pipeline.git.branch>>
           resource_class: xlarge
-          requires: [ 'chain-mon-docker-publish' ] # use the cached base image
           publish: true
           context:
             - oplabs-gcr
