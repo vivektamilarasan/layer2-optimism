@@ -79,12 +79,16 @@ JSON_FILES=$(find "$CONTRACTS_BASE/forge-artifacts" -type f -name "*.json")
 # Initialize a flag to track if any issues are detected
 issues_detected=false
 
-# Create a temporary file to store files that have already been reported
+# Create a temporary file to store interfaces that have already been reported
 REPORTED_INTERFACES_FILE=$(mktemp)
+
+# Create a temporary file to store interfaces that have been seen
+SEEN_INTERFACES_FILE=$(mktemp)
 
 # Clean up the temporary file on exit
 cleanup() {
     rm -f "$REPORTED_INTERFACES_FILE"
+    rm -f "$SEEN_INTERFACES_FILE"
 }
 
 # Trap exit and error signals and call cleanup function
@@ -140,6 +144,9 @@ for interface_file in $JSON_FILES; do
     if [ "$contract_kind" != "interface" ]; then
         continue
     fi
+
+    # Add the interface name to the list of seen interfaces
+    echo "$contract_name" >> "$SEEN_INTERFACES_FILE"
 
     # If contract name does not start with an "I", throw an error
     if [[ "$contract_name" != I* ]]; then
@@ -218,9 +225,15 @@ done
 
 # Check for unnecessary exclusions
 for exclude_item in "${EXCLUDE_CONTRACTS[@]}"; do
-    if ! grep -q "^$exclude_item$" "$REPORTED_INTERFACES_FILE"; then
-        echo "Warning: $exclude_item is in the exclude list but was not reported as an issue."
-        echo "Consider removing it from the EXCLUDE_CONTRACTS list in the script."
+    if grep -q "^$exclude_item$" "$SEEN_INTERFACES_FILE"; then
+        if ! grep -q "^$exclude_item$" "$REPORTED_INTERFACES_FILE"; then
+            echo "Warning: $exclude_item is in the exclude list but was seen and not reported as"
+            echo "an issue. Consider removing it from the EXCLUDE_CONTRACTS list in the script."
+        fi
+    else
+        echo "Warning: $exclude_item is in the exclude list but was not seen in the contracts."
+        echo "It may be unnecessary in the EXCLUDE_CONTRACTS list, but verify before removing by"
+        echo "performing a clean and full build before re-running this script."
     fi
 done
 
