@@ -114,7 +114,7 @@ func tryDumpTestFixture(t actions.Testing, result error, name string, env *L2Fau
 		"--zstd",
 		"-cf",
 		filepath.Join(fixturePath, "witness-db.tar.zst"),
-		filepath.Join(fixturePath, "witness-db"),
+		"witness-db",
 	)
 	cmd.Dir = filepath.Join(fixturePath)
 	require.NoError(t, cmd.Run(), "Failed to compress witness DB")
