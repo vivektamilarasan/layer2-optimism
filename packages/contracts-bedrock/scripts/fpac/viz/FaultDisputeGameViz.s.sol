@@ -18,12 +18,13 @@ import { IFaultDisputeGame } from "src/dispute/interfaces/IFaultDisputeGame.sol"
 
 /**
  * @title FaultDisputeGameViz
- * @dev To run this script, make sure to install the `dagviz` & `eth_abi` python packages.
+ * @notice To run this script, make sure to install the `dagviz` & `eth_abi` python packages.
  */
 contract FaultDisputeGameViz is Script, FaultDisputeGame_Init {
-    /// @dev The root claim of the game.
+    /// @notice The root claim of the game.
     Claim internal constant ROOT_CLAIM = Claim.wrap(bytes32(uint256(1)));
-    /// @dev The absolute prestate of the trace.
+
+    /// @notice The absolute prestate of the trace.
     Claim internal constant ABSOLUTE_PRESTATE = Claim.wrap(bytes32((uint256(3) << 248) | uint256(0)));
 
     function setUp() public override {
@@ -31,9 +32,7 @@ contract FaultDisputeGameViz is Script, FaultDisputeGame_Init {
         super.init({ rootClaim: ROOT_CLAIM, absolutePrestate: ABSOLUTE_PRESTATE, l2BlockNumber: 0x10 });
     }
 
-    /**
-     * @dev Entry point
-     */
+    /// @notice Entry point
     function local() public {
         // Construct the game by performing attacks, defenses, and steps.
         // ...
@@ -42,18 +41,14 @@ contract FaultDisputeGameViz is Script, FaultDisputeGame_Init {
         console.log("Saved graph to `./dispute_game.svg");
     }
 
-    /**
-     * @dev Entry point
-     */
+    /// @notice Entry point
     function remote(address _addr) public {
         gameProxy = IFaultDisputeGame(payable(_addr));
         buildGraph();
         console.log("Saved graph to `./dispute_game.svg");
     }
 
-    /**
-     * @dev Uses the `dag-viz` python script to generate a visual model of the game state.
-     */
+    /// @notice Uses the `dag-viz` python script to generate a visual model of the game state.
     function buildGraph() internal {
         uint256 numClaims = uint256(vm.load(address(gameProxy), bytes32(uint256(1))));
         IFaultDisputeGame.ClaimData[] memory gameData = new IFaultDisputeGame.ClaimData[](numClaims);

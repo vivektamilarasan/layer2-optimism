@@ -1568,7 +1568,7 @@ contract Deploy is Deployer {
         commands[1] = "-c";
         commands[2] = string.concat("[[ -f ", filePath, " ]] && echo \"present\"");
         if (Process.run(commands).length == 0) {
-            revert("Cannon prestate dump not found, generate it with `make cannon-prestate` in the monorepo root.");
+            revert("Deploy: Cannon prestate dump not found, generate it with `make cannon-prestate` in the monorepo root.");
         }
         commands[2] = string.concat("cat ", filePath, " | jq -r .pre");
         mipsAbsolutePrestate_ = Claim.wrap(abi.decode(Process.run(commands), (bytes32)));

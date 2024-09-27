@@ -350,7 +350,7 @@ library MIPSInstructions {
                 else if (_fun == 0x2b) {
                     return _rs < _rt ? 1 : 0;
                 } else {
-                    revert("invalid instruction");
+                    revert("invalid instruction"); // nosemgrep: sol-style-malformed-revert
                 }
             } else {
                 // SPECIAL2
@@ -436,10 +436,10 @@ library MIPSInstructions {
                     uint32 mask = uint32(0xFFFFFFFF) << (24 - (_rs & 3) * 8);
                     return (_mem & ~mask) | val;
                 } else {
-                    revert("invalid instruction");
+                    revert("invalid instruction"); // nosemgrep: sol-style-malformed-revert
                 }
             }
-            revert("invalid instruction");
+            revert("invalid instruction"); // nosemgrep: sol-style-malformed-revert
         }
     }
 
@@ -475,7 +475,7 @@ library MIPSInstructions {
             bool shouldBranch = false;
 
             if (_cpu.nextPC != _cpu.pc + 4) {
-                revert("branch in delay slot");
+                revert("branch in delay slot"); // nosemgrep: sol-style-malformed-revert
             }
 
             // beq/bne: Branch on equal / not equal
@@ -573,7 +573,7 @@ library MIPSInstructions {
             // And the remainder in HI
             else if (_fun == 0x1a) {
                 if (int32(_rt) == 0) {
-                    revert("MIPS: division by zero");
+                    revert("MIPS: division by zero"); // nosemgrep: sol-style-malformed-revert
                 }
                 _cpu.hi = uint32(int32(_rs) % int32(_rt));
                 _cpu.lo = uint32(int32(_rs) / int32(_rt));
@@ -583,7 +583,7 @@ library MIPSInstructions {
             // And the remainder in HI
             else if (_fun == 0x1b) {
                 if (_rt == 0) {
-                    revert("MIPS: division by zero");
+                    revert("MIPS: division by zero"); // nosemgrep: sol-style-malformed-revert
                 }
                 _cpu.hi = _rs % _rt;
                 _cpu.lo = _rs / _rt;
@@ -616,7 +616,7 @@ library MIPSInstructions {
     {
         unchecked {
             if (_cpu.nextPC != _cpu.pc + 4) {
-                revert("jump in delay slot");
+                revert("jump in delay slot"); // nosemgrep: sol-style-malformed-revert
             }
 
             // Update the next PC to the jump destination.
