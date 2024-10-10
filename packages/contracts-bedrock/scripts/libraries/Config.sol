@@ -33,10 +33,11 @@ enum Fork {
     DELTA,
     ECOTONE,
     FJORD,
-    GRANITE
+    GRANITE,
+    HOLOCENE
 }
 
-Fork constant LATEST_FORK = Fork.GRANITE;
+Fork constant LATEST_FORK = Fork.HOLOCENE;
 
 library ForkUtils {
     function toString(Fork _fork) internal pure returns (string memory) {
@@ -50,6 +51,8 @@ library ForkUtils {
             return "fjord";
         } else if (_fork == Fork.GRANITE) {
             return "granite";
+        } else if (_fork == Fork.HOLOCENE) {
+            return "holocene";
         } else {
             return "unknown";
         }
