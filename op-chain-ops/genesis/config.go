@@ -418,7 +418,7 @@ func (d *UpgradeScheduleDeployConfig) SetForkTimeOffset(fork rollup.ForkName, of
 var scheduleableForks = rollup.ForksFrom(rollup.Regolith)
 
 // ActivateForkAtOffset activates the given fork at the given offset. Previous forks are activated
-// at genesis and later forks are not activated.
+// at genesis and later forks are deactivated.
 // If multiple forks should be activated at a later time than genesis, first call
 // ActivateForkAtOffset with the earliest fork and then SetForkTimeOffset to individually set later
 // forks.
@@ -435,6 +435,13 @@ func (d *UpgradeScheduleDeployConfig) ActivateForkAtOffset(fork rollup.ForkName,
 			d.SetForkTimeOffset(scheduleableForks[i], ts)
 		}
 	}
+}
+
+// ActivateForkAtOffset activates the given fork, and all previous forks, at genesis.
+// Later forks are deactivated.
+// See also [ActivateForkAtOffset].
+func (d *UpgradeScheduleDeployConfig) ActivateForkAtGenesis(fork rollup.ForkName) {
+	d.ActivateForkAtOffset(fork, new(uint64))
 }
 
 func (d *UpgradeScheduleDeployConfig) RegolithTime(genesisTime uint64) *uint64 {

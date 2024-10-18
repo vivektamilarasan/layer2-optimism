@@ -59,6 +59,10 @@ var AllForks = []ForkName{
 	// ADD NEW FORKS HERE!
 }
 
+// LatestFork names the latest Fork.
+// Replace with `var LatestFork = func() ForkName { return AllForks[len(AllForks)-1] }()` after Interop launch.
+const LatestFork = Holocene
+
 func ForksFrom(fork ForkName) []ForkName {
 	for i, f := range AllForks {
 		if f == fork {
