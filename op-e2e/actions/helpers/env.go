@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/log"
 
 	"github.com/ethereum-optimism/optimism/op-chain-ops/genesis"
@@ -64,4 +65,12 @@ func SetupEnv(t StatefulTesting, opts ...EnvOpt) (env Env) {
 		rollupSeqCl, env.Miner.EthClient(), env.SeqEngine.EthClient(), env.SeqEngine.EngineClient(t, sd.RollupCfg))
 
 	return
+}
+
+func (env Env) ActBatchSubmitAllAndMine(t Testing) (l1InclusionBlock *types.Block) {
+	env.Batcher.ActSubmitAll(t)
+	batchTx := env.Batcher.LastSubmitted
+	env.Miner.ActL1StartBlock(12)(t)
+	env.Miner.ActL1IncludeTxByHash(batchTx.Hash())(t)
+	return env.Miner.ActL1EndBlock(t)
 }

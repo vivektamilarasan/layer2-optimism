@@ -36,14 +36,7 @@ func TestHoloceneActivationAtGenesis(gt *testing.T) {
 	recs = env.Logs.FindLogs(testlog.NewMessageContainsFilter("transforming to Holocene"), testlog.NewAttributesFilter("role", e2esys.RoleVerif))
 	require.Len(t, recs, 3)
 
-	// Submit L2
-	env.Batcher.ActSubmitAll(t)
-	batchTx := env.Batcher.LastSubmitted
-
-	// new L1 block with L2 batch
-	env.Miner.ActL1StartBlock(12)(t)
-	env.Miner.ActL1IncludeTxByHash(batchTx.Hash())(t)
-	env.Miner.ActL1EndBlock(t)
+	env.ActBatchSubmitAllAndMine(t)
 
 	// verifier picks up the L2 chain that was submitted
 	env.Verifier.ActL1HeadSignal(t)
@@ -54,7 +47,7 @@ func TestHoloceneActivationAtGenesis(gt *testing.T) {
 
 func TestHoloceneLateActivationAndReset(gt *testing.T) {
 	t := helpers.NewDefaultTesting(gt)
-	holoceneOffset := uint64(36)
+	holoceneOffset := uint64(24)
 	env := helpers.SetupEnv(t, helpers.WithActiveFork(rollup.Holocene, &holoceneOffset))
 
 	requireHoloceneTransformationLogs := func(role string, expNumLogs int) {
@@ -76,19 +69,13 @@ func TestHoloceneLateActivationAndReset(gt *testing.T) {
 	requireHoloceneTransformationLogs(e2esys.RoleSeq, 0)
 	requireHoloceneTransformationLogs(e2esys.RoleVerif, 0)
 
-	// Advance the L1 chain
-	// env.Miner.ActEmptyBlock(t)
-	// env.Miner.ActEmptyBlock(t)
+	env.Seq.ActL2EmptyBlock(t)
+	l1PreHolocene := env.ActBatchSubmitAllAndMine(t)
+	require.False(t, env.SetupData.RollupCfg.IsHolocene(l1PreHolocene.Time()),
+		"Holocene should not be active at the first L1 inclusion block")
 
-	// build empty L1 block
-	env.Miner.ActEmptyBlock(t)
-	// finalize it, so the L1 geth blob pool doesn't log errors about missing finality
-	// env.Miner.ActL1SafeNext(t)
-	// env.Miner.ActL1FinalizeNext(t)
-
-	// Build L2 chain and advance safe head
-	// env.Seq.ActL1HeadSignal(t)
-	// env.Seq.ActBuildToL1Head(t)
+	// Build a few L2 blocks. We only need the L1 inclusion to advance past Holocene and Holocene
+	// shouldn't activate with L2 time.
 	env.Seq.ActBuildL2ToHolocene(t)
 
 	// verify in logs that stage transformations hasn't happened yet, activates by L1 inclusion block
@@ -96,20 +83,16 @@ func TestHoloceneLateActivationAndReset(gt *testing.T) {
 	requireHoloceneTransformationLogs(e2esys.RoleVerif, 0)
 
 	// Submit L2
-	env.Batcher.ActSubmitAll(t)
-	batchTx := env.Batcher.LastSubmitted
-
-	// new L1 block with L2 batch
-	env.Miner.ActL1StartBlock(12)(t)
-	env.Miner.ActL1IncludeTxByHash(batchTx.Hash())(t)
-	l1Head := env.Miner.ActL1EndBlock(t)
+	l1Head := env.ActBatchSubmitAllAndMine(t)
 	require.True(t, env.SetupData.RollupCfg.IsHolocene(l1Head.Time()))
 
-	// env.Verifier picks up the L2 chain that was submitted
+	// verifier picks up the L2 chain that was submitted
 	env.Verifier.ActL1HeadSignal(t)
 	env.Verifier.ActL2PipelineFull(t)
 	l2Safe := env.Verifier.L2Safe()
 	require.Equal(t, l2Safe, env.Seq.L2Unsafe(), "verifier syncs from sequencer via L1")
 	require.NotEqual(t, env.Seq.L2Safe(), env.Seq.L2Unsafe(), "sequencer has not processed L1 yet")
 	require.True(t, env.SetupData.RollupCfg.IsHolocene(l2Safe.Time), "Holocene should now be active")
+
+	requireHoloceneTransformationLogs(e2esys.RoleVerif, 3)
 }
