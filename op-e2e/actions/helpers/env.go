@@ -2,10 +2,11 @@ package helpers
 
 import (
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/log"
 
+	"github.com/ethereum-optimism/optimism/op-chain-ops/genesis"
 	"github.com/ethereum-optimism/optimism/op-e2e/e2eutils"
+	"github.com/ethereum-optimism/optimism/op-node/rollup"
 	"github.com/ethereum-optimism/optimism/op-node/rollup/sync"
 	"github.com/ethereum-optimism/optimism/op-service/testlog"
 )
@@ -24,28 +25,39 @@ type Env struct {
 	Batcher     *L2Batcher
 }
 
-func SetupEnv(t StatefulTesting) (env Env) {
+type EnvOpt struct {
+	DeployConfigMod func(*genesis.DeployConfig)
+}
+
+func WithActiveFork(fork rollup.ForkName, offset *uint64) EnvOpt {
+	return EnvOpt{
+		DeployConfigMod: func(d *genesis.DeployConfig) {
+			d.ActivateForkAtOffset(fork, offset)
+		},
+	}
+}
+
+func WithActiveGenesisFork(fork rollup.ForkName) EnvOpt {
+	return WithActiveFork(fork, new(uint64))
+}
+
+func SetupEnv(t StatefulTesting, opts ...EnvOpt) (env Env) {
 	dp := e2eutils.MakeDeployParams(t, DefaultRollupTestParams())
-	genesisOffset := hexutil.Uint64(0)
 
 	log, logs := testlog.CaptureLogger(t, log.LevelDebug)
 	env.Log, env.Logs = log, logs
 
-	// Activate Holocene at genesis
-	// TODO: make configurabe
-	dp.DeployConfig.L2GenesisRegolithTimeOffset = &genesisOffset
-	dp.DeployConfig.L2GenesisCanyonTimeOffset = &genesisOffset
-	dp.DeployConfig.L2GenesisDeltaTimeOffset = &genesisOffset
-	dp.DeployConfig.L2GenesisEcotoneTimeOffset = &genesisOffset
-	dp.DeployConfig.L2GenesisFjordTimeOffset = &genesisOffset
-	dp.DeployConfig.L2GenesisGraniteTimeOffset = &genesisOffset
-	dp.DeployConfig.L2GenesisHoloceneTimeOffset = &genesisOffset
+	dp.DeployConfig.ActivateForkAtGenesis(rollup.LatestFork)
+	for _, opt := range opts {
+		if dcMod := opt.DeployConfigMod; dcMod != nil {
+			dcMod(dp.DeployConfig)
+		}
+	}
 
 	sd := e2eutils.Setup(t, dp, DefaultAlloc)
 	env.SetupData = sd
 	env.Miner, env.SeqEngine, env.Seq = SetupSequencerTest(t, sd, log)
 	env.Miner.ActL1SetFeeRecipient(common.Address{'A'})
-	env.Seq.ActL2PipelineFull(t)
 	env.VerifEngine, env.Verifier = SetupVerifier(t, sd, log, env.Miner.L1Client(t, sd.RollupCfg), env.Miner.BlobStore(), &sync.Config{})
 	rollupSeqCl := env.Seq.RollupClient()
 	env.Batcher = NewL2Batcher(log, sd.RollupCfg, DefaultBatcherCfg(dp),
