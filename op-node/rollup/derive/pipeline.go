@@ -250,7 +250,7 @@ func (db *DerivationPipeline) transformStages(oldOrigin, newOrigin eth.L1BlockRe
 		return
 	}
 
-	db.log.Info("Transforming stages for fork %s", fork)
+	db.log.Info("Transforming stages", "fork", fork)
 	for _, stage := range db.stages {
 		if tf, ok := stage.(ForkTransformer); ok {
 			tf.Transform(fork)

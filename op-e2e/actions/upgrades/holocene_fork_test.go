@@ -55,6 +55,11 @@ func TestHoloceneLateActivationAndReset(gt *testing.T) {
 		require.Len(t, recs, expNumLogs)
 	}
 
+	requireHoloceneReversionLogs := func(role string, expNumLogs int) {
+		recs := env.Logs.FindLogs(testlog.NewMessageContainsFilter("reverting to pre-Holocene stage during reset"), testlog.NewAttributesFilter("role", role))
+		require.Len(t, recs, expNumLogs)
+	}
+
 	// Start op-nodes
 	env.Seq.ActL2PipelineFull(t)
 	env.Verifier.ActL2PipelineFull(t)
@@ -93,6 +98,25 @@ func TestHoloceneLateActivationAndReset(gt *testing.T) {
 	require.Equal(t, l2Safe, env.Seq.L2Unsafe(), "verifier syncs from sequencer via L1")
 	require.NotEqual(t, env.Seq.L2Safe(), env.Seq.L2Unsafe(), "sequencer has not processed L1 yet")
 	require.True(t, env.SetupData.RollupCfg.IsHolocene(l2Safe.Time), "Holocene should now be active")
-
+	requireHoloceneTransformationLogs(e2esys.RoleSeq, 0)
 	requireHoloceneTransformationLogs(e2esys.RoleVerif, 3)
+
+	// sequencer also picks up L2 safe chain
+	env.Seq.ActL1HeadSignal(t)
+	env.Seq.ActL2PipelineFull(t)
+	requireHoloceneTransformationLogs(e2esys.RoleSeq, 3)
+	require.Equal(t, env.Seq.L2Safe(), env.Seq.L2Unsafe(), "sequencer has processed L1")
+
+	// reorg L1 without batch submission
+	env.Miner.ActL1RewindToParent(t)
+	env.Miner.ActEmptyBlock(t)
+	env.Miner.ActEmptyBlock(t)
+
+	env.Seq.ActL1HeadSignal(t)
+	env.Verifier.ActL1HeadSignal(t)
+	env.Seq.ActL2PipelineFull(t)
+	env.Verifier.ActL2PipelineFull(t)
+
+	requireHoloceneReversionLogs(e2esys.RoleSeq, 2)
+	requireHoloceneReversionLogs(e2esys.RoleVerif, 2)
 }
